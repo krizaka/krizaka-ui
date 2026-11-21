@@ -58,7 +58,8 @@ export const contactNotification = defineTemplate({
   Body: (p) => {
     const { t } = useEmail();
     const none = t("contactNotification.none");
-    const reply = `mailto:${p.email}?subject=${encodeURIComponent(`Re: ${p.topic}`)}`;
+    const replySubject = `Re: ${p.topic}`;
+    const reply = `mailto:${p.email}?subject=${encodeURIComponent(replySubject)}`;
     return (
       <>
         <Heading>{t("contactNotification.heading")}</Heading>

@@ -179,7 +179,8 @@ export function findUnused(keys: readonly string[], sources: readonly string[]):
 /** The human report of a check, as printed by the CLI. */
 export function formatReport(result: CheckResult, limit = 50): string {
   if (result.ok) {
-    return `✓ i18n: ${result.messages} messages, ${result.locales.length > 1 ? "every locale complete" : `${result.reference} only`}`;
+    const scope = result.locales.length > 1 ? "every locale complete" : `${result.reference} only`;
+    return `✓ i18n: ${result.messages} messages, ${scope}`;
   }
   const shown = result.problems.slice(0, limit).map((p) => p.message);
   const more = result.problems.length > limit ? `\n  … and ${result.problems.length - limit} more` : "";

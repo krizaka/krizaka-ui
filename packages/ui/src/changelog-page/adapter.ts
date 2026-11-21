@@ -180,7 +180,7 @@ export function changelogRss(opts: {
     .map((r) => {
       const list = r.changes.map((c) => `<li><b>${esc(opts.tagLabel[c.tag])}</b> ${esc(c.text)}</li>`).join("");
       const link = `${opts.pageUrl}#${anchorOf(r)}`;
-      return `<item><title>${esc(`${r.source} ${r.version}`)}</title><link>${esc(link)}</link><guid isPermaLink="true">${esc(link)}</guid><pubDate>${new Date(`${r.date}T12:00:00Z`).toUTCString()}</pubDate><description>${esc(`<ul>${list}</ul>`)}</description></item>`;
+      return `<item><title>${esc(r.source + " " + r.version)}</title><link>${esc(link)}</link><guid isPermaLink="true">${esc(link)}</guid><pubDate>${new Date(r.date + "T12:00:00Z").toUTCString()}</pubDate><description>${esc("<ul>" + list + "</ul>")}</description></item>`;
     })
     .join("");
   return `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>${esc(opts.title)}</title><link>${esc(opts.pageUrl)}</link><description>${esc(opts.description)}</description><language>${opts.language}</language><atom:link href="${esc(opts.feedUrl)}" rel="self" type="application/rss+xml"/>${items}</channel></rss>`;

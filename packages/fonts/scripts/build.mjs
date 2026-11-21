@@ -118,22 +118,23 @@ export function compile(source, faces) {
     ...families.flatMap((f) => [
       "",
       `/* ${f.family} — ${f.role} (${f.token}) */`,
-      ...f.web.map((w) =>
-        [
+      ...f.web.map((w) => {
+        const fontWeight = w.weight ?? `${f.weights.min} ${f.weights.max}`;
+        return [
           "@font-face {",
           `  font-family: ${quote(f.family)};`,
           "  font-style: normal;",
-          `  font-weight: ${w.weight ?? `${f.weights.min} ${f.weights.max}`};`,
+          `  font-weight: ${fontWeight};`,
           "  font-display: swap;",
           `  src: url("../${w.path}") format("woff2");`,
           `  unicode-range: ${w.unicodeRange};`,
           "}",
-        ].join("\n"),
-      ),
+        ].join("\n");
+      }),
       [
         "@font-face {",
         `  font-family: ${quote(f.fallbackFamily)};`,
-        `  src: ${f.fallback.local.map((l) => `local(${quote(l)})`).join(", ")};`,
+        `  src: ${f.fallback.local.map((l) => "local(" + quote(l) + ")").join(", ")};`,
         `  size-adjust: ${f.fallback.sizeAdjust};`,
         `  ascent-override: ${f.fallback.ascentOverride};`,
         `  descent-override: ${f.fallback.descentOverride};`,
@@ -244,23 +245,36 @@ export function fontFamily(role, weight = 400) {
   return names[nearest];
 }
 `);
+  const nativeFontLines = families
+    .map((f) => {
+      const key = /^[a-z]+$/.test(f.role) ? f.role : json(f.role);
+      const weightsType = f.native.map((n) => `readonly ${n.weight}: ${json(n.name)}`).join("; ");
+      return `  readonly ${key}: { ${weightsType} };`;
+    })
+    .join("\n");
   const nativeDts = `// ${header}
 
 export type FontRole = "display" | "text" | "mono" | "cahier" | "product-display";
 export type NativeFontName = ${allNative.map((n) => json(n.name)).join(" | ")};
 /** The React Native font names, per role and weight: the keys of \`fontAssets\` (\`@krizaka/fonts/native/assets\`). */
 export declare const nativeFonts: {
-${families.map((f) => `  readonly ${/^[a-z]+$/.test(f.role) ? f.role : json(f.role)}: { ${f.native.map((n) => `readonly ${n.weight}: ${json(n.name)}`).join("; ")} };`).join("\n")}
+${nativeFontLines}
 };
 /** The font name for a role and a weight on React Native: the nearest weight the package ships. */
 export declare function fontFamily(role: FontRole, weight?: number): NativeFontName;
 `;
+  const fontAssetLines = allNative
+    .map((n) => {
+      const assetPath = `../${n.path}`;
+      return `  ${json(n.name)}: require(${json(assetPath)}),`;
+    })
+    .join("\n");
   const assetsJs = `// ${header}
 // Metro (Expo, React Native) resolves each \`require\` to a bundled asset; this module is for React Native only.
 
 /** Every font file, by its React Native name: \`useFonts(fontAssets)\` (expo-font) loads the families. */
 export const fontAssets = {
-${allNative.map((n) => `  ${json(n.name)}: require(${json(`../${n.path}`)}),`).join("\n")}
+${fontAssetLines}
 };
 `;
   const assetsDts = `// ${header}

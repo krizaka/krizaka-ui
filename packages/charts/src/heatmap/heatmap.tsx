@@ -65,7 +65,7 @@ export function Heatmap<T extends Datum>(props: Readonly<HeatmapProps<T>>) {
   const peak = model.cells.reduce<(typeof model.cells)[number] | null>((best, c) => (!best || c.v > best.v ? c : best), null);
   const summary = isEmpty
     ? labels.empty
-    : `${fill(labels.summaryIntro, { kind: labels.kinds.heatmap, count: `${model.xs.length} × ${model.ys.length}` })} ${capitalize(fill(labels.summaryPeak, { value: fmt.value(peak!.v), at: `${model.ys[peak!.yi]}, ${model.xs[peak!.xi]}` }))}, ${fill(labels.summaryActive, { count: model.cells.filter((c) => c.v !== 0).length })}.`;
+    : `${fill(labels.summaryIntro, { kind: labels.kinds.heatmap, count: String(model.xs.length) + " × " + String(model.ys.length) })} ${capitalize(fill(labels.summaryPeak, { value: fmt.value(peak!.v), at: String(model.ys[peak!.yi]) + ", " + String(model.xs[peak!.xi]) }))}, ${fill(labels.summaryActive, { count: model.cells.filter((c) => c.v !== 0).length })}.`;
   const items: WalkItem[] = model.cells.map((c, i) => ({ seriesIndex: 0, dataIndex: i, text: `${model.ys[c.yi]}, ${model.xs[c.xi]}: ${fmt.value(c.v)}` }));
 
   const build = useCallback(
@@ -153,7 +153,7 @@ export function CalendarHeatmap<T extends Datum>(props: Readonly<CalendarHeatmap
   const total = model.days.reduce((sum, d) => sum + d.v, 0);
   const summary = isEmpty
     ? labels.empty
-    : `${fill(labels.summaryIntro, { kind: labels.kinds.calendar, count: `${fmt.day(model.span[0])} – ${fmt.day(model.span[1])}` })} ${capitalize(fill(labels.summaryTotal, { total: fmt.value(total) }))}, ${fill(labels.summaryPeak, { value: fmt.value(peak!.v), at: fmt.day(peak!.day) })}, ${fill(labels.summaryActive, { count: model.days.filter((d) => d.v !== 0).length })}.`;
+    : `${fill(labels.summaryIntro, { kind: labels.kinds.calendar, count: fmt.day(model.span[0]) + " – " + fmt.day(model.span[1]) })} ${capitalize(fill(labels.summaryTotal, { total: fmt.value(total) }))}, ${fill(labels.summaryPeak, { value: fmt.value(peak!.v), at: fmt.day(peak!.day) })}, ${fill(labels.summaryActive, { count: model.days.filter((d) => d.v !== 0).length })}.`;
   const items: WalkItem[] = model.days.map((d, i) => ({ seriesIndex: 0, dataIndex: i, text: `${fmt.day(d.day)}: ${fmt.value(d.v)}` }));
 
   const build = useCallback(

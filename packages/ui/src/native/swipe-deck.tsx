@@ -42,7 +42,7 @@ export function PersonCard({ photos, name, age, badge, meta, bio, footer, photoL
       accessibilityActions={photos.length > 1 ? [{ name: "increment" }, { name: "decrement" }] : []}
       onAccessibilityAction={(e) => setIndex((i) => Math.max(0, Math.min(photos.length - 1, i + (e.nativeEvent.actionName === "increment" ? 1 : -1))))}
       role={Platform.OS === "web" ? "group" : "img"}
-      aria-label={[`${name}${age !== undefined ? `, ${age}` : ""}`, bio, photos.length > 1 ? photoLabel(index + 1, photos.length) : null].filter(Boolean).join(". ")}
+      aria-label={[age !== undefined ? `${name}, ${age}` : name, bio, photos.length > 1 ? photoLabel(index + 1, photos.length) : null].filter(Boolean).join(". ")}
       style={[styles.card, { borderRadius: radius.xl, backgroundColor: theme.media }, style]}
     >
       {photo ? <Image testID="person-card-photo" source={{ uri: photo.uri }} style={StyleSheet.absoluteFill} resizeMode="cover" /> : null}

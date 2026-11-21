@@ -121,7 +121,8 @@ export function Cartesian<T extends Datum>({ props, options }: Readonly<{ props:
   const plotColors = colors.filter((_, i) => !off.has(table.series[i]!.label));
   const sparse = autoRange && ranged.active > 0 && ranged.active <= Math.max(2, Math.floor(table.categories.length / 4)) && table.categories.length >= 5;
 
-  const announce = active === null ? "" : `${fmt.category(table.categories[active])}: ${table.series.map((s) => `${s.label} ${fmt.value(s.values[active])}`).join(", ")}`;
+  const announceSeries = active === null ? "" : table.series.map((s) => `${s.label} ${fmt.value(s.values[active])}`).join(", ");
+  const announce = active === null ? "" : `${fmt.category(table.categories[active])}: ${announceSeries}`;
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (!count) return;

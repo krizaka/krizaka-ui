@@ -28,7 +28,8 @@ for (const id of TEMPLATE_IDS) {
     const email = await renderEmail(id, { ...templates[id].example, brand }, { locale });
     const base = `${id}.${locale}`;
     fs.writeFileSync(path.join(out, `${base}.html`), email.html);
-    fs.writeFileSync(path.join(out, `${base}.txt`), `Subject: ${email.subject}\n${Object.entries(email.headers).map(([k, v]) => `${k}: ${v}`).join("\n")}\n\n${email.text}`);
+    const headers = Object.entries(email.headers).map(([k, v]) => `${k}: ${v}`).join("\n");
+    fs.writeFileSync(path.join(out, `${base}.txt`), `Subject: ${email.subject}\n${headers}\n\n${email.text}`);
     rows.push({ id, locale, base, subject: email.subject, category: email.category });
   }
 }

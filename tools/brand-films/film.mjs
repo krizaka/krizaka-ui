@@ -213,7 +213,8 @@ export function vtt(lang, cues = FILM.cues) {
     const s = String(Math.floor((ms % 60000) / 1000)).padStart(2, "0");
     return `${h}:${m}:${s}.${String(ms % 1000).padStart(3, "0")}`;
   };
-  return `WEBVTT\n\n${cues.map((c) => `${c.id}\n${ts(c.start)} --> ${ts(c.end)}\n${c[lang]}\n`).join("\n")}`;
+  const body = cues.map((c) => `${c.id}\n${ts(c.start)} --> ${ts(c.end)}\n${c[lang]}\n`).join("\n");
+  return `WEBVTT\n\n${body}`;
 }
 
 /**

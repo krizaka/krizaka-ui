@@ -179,7 +179,7 @@ ${sparkles(GOLD[0])}</g>`,
     pigeon: {
       promise: "deliver",
       poster: 4.9,
-      back: `<g class="bf-acc bf-trail">${["M-14 50 H6", "M-20 61 H0", "M-12 72 H8"].map((d) => `<path d="${d}" stroke="${P.pigeon.from}" stroke-width="2.4" stroke-linecap="round"/>`).join("")}</g>`,
+      back: '<g class="bf-acc bf-trail">' + ["M-14 50 H6", "M-20 61 H0", "M-12 72 H8"].map((d) => `<path d="${d}" stroke="${P.pigeon.from}" stroke-width="2.4" stroke-linecap="round"/>`).join("") + "</g>",
       outer: `<g class="bf-acc"><rect class="bf-mat bf-pop" x="34" y="119" width="52" height="5" rx="2.5" fill="${P.pigeon.detail}" opacity=".55"/>${badge()}${sparkles(P.pigeon.from)}</g>`,
       tracks: [
         [".bf-move", [[0, "transform:translate(0,0)"], [0.9, "transform:translate(0,0)", EASE], [1.3, "transform:translate(0,3px)", OUT], [1.75, "transform:translate(-2px,-16px)", EASE], [2.25, "transform:translate(2px,-13px)", EASE], [2.75, "transform:translate(5px,-17px)", EASE], [3.2, "transform:translate(2px,-14px)", EASE], [3.8, "transform:translate(0,0)", EASE], [3.95, "transform:translate(0,2px)", EASE], [4.1, "transform:translate(0,0)"]]],
@@ -214,8 +214,8 @@ ${sparkles(GOLD[0])}</g>`,
     crane: {
       promise: "listen",
       poster: 3.0,
-      back: `<g class="bf-acc">${[0, 1, 2].map((i) => `<path class="bf-w${i}" d="M-6 ${10 - i * 2} Q4 ${21} -6 ${32 + i * 2}" stroke="${P.crane.to}" stroke-width="2.2" stroke-linecap="round" fill="none"/>`).join("")}</g>`,
-      outer: `<g class="bf-acc">${MOOD_PARTS.dots.map(([cx, cy, r], i) => `<circle class="bf-c${i} bf-pop" cx="${cx}" cy="${cy}" r="${r}" fill="var(--kz-text-secondary)"/>`).join("")}</g>`,
+      back: '<g class="bf-acc">' + [0, 1, 2].map((i) => `<path class="bf-w${i}" d="M-6 ${10 - i * 2} Q4 ${21} -6 ${32 + i * 2}" stroke="${P.crane.to}" stroke-width="2.2" stroke-linecap="round" fill="none"/>`).join("") + "</g>",
+      outer: '<g class="bf-acc">' + MOOD_PARTS.dots.map(([cx, cy, r], i) => `<circle class="bf-c${i} bf-pop" cx="${cx}" cy="${cy}" r="${r}" fill="var(--kz-text-secondary)"/>`).join("") + "</g>",
       tracks: [
         ...[0, 1, 2].map((i) => {
           const a = 0.8 + 0.35 * i;
@@ -251,7 +251,7 @@ ${sparkles(GOLD[0])}</g>`,
       promise: "shop",
       poster: 3.7,
       view: [-12, -20, 170, 170],
-      outer: `<g class="bf-acc"><g class="bf-receipt"><rect x="121" y="50" width="20" height="38" fill="${PAPER}" stroke="${LINE}" stroke-width="1.4"/>${["M125 57 H137", "M125 63 H134", "M125 69 H137", "M125 75 H131"].map((d) => `<path d="${d}" stroke="${INK}" stroke-width="2" stroke-linecap="round"/>`).join("")}<path d="M125 82 H137" stroke="${P.beaver.to}" stroke-width="2.6" stroke-linecap="round"/></g>
+      outer: `<g class="bf-acc"><g class="bf-receipt"><rect x="121" y="50" width="20" height="38" fill="${PAPER}" stroke="${LINE}" stroke-width="1.4"/>${["M125 57 H137", "M125 63 H134", "M125 69 H137", "M125 75 H131"].map((d) => '<path d="' + d + '" stroke="' + INK + '" stroke-width="2" stroke-linecap="round"/>').join("")}<path d="M125 82 H137" stroke="${P.beaver.to}" stroke-width="2.6" stroke-linecap="round"/></g>
 <rect x="114" y="86" width="34" height="22" rx="3" fill="${P.beaver.wing}" stroke="${LINE}" stroke-width="1.4"/><rect x="118" y="91" width="16" height="7" rx="1.5" fill="#0f172a"/><path d="M120 94.5 H131" stroke="${P.beaver.beak}" stroke-width="1.4" stroke-linecap="round"/>${[0, 1, 2].map((i) => `<circle cx="${120 + i * 5}" cy="103" r="1.6" fill="#fde68a"/>`).join("")}<rect x="119" y="85" width="24" height="3" rx="1.5" fill="#000" opacity=".35"/>
 <g class="bf-stamp bf-pop"><circle cx="137" cy="58" r="6" fill="${SUCCESS}"/><path d="M134 58 L136.2 60.2 L140 55.8" stroke="${SURFACE}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></g>`,
       tracks: [
@@ -284,7 +284,10 @@ export function keyframes(name, stops, total, { hold = false } = {}) {
   }
   // A loop closes on its first stop; a moment of the film (`hold`) keeps its last one to the end.
   const closed = stops.at(-1)[0] === total ? stops : [...stops, [total, (hold ? stops.at(-1) : stops[0])[1]]];
-  const body = closed.map(([t, decl, ease]) => `  ${pct(t, total)} { ${decl}${ease ? `; animation-timing-function: ${ease}` : ""} }`).join("\n");
+  const body = closed.map(([t, decl, ease]) => {
+    const timing = ease ? `; animation-timing-function: ${ease}` : "";
+    return `  ${pct(t, total)} { ${decl}${timing} }`;
+  }).join("\n");
   return `@keyframes ${name} {\n${body}\n}`;
 }
 

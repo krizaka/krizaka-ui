@@ -48,8 +48,9 @@ export function Meter({ label, value = 0, min = 0, max = 100, valueText, thresho
   const { ratio, level, words, shares: modelShares, arcs } = meterModel({ value, min, max, valueText, thresholds, optimum, parts });
   const tone = levelColor(theme, level);
   const shares = modelShares.map((p) => ({ ...p, color: partColor(theme, p.i) }));
+  const partsSummary = shares.map((p) => `${p.label} ${p.words}`).join(", ");
   const a11y = parts
-    ? { role: "group" as const, "aria-label": `${label}: ${shares.map((p) => `${p.label} ${p.words}`).join(", ")}` }
+    ? { role: "group" as const, "aria-label": `${label}: ${partsSummary}` }
     : { role: "meter" as const, "aria-label": label, "aria-valuemin": min, "aria-valuemax": max, "aria-valuenow": Math.min(max, Math.max(min, value)), "aria-valuetext": words };
   const legend = parts ? (
     <View style={styles.legend} aria-hidden>

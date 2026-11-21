@@ -111,7 +111,11 @@ const escape = (text: string) => text.replaceAll(/[&<>"]/g, (c) => ({ "&": "&amp
 export function tooltipHtml(title: string | undefined, rows: readonly { label: string; value: string; color?: string }[], note?: string): string {
   const head = title ? `<p class="kzc-tip-title">${escape(title)}</p>` : "";
   const body = rows
-    .map((row) => `<p class="kzc-tip-row">${row.color ? `<span class="kzc-key" style="background:${escape(row.color)}"></span>` : "<span></span>"}<span>${escape(row.label)}</span><b>${escape(row.value)}</b></p>`)
+    .map((row) => {
+      const key = row.color ? `<span class="kzc-key" style="background:${escape(row.color)}"></span>` : "<span></span>";
+      return `<p class="kzc-tip-row">${key}<span>${escape(row.label)}</span><b>${escape(row.value)}</b></p>`;
+    })
     .join("");
-  return `${head}${body}${note ? `<p class="kzc-tip-note">${escape(note)}</p>` : ""}`;
+  const tail = note ? `<p class="kzc-tip-note">${escape(note)}</p>` : "";
+  return `${head}${body}${tail}`;
 }

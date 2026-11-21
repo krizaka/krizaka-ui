@@ -50,7 +50,10 @@ export function RadarChart<T extends Datum>(props: Readonly<RadarChartProps<T>>)
         }),
       ].join(" ");
 
-  const items: WalkItem[] = table.series.map((s, k) => ({ seriesIndex: 0, dataIndex: k, text: `${s.label}: ${axisNames.map((a, i) => `${a} ${value(s.values[i])}`).join(", ")}` }));
+  const items: WalkItem[] = table.series.map((s, k) => {
+    const entries = axisNames.map((a, i) => `${a} ${value(s.values[i])}`).join(", ");
+    return { seriesIndex: 0, dataIndex: k, text: `${s.label}: ${entries}` };
+  });
 
   const build = useCallback(
     (theme: ResolvedTheme) => ({

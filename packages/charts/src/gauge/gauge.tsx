@@ -56,7 +56,7 @@ export function Gauge(props: Readonly<GaugeProps>) {
   const color = colorOf(zone?.tone ?? tone, 1);
   const text = fmt(value);
   const summary = [
-    `${labels.kinds.gauge}: ${text} (${min === 0 ? "" : `${fmt(min)} – `}${fmt(max)})${zone?.label ? `, ${zone.label}` : ""}.`,
+    `${labels.kinds.gauge}: ${text} (${min === 0 ? "" : fmt(min) + " – "}${fmt(max)})${zone?.label ? ", " + zone.label : ""}.`,
     target ? `${fill(labels.summaryThreshold, { label: target.label, value: fmt(target.value) })}.` : "",
   ]
     .filter(Boolean)

@@ -155,7 +155,7 @@ export function VerticalVideo({
         {caption ? (
           <Txt tone="onMedia" numberOfLines={open ? undefined : 2}>
             {caption}
-            {tags.length > 0 ? ` ${tags.map((tag) => `#${tag}`).join(" ")}` : ""}
+            {tags.length > 0 ? tags.map((tag) => ` #${tag}`).join("") : ""}
           </Txt>
         ) : null}
         {caption && caption.length > 90 ? (

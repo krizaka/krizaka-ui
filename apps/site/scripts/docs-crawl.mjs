@@ -193,7 +193,10 @@ async function main() {
     });
     if (facts.overflow) note("overflow-x", `the page scrolls sideways (${facts.overflow})`);
     for (const e of facts.empty) note(e.kind === "zero" ? "zero-size-example" : "empty-example", e.label);
-    for (const a of facts.anchors) note("dead-anchor", `${a.href} (« ${a.text} »)${a.where ? ` in ${a.where}` : ""}: no such id on the page`);
+    for (const a of facts.anchors) {
+      const whereSuffix = a.where ? ` in ${a.where}` : "";
+      note("dead-anchor", `${a.href} (« ${a.text} »)${whereSuffix}: no such id on the page`);
+    }
     for (const l of facts.links) {
       if (new URL(l.href).pathname.includes("/_next/")) continue;
       const key = l.href;

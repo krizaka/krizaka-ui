@@ -47,7 +47,10 @@ function NativeCartesian<T extends Datum>({ props, mode }: Readonly<{ props: Nat
   );
   const isEmpty = table.series.length === 0 || table.series.every((s) => s.values.every((v) => v == null));
   const summary = isEmpty ? labels.empty : describeSeries(table, { kind: mode.kind, labels, value: fmt.value, category: fmt.category, share: fmt.share, thresholds });
-  const points = table.categories.map((c, i) => `${fmt.category(c)}: ${table.series.map((s) => `${s.label} ${fmt.value(s.values[i])}`).join(", ")}`);
+  const points = table.categories.map((c, i) => {
+    const values = table.series.map((s) => `${s.label} ${fmt.value(s.values[i])}`).join(", ");
+    return `${fmt.category(c)}: ${values}`;
+  });
   const [active, setActive] = useState<number | null>(null);
   const colors = table.series.map((s) => color(s.color, s.slot));
   const count = table.categories.length;
