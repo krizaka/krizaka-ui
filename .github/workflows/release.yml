@@ -112,6 +112,7 @@ jobs:
           MEDIA_STORAGE_API_KEY: ${{ secrets.MEDIA_STORAGE_API_KEY }}
           MEDIA_STORAGE_ZONE: ${{ secrets.MEDIA_STORAGE_ZONE }}
           MEDIA_CDN_HOSTNAME: ${{ secrets.MEDIA_CDN_HOSTNAME }}
+          MEDIA_ACCOUNT_API_KEY: ${{ secrets.MEDIA_ACCOUNT_API_KEY }}
         run: |
           if [ -z "$MEDIA_STORAGE_API_KEY" ] || [ -z "$MEDIA_STORAGE_ZONE" ]; then echo "::warning::MEDIA_STORAGE_API_KEY / MEDIA_STORAGE_ZONE are not set: brand marks not published"; exit 0; fi
           pnpm turbo run build --filter=@krizaka/ui

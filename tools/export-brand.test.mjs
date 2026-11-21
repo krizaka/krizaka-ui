@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
-import { assertDistinctMarks, assertMarksDeclared, assertMarksOfficial, assertWritable, BRANDS, DECLARED_MARKS, OFFICIAL_MARKS, shapesOf, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
+import { assertDistinctMarks, assertMarksDeclared, assertMarksOfficial, assertWritable, BRANDS, DECLARED_MARKS, OFFICIAL_MARKS, purgeBrand, shapesOf, avatarFiles, brandFiles, brandIndex, emblem, hslToRgba, stalePaths, standalone, tokensOf } from "./export-brand.mjs";
 
 test("reads the tokens of a theme block", () => {
   const css = ":root, .theme-dark {\n  --kz-text-primary: hsl(0 0% 96%); /* x */\n}\nhtml.light {\n  --kz-text-primary: hsl(240 6% 10%);\n}\n";
@@ -182,4 +182,21 @@ test("the committed declaration names every brand and its marks", () => {
   assert.deepEqual(Object.keys(DECLARED_MARKS).sort(), [...BRANDS].sort());
   for (const themes of Object.values(DECLARED_MARKS)) assert.match(`${themes.light}${themes.dark}`, /^[0-9a-f]{20}$/);
   assert.notEqual(DECLARED_MARKS.krizaka.light, DECLARED_MARKS.krizaka.dark);
+});
+
+// krizaka-internal#4592: Bunny ignores the query string, so a changed mark stayed cached on the edge under its old URL.
+test("the upload purges brand/* on the pull zone with the account key, and says so when it has none", async () => {
+  const calls = [];
+  const fetchImpl = async (url, init) => { calls.push([String(url), init]); return { ok: true, status: 200 }; };
+  const logs = [];
+  assert.equal(await purgeBrand({ pull: "cdn.example" }, "acct", fetchImpl, (l) => logs.push(l)), true);
+  assert.equal(calls.length, 1);
+  assert.equal(new URL(calls[0][0]).searchParams.get("url"), "https://cdn.example/brand/*");
+  assert.equal(calls[0][1].method, "POST");
+  assert.equal(calls[0][1].headers.AccessKey, "acct");
+  assert.equal(await purgeBrand({ pull: "cdn.example" }, "", fetchImpl, (l) => logs.push(l)), false);
+  assert.equal(calls.length, 1);
+  assert.match(logs.at(-1), /not purged: MEDIA_ACCOUNT_API_KEY is not set/);
+  const refused = async () => ({ ok: false, status: 401 });
+  await assert.rejects(purgeBrand({ pull: "cdn.example" }, "acct", refused, () => {}), /purge of brand\/\* failed: HTTP 401/);
 });
