@@ -389,6 +389,23 @@ export async function send(cfg, files, guard = assertWritable) {
   return files.size;
 }
 
+/**
+ * Purges `brand/*` on the pull zone (Bunny `POST /purge?url=`, the ACCOUNT key). Bunny ignores the query string, so a changed
+ * mark stays cached on the edge under its old URL: `?v=` busts only GitHub's image cache (krizaka-internal#4592).
+ * Without the key it says so and returns false; a refusal throws.
+ */
+export async function purgeBrand(cfg, accountKey, fetchImpl = fetch, log = console.log) {
+  if (!accountKey) {
+    log("not purged: MEDIA_ACCOUNT_API_KEY is not set (the pull zone may serve the old marks until its cache expires)");
+    return false;
+  }
+  const url = `https://${cfg.pull || DEFAULT_CDN}/brand/*`;
+  const res = await fetchImpl(`https://api.bunny.net/purge?${new URLSearchParams({ url, async: "false" })}`, { method: "POST", headers: { AccessKey: accountKey } });
+  if (!res.ok) throw new Error(`purge of brand/* failed: HTTP ${res.status}`);
+  log(`${url} purged`);
+  return true;
+}
+
 /** The paths of `listed` (everything the zone holds under the export's roots) that the export no longer produces: a brand that left the family. */
 export function stalePaths(listed, files) {
   return listed.filter((path) => !files.has(path)).sort();
@@ -435,5 +452,6 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   }
   console.log(`${files.size} file(s) from @krizaka/ui@${version} written to ${outDir}`);
   if (cfg) console.log(`${await send(cfg, files)} file(s) uploaded to the storage zone`);
+  if (cfg) await purgeBrand(cfg, process.env.MEDIA_ACCOUNT_API_KEY ?? "");
   if (cfg && argv.includes("--prune")) console.log(`${(await prune(cfg, files)).length} stale file(s) removed from the storage zone`);
 }
