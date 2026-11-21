@@ -261,6 +261,32 @@ export function assertMarksOfficial(files, official = OFFICIAL_MARKS, dir = OFFI
   }
 }
 
+/** The declared marks: brand → theme → the 10-hex sha-256 prefix a consumer pins as `?v=` (tools/brand-marks.json). */
+export const DECLARED_MARKS = JSON.parse(readFileSync(join(HERE, "brand-marks.json"), "utf8")).marks;
+
+/**
+ * Throws when a published `brand/<id>/mark-<theme>.svg` is not the declared one (krizaka-internal#4592): a file whose content
+ * changed while the declared `?v=` did not (the URL would serve something other than what it names), or two themes that became
+ * one file when the declaration keeps them apart. A mark changes only with its declaration, in the same pull request.
+ */
+export function assertMarksDeclared(files, declared = DECLARED_MARKS, brands = Object.keys(declared)) {
+  for (const id of brands) {
+    if (!declared[id]) throw new Error(`${id} has no declared marks: add it to tools/brand-marks.json`);
+    for (const theme of Object.keys(declared[id])) assertMarkDeclared(files, id, theme, declared[id][theme]);
+  }
+}
+
+function assertMarkDeclared(files, id, theme, expected) {
+  const path = `brand/${id}/mark-${theme}.svg`;
+  const bytes = files.get(path);
+  if (!bytes) throw new Error(`${path} is declared but not published`);
+  const got = sha(bytes).slice(0, 10);
+  if (got === expected) return;
+  const other = files.get(`brand/${id}/mark-${theme === "light" ? "dark" : "light"}.svg`);
+  const twin = other && sha(other).slice(0, 10) === got ? ", identical to its other theme" : "";
+  throw new Error(`${id} mark-${theme}.svg changed content under the declared ?v=${expected} (now ${got}${twin}): declare the new mark in tools/brand-marks.json first`);
+}
+
 /** All the files to publish: Map<path under the zone, Buffer>. */
 export async function build() {
   const k = await load();
@@ -319,6 +345,7 @@ export async function build() {
   }
   assertDistinctMarks(out);
   assertMarksOfficial(out);
+  assertMarksDeclared(out, DECLARED_MARKS, BRANDS);
   out.set("brand/index.json", Buffer.from(`${JSON.stringify(brandIndex(BRANDS, k.version, process.env.MEDIA_CDN_HOSTNAME || DEFAULT_CDN), null, 2)}\n`));
   return { files: out, version: k.version };
 }

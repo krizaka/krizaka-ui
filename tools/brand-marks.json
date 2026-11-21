@@ -1,0 +1,25 @@
+{
+  "about": "The declared mark of each brand: the first 10 hex of the sha-256 of brand/<brand>/mark-<theme>.svg, which is the ?v= every consumer pins (krizaka-internal#4592). Changing a mark means changing this file in the same pull request; light and dark may be equal only when the two hashes are.",
+  "marks": {
+    "krizaka": {
+      "light": "1d570fd0ee",
+      "dark": "6c8fe35353"
+    },
+    "sovkora": {
+      "light": "5adc3bcf5f",
+      "dark": "5adc3bcf5f"
+    },
+    "verikora": {
+      "light": "c4fbf96eee",
+      "dark": "c4fbf96eee"
+    },
+    "folioviv": {
+      "light": "8268ecf1bf",
+      "dark": "8268ecf1bf"
+    },
+    "kridoc": {
+      "light": "ae779b0ac6",
+      "dark": "ae779b0ac6"
+    }
+  }
+}
