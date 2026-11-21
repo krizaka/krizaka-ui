@@ -94,7 +94,7 @@ jobs:
         env:
           PUBLISHED: ${{ steps.changesets.outputs.published }}
       - if: steps.family.outputs.packages != '' && vars.RELEASE_APP_ID != ''
-        uses: krizaka/.github/actions/dispatch-release@93912ecf03208b718d550d902611a2827dc74139 # main
+        uses: krizaka/.github/actions/dispatch-release@8300160ceb36dd8527ac7651aa396edf5284d825 # main
         with:
           packages: ${{ steps.family.outputs.packages }}
           app-id: ${{ vars.RELEASE_APP_ID }}
