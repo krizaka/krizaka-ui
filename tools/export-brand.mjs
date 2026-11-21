@@ -271,16 +271,20 @@ export const DECLARED_MARKS = JSON.parse(readFileSync(join(HERE, "brand-marks.js
  */
 export function assertMarksDeclared(files, declared = DECLARED_MARKS, brands = Object.keys(declared)) {
   for (const id of brands) {
-    const themes = declared[id];
-    if (!themes) throw new Error(`${id} has no declared marks: add it to tools/brand-marks.json`);
-    for (const [theme, expected] of Object.entries(themes)) {
-      const path = `brand/${id}/mark-${theme}.svg`;
-      const bytes = files.get(path);
-      if (!bytes) throw new Error(`${path} is declared but not published`);
-      const got = sha(bytes).slice(0, 10);
-      if (got !== expected) throw new Error(`${id} mark-${theme}.svg changed content under the declared ?v=${expected} (now ${got}${got === sha(files.get(`brand/${id}/mark-${theme === "light" ? "dark" : "light"}.svg`) ?? "").slice(0, 10) ? ", identical to its other theme" : ""}): declare the new mark in tools/brand-marks.json first`);
-    }
+    if (!declared[id]) throw new Error(`${id} has no declared marks: add it to tools/brand-marks.json`);
+    for (const theme of Object.keys(declared[id])) assertMarkDeclared(files, id, theme, declared[id][theme]);
   }
+}
+
+function assertMarkDeclared(files, id, theme, expected) {
+  const path = `brand/${id}/mark-${theme}.svg`;
+  const bytes = files.get(path);
+  if (!bytes) throw new Error(`${path} is declared but not published`);
+  const got = sha(bytes).slice(0, 10);
+  if (got === expected) return;
+  const other = files.get(`brand/${id}/mark-${theme === "light" ? "dark" : "light"}.svg`);
+  const twin = other && sha(other).slice(0, 10) === got ? ", identical to its other theme" : "";
+  throw new Error(`${id} mark-${theme}.svg changed content under the declared ?v=${expected} (now ${got}${twin}): declare the new mark in tools/brand-marks.json first`);
 }
 
 /** All the files to publish: Map<path under the zone, Buffer>. */
