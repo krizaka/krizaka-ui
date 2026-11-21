@@ -123,13 +123,12 @@ export function Gauge(props: Readonly<NativeGaugeProps>) {
   const zone = zones.find((z) => clamped <= z.to) ?? zones.at(-1);
   const at = (v: number) => START + ((Math.min(max, Math.max(min, v)) - min) / (max - min || 1)) * (END - START);
   const text = fmt(value);
-  const zoneSuffix = zone?.label ? `, ${zone.label}` : "";
   return (
     <NativeFrame
       frame={props}
       defaultHeight={170}
       resolved={resolved}
-      summary={`${labels.kinds.gauge}: ${text} / ${fmt(max)}${zoneSuffix}.`}
+      summary={`${labels.kinds.gauge}: ${text} / ${fmt(max)}` + (zone?.label ? ", " + zone.label : "") + "."}
       isEmpty={false}
       points={[]}
       active={null}
