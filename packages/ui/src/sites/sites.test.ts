@@ -131,7 +131,7 @@ describe("the published @krizaka/org", () => {
       for (const site of sites) {
         const line = familyLabels[locale].descriptions[site.id];
         for (const [name, pattern] of Object.entries(registries)) {
-          if (pattern.test(line)) expect(site.published, `${site.id} (${locale}) says "${name}"`).toContain(name);
+          if (pattern.test(line)) expect(site.published ?? [], `${site.id} (${locale}) says "${name}"`).toContain(name);
         }
       }
     }
@@ -140,7 +140,7 @@ describe("the published @krizaka/org", () => {
   it("lists where each package family is published: npm for ts and ui, nowhere yet for java and rust", () => {
     expect(siteById("ui").published).toEqual(["npm"]);
     expect(siteById("ts").published).toEqual(["npm"]);
-    expect(siteById("java").published).toEqual([]);
-    expect(siteById("rust").published).toEqual([]);
+    expect(siteById("java").published ?? []).toEqual([]);
+    expect(siteById("rust").published ?? []).toEqual([]);
   });
 });

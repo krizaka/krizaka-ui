@@ -43,8 +43,8 @@ export interface Site {
   readonly mark: SiteMark;
   /** The repository the site is built from. */
   readonly repo: string;
-  /** The registries the site's packages are really published on; empty when none. */
-  readonly published: readonly Registry[];
+  /** The registries the site's packages are really published on; omitted when none. */
+  readonly published?: readonly Registry[];
 }
 
 /** The address as a person reads it: the host, and the path when there is one (`github.com/krizaka`). */
@@ -56,19 +56,19 @@ const site = (s: Omit<Site, "host">): Site => ({ ...s, host: hostOf(s.url) });
 
 /** Every site of the family, in reading order (the group order, then the order inside each group). */
 export const sites: readonly Site[] = [
-  site({ id: "krizaka", name: "Krizaka", url: "https://www.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-com", published: [] }),
-  site({ id: "blog", name: "Blog", url: "https://blog.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-blog", published: [] }),
-  site({ id: "sovkora", name: "Sovkora", url: "https://www.sovkora.com", kind: "product", group: "products", status: "development", mark: "sovkora", repo: "https://github.com/krizaka/sovkora", published: [] }),
-  site({ id: "verikora", name: "Verikora", url: "https://www.verikora.com", kind: "product", group: "products", status: "development", mark: "verikora", repo: "https://github.com/krizaka/verikora", published: [] }),
-  site({ id: "folioviv", name: "Folioviv", url: "https://www.folioviv.com", kind: "product", group: "products", status: "development", mark: "folioviv", repo: "https://github.com/krizaka/folioviv", published: [] }),
-  site({ id: "kridoc", name: "Kridoc", url: "https://www.kridoc.com", kind: "product", group: "products", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/kridoc", published: [] }),
+  site({ id: "krizaka", name: "Krizaka", url: "https://www.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-com" }),
+  site({ id: "blog", name: "Blog", url: "https://blog.krizaka.com", kind: "company", group: "krizaka", status: "released", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-blog" }),
+  site({ id: "sovkora", name: "Sovkora", url: "https://www.sovkora.com", kind: "product", group: "products", status: "development", mark: "sovkora", repo: "https://github.com/krizaka/sovkora" }),
+  site({ id: "verikora", name: "Verikora", url: "https://www.verikora.com", kind: "product", group: "products", status: "development", mark: "verikora", repo: "https://github.com/krizaka/verikora" }),
+  site({ id: "folioviv", name: "Folioviv", url: "https://www.folioviv.com", kind: "product", group: "products", status: "development", mark: "folioviv", repo: "https://github.com/krizaka/folioviv" }),
+  site({ id: "kridoc", name: "Kridoc", url: "https://www.kridoc.com", kind: "product", group: "products", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/kridoc" }),
   site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui", published: ["npm"] }),
-  site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-java", published: [] }),
+  site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-java" }),
   site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts", published: ["npm"] }),
-  site({ id: "rust", name: "Krizaka Rust", url: "https://rust.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-rust", published: [] }),
+  site({ id: "rust", name: "Krizaka Rust", url: "https://rust.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-rust" }),
   // The family lab: built in the open, served at lab.krizaka.com; what proves itself there moves into Krizaka UI.
-  site({ id: "motion", name: "Krizaka Lab", url: "https://lab.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-lab", published: [] }),
-  site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka", published: [] }),
+  site({ id: "motion", name: "Krizaka Lab", url: "https://lab.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-lab" }),
+  site({ id: "github", name: "GitHub", url: "https://github.com/krizaka", kind: "open-source", group: "github", status: "released", mark: "github", repo: "https://github.com/krizaka" }),
 ];
 
 /**
@@ -76,7 +76,7 @@ export const sites: readonly Site[] = [
  * every list (the bar, the family columns) until the org flips its member to public and it moves into `sites`.
  */
 const unlisted: readonly Site[] = [
-  site({ id: "agents", name: "Krizaka Agents", url: "https://agents.krizaka.com", kind: "company", group: "krizaka", status: "upcoming", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-agents", published: [] }),
+  site({ id: "agents", name: "Krizaka Agents", url: "https://agents.krizaka.com", kind: "company", group: "krizaka", status: "upcoming", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-agents" }),
 ];
 
 /** The groups, in reading order. */
