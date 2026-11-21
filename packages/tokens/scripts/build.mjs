@@ -595,7 +595,8 @@ export function compileBrands(base, brandSources) {
       ordered
         .filter((t) => aliases || !isAlias(t.dark))
         .map((t) => {
-          const value = isAlias(t.dark) ? `var(${PREFIX}${target(/** @type {string} */ (t.dark)).name})` : String(mode === "light" ? (t.light ?? t.dark) : t.dark);
+          const literal = String(mode === "light" ? (t.light ?? t.dark) : t.dark);
+          const value = isAlias(t.dark) ? `var(${PREFIX}${target(/** @type {string} */ (t.dark)).name})` : literal;
           return `  ${PREFIX}${t.name}: ${value};`;
         })
         .join("\n");
