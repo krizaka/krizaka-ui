@@ -216,7 +216,7 @@ export function Ticks({ children }: Readonly<TicksProps>) {
 }
 
 export interface Fact {
-  /** A few words: `npm 2.5.0`, `Maven Central`, `in progress`. */
+  /** A few words: `npm 2.5.0`, `Maven 0.1.0`, `in progress`. */
   label: string;
   /**
    * `ok` — published, usable today; `wip` — in progress, said honestly; `neutral` — a fact.

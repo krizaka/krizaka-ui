@@ -21,7 +21,7 @@ export default function ArgumentCardBuildingBlock() {
       meta="krizaka/krizaka-java"
       mark={<Mascot bird="duck" mood="thinking" size={40} animated={false} />}
       hook={{ label: "The trap", text: "Every service pins its own versions, and drifts." }}
-      facts={[{ label: "Maven Central 0.1.0", tone: "ok" }, { label: "Gradle plugin", tone: "wip" }]}
+      facts={[{ label: "Maven 0.1.0", tone: "ok" }, { label: "Gradle plugin", tone: "wip" }]}
       more={{ href: "#krizaka-java", label: "Details" }}
       actions={<ActionBar variant="icons" size="sm" label="Talk about Krizaka Java" actions={[{ href: "https://github.com/krizaka", label: "Discuss", icon: talk }]} />}
     />

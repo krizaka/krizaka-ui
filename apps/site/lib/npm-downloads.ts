@@ -2,7 +2,7 @@
    the last week and the 12 weekly sums before it, for the home's figure and each package's sparkline.
    Pure rules (`rangeWindow`, `weeklyBuckets`, `sumKnown`) tested with fixtures in tests/npm-downloads.test.mjs.
    Fail soft: anything missing, malformed or rate-limited gives nothing — the page shows no figure rather than a wrong one.
-   Maven Central has no public download API (Sonatype's publisher statistics sit behind a login): no figure for Maven. */
+   Our own Maven repository has no public download API (Sonatype's publisher statistics sit behind a login): no figure for Maven. */
 
 const DAY = 864e5;
 const iso = (ms: number) => new Date(ms).toISOString().slice(0, 10);

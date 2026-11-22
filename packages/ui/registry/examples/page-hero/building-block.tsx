@@ -14,7 +14,7 @@ export default function PageHeroBuildingBlock() {
       lead="The Spring Boot foundation every Krizaka service starts from: one parent, one BOM, starters that agree."
       aside={<Mascot bird="duck" mood="welcome" size={112} />}
     >
-      <Facts items={[{ label: "Maven Central 0.1.0", tone: "ok" }, { label: "Java 21" }, { label: "Apache-2.0" }]} />
+      <Facts items={[{ label: "Maven 0.1.0", tone: "ok" }, { label: "Java 21" }, { label: "Apache-2.0" }]} />
     </PageHero>
   );
 }

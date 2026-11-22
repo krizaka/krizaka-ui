@@ -26,6 +26,9 @@ export type SiteGroup = "krizaka" | "products" | "open-source" | "github";
 /** The mark a site wears: a brand of `ProductLogo` (Krizaka UI and Krizaka Java wear Krizaka's), or GitHub's. */
 export type SiteMark = "krizaka" | "sovkora" | "verikora" | "folioviv" | "github";
 
+/** A public package registry. */
+export type Registry = "npm" | "Maven Central" | "crates.io";
+
 export interface Site {
   readonly id: SiteId;
   /** The name, never translated. */
@@ -40,6 +43,8 @@ export interface Site {
   readonly mark: SiteMark;
   /** The repository the site is built from. */
   readonly repo: string;
+  /** The registries the site's packages are really published on; omitted when none. */
+  readonly published?: readonly Registry[];
 }
 
 /** The address as a person reads it: the host, and the path when there is one (`github.com/krizaka`). */
@@ -57,9 +62,9 @@ export const sites: readonly Site[] = [
   site({ id: "verikora", name: "Verikora", url: "https://www.verikora.com", kind: "product", group: "products", status: "development", mark: "verikora", repo: "https://github.com/krizaka/verikora" }),
   site({ id: "folioviv", name: "Folioviv", url: "https://www.folioviv.com", kind: "product", group: "products", status: "development", mark: "folioviv", repo: "https://github.com/krizaka/folioviv" }),
   site({ id: "kridoc", name: "Kridoc", url: "https://www.kridoc.com", kind: "product", group: "products", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/kridoc" }),
-  site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui" }),
+  site({ id: "ui", name: "Krizaka UI", url: "https://ui.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ui", published: ["npm"] }),
   site({ id: "java", name: "Krizaka Java", url: "https://java.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-java" }),
-  site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts" }),
+  site({ id: "ts", name: "Krizaka TypeScript", url: "https://ts.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-ts", published: ["npm"] }),
   site({ id: "rust", name: "Krizaka Rust", url: "https://rust.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-rust" }),
   // The family lab: built in the open, served at lab.krizaka.com; what proves itself there moves into Krizaka UI.
   site({ id: "motion", name: "Krizaka Lab", url: "https://lab.krizaka.com", kind: "open-source", group: "open-source", status: "development", mark: "krizaka", repo: "https://github.com/krizaka/krizaka-lab" }),
@@ -153,9 +158,9 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       verikora: "Verikora reads your leases, contracts and invoices.",
       folioviv: "Running a shop in Québec, for less — Loi 25 by design.",
       ui: "Components, tokens, icons and charts — web and React Native.",
-      java: "Spring Boot building blocks on Maven Central.",
+      java: "Spring Boot building blocks, from our own Maven repository.",
       ts: "TypeScript backend building blocks on npm.",
-      rust: "Rust crates for the desktop apps, on crates.io.",
+      rust: "Rust crates for the desktop apps, taken from the repository at a tag.",
       agents: "Krizaka Agents: how our software agents work, in the open.",
       motion: LAB.en,
       lab: LAB.en,
@@ -181,9 +186,9 @@ export const familyLabels: Record<SiteLocale, FamilyLabels> = {
       verikora: "Verikora lit vos baux, contrats et factures.",
       folioviv: "Tenir une boutique au Québec, pour moins cher — Loi 25 dès la conception.",
       ui: "Composants, jetons, icônes et graphiques — web et React Native.",
-      java: "Des briques Spring Boot sur Maven Central.",
+      java: "Des briques Spring Boot, depuis notre propre dépôt Maven.",
       ts: "Des briques backend TypeScript sur npm.",
-      rust: "Des crates Rust pour les apps bureau, sur crates.io.",
+      rust: "Des crates Rust pour les apps bureau, prises dans le dépôt, à un tag.",
       agents: "Krizaka Agents : comment travaillent nos agents logiciels, au grand jour.",
       motion: LAB.fr,
       lab: LAB.fr,
