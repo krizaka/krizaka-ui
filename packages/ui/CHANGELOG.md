@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 5.1.2
+
+### Patch Changes
+
+- [#1099](https://github.com/krizaka/krizaka-ui/pull/1099) [`aaad83f`](https://github.com/krizaka/krizaka-ui/commit/aaad83f893207adecb87a84416e6e2dc458682bc) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The family's lines no longer say Java is on Maven Central or Rust on crates.io, where nothing is published: `Site` gains `published` (the registries a site's packages are really on) and a test refuses a line that names another one.
+- Updated dependencies []:
+  - @krizaka/tailwind@5.1.2
+  - @krizaka/tokens@5.1.2
+
 ## 5.1.1
 
 ### Patch Changes
