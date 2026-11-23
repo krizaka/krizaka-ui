@@ -6,7 +6,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const SRC = import.meta.dirname;
-const SHEETS = ["blocks.css", "motion.css", "story.css"].map((f) => [f, readFileSync(join(SRC, f), "utf8")] as const);
+const SHEETS = ["blocks.css", "motion.css", "story.css", "product-page.css"].map((f) => [f, readFileSync(join(SRC, f), "utf8")] as const);
 
 /** Every `selector { declarations }` of a stylesheet, flattened out of its @media / @supports blocks. */
 function rules(css: string): { selector: string; body: string }[] {

@@ -1,0 +1,285 @@
+/* @krizaka/ui/product-page.css — the product page's showroom (krizaka-internal#4693): import it once, beside blocks.css,
+   in an app that draws `@krizaka/ui/product-page`, `story-scroll`, `clause-demo` or `motion-tier`:
+   `import "@krizaka/ui/product-page.css"`. Like story.css it is opt-in: the brand's light (radial glows, blurred depth) is
+   the approved design of a product's public page (krizaka-internal#4692), never the primitives' register. The hover stays
+   quiet (krizaka-ui#393, held by quiet-hover.test.ts): it tints and underlines, it never moves what is under the pointer. */
+/* ——— The product page (krizaka-internal#4693, `@krizaka/ui/product-page`, `story-scroll`, `clause-demo`, `motion-tier`):
+   depth, the Cahier paper that reads, the story's sticky scene, the clause demo, the scenes, the bands. Every colour is a
+   token of the host's brand scope; every motion is transform, opacity or background-size, paused off screen, lighter on a
+   weak device (`data-tier="light"`) and still under reduced motion (`data-tier="still"`, the final state shown). ——— */
+@property --kz-story-light {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+.kz-pp,
+.kz-story,
+.kz-clause,
+.kz-depth {
+  --kz-pp-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.kz-pp-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.75rem; }
+.kz-pp-cta { position: relative; overflow: hidden; isolation: isolate; transition: transform 0.2s var(--kz-pp-ease), box-shadow 0.3s var(--kz-pp-ease); }
+.kz-pp-cta::before { content: ""; position: absolute; inset: 0; z-index: -1; background: color-mix(in oklab, var(--kz-text-primary) 14%, transparent); transform: translateX(-101%); transition: transform 0.45s var(--kz-pp-ease); }
+.kz-pp-cta:hover::before, .kz-pp-cta:focus-visible::before { transform: none; }
+.kz-pp-cta:hover { box-shadow: 0 14px 30px -12px color-mix(in oklab, var(--kz-accent) 70%, transparent); }
+.kz-pp-cta:active { transform: scale(0.97); }
+.kz-pp-arrow { display: inline-block; margin-inline-start: 0.4em; transition: transform 0.3s var(--kz-pp-ease); }
+.kz-pp-cta:focus-visible .kz-pp-arrow, .kz-pp-link:focus-visible .kz-pp-arrow { transform: translateX(0.3em); }
+.kz-pp-link,
+.kz-pp-footer a {
+  color: var(--kz-text-primary);
+  font-weight: 600;
+  text-decoration: none;
+  background: linear-gradient(var(--kz-accent), var(--kz-accent)) no-repeat 0 100% / 0% 0.1em;
+  transition: background-size 0.35s var(--kz-pp-ease);
+}
+.kz-pp-link:hover, .kz-pp-link:focus-visible, .kz-pp-footer a:hover, .kz-pp-footer a:focus-visible { background-size: 100% 0.1em; }
+.kz-pp-mark { font-family: var(--kz-font-cahier, serif); font-style: italic; font-size: 1.375rem; color: var(--kz-accent-text); }
+
+/* The hero: five planes of depth — a still far behind out of focus, the grid under the brand's light, the moment, a § nearest the eye. */
+.kz-pp-hero { position: relative; overflow: clip; background: var(--kz-surface-0); color: var(--kz-text-primary); }
+.kz-depth { --kz-px: 0; --kz-py: 0; position: relative; }
+.kz-pp-l { position: absolute; pointer-events: none; transition: translate 0.6s var(--kz-pp-ease); }
+.kz-pp-l-back { inset: -10%; width: 120%; height: 120%; object-fit: cover; opacity: 0.2; filter: blur(28px) saturate(1.2); translate: calc(var(--kz-px) * -10px) calc(var(--kz-py) * -8px); }
+.kz-pp-l-grid {
+  inset: 30% -20% -30%;
+  background:
+    linear-gradient(color-mix(in oklab, var(--kz-accent) 22%, transparent) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, color-mix(in oklab, var(--kz-accent) 22%, transparent) 1px, transparent 1px) 0 0 / 56px 56px;
+  transform: perspective(700px) rotateX(62deg);
+  mask-image: radial-gradient(60% 60% at 60% 30%, #000, transparent 75%);
+  translate: calc(var(--kz-px) * -18px) 0;
+}
+.kz-pp-l-light {
+  inset: -20% -10% auto 35%;
+  height: 110%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--kz-accent) 42%, transparent), color-mix(in oklab, var(--kz-accent-2) 16%, transparent) 55%, transparent);
+  translate: calc(var(--kz-px) * 26px) calc(var(--kz-py) * 18px);
+}
+.kz-depth[data-live][data-tier="full"] .kz-pp-l-light { animation: kz-pp-breathe 7s ease-in-out infinite alternate; }
+@keyframes kz-pp-breathe { to { opacity: 0.72; scale: 1.06; } }
+.kz-pp-l-front { right: 4%; bottom: -6rem; z-index: 2; font: italic 22rem/1 var(--kz-font-cahier, serif); color: color-mix(in oklab, var(--kz-accent) 30%, transparent); filter: blur(10px); translate: calc(var(--kz-px) * 46px) calc(var(--kz-py) * 30px); }
+.kz-depth[data-tier="light"] .kz-pp-l-back, .kz-depth[data-tier="light"] .kz-pp-l-front { filter: none; }
+.kz-pp-hero-grid { position: relative; display: grid; align-items: center; gap: 3.5rem; max-width: var(--kz-page-max, 72rem); margin-inline: auto; padding: 7rem 1.25rem 6rem; }
+.kz-pp-hero-text { display: flex; flex-direction: column; gap: 1.5rem; }
+.kz-pp-hero-text h1 { margin: 0; max-width: 15ch; font: 600 clamp(2.5rem, 6vw, 4.5rem)/1.02 var(--kz-font-display, var(--kz-font-sans)); letter-spacing: -0.02em; }
+.kz-pp-hero-text p { margin: 0; max-width: 34ch; font-size: clamp(1.125rem, 2vw, 1.25rem); color: var(--kz-text-secondary); }
+.kz-pp-hero-text > :not(h1) { animation: kz-pp-rise 0.7s var(--kz-pp-ease) both; }
+.kz-pp-hero-text > :nth-child(3) { animation-delay: 0.08s; }
+@keyframes kz-pp-rise { from { opacity: 0; transform: translateY(18px); } }
+.kz-pp-stage { perspective: 1400px; padding-bottom: 2.5rem; }
+@media (min-width: 48rem) {
+  .kz-pp-hero-grid { padding-block: 9rem 13rem; }
+  .kz-pp-hero-grid[data-split] { grid-template-columns: 1fr 1.05fr; }
+  .kz-pp-stage { padding-bottom: 0; }
+}
+@supports (animation-timeline: scroll()) {
+  .kz-depth[data-tier="full"] :is(.kz-pp-l-back, .kz-pp-l-front, .kz-pp-moment) { animation: kz-pp-par linear both; animation-timeline: scroll(); animation-range: 0 100vh; }
+  .kz-pp-l-back { --kz-pp-par: 12vh; }
+  .kz-pp-l-front { --kz-pp-par: -30vh; }
+  .kz-pp-moment { --kz-pp-par: -6vh; }
+}
+@keyframes kz-pp-par { to { transform: translateY(var(--kz-pp-par, 0)); } }
+
+/* The Cahier paper: ink, the red margin, a § per line, faint ruling; with `reading`, the beam and the caret pass line by line. */
+.kz-sheet {
+  position: relative;
+  padding: 2.25rem 1.5rem 2.25rem 3.25rem;
+  border: 1px solid var(--kz-border-subtle);
+  border-radius: 2px;
+  background:
+    linear-gradient(90deg, transparent 2.4rem, var(--kz-paper-rule-margin, var(--kz-danger)) 2.4rem, var(--kz-paper-rule-margin, var(--kz-danger)) calc(2.4rem + 1px), transparent calc(2.4rem + 1px)) 0 0 / 100% 100%,
+    repeating-linear-gradient(transparent 0 calc(1.75rem - 1px), var(--kz-paper-rule-minor, var(--kz-border-subtle)) calc(1.75rem - 1px) 1.75rem) 0 2.25rem / 100% calc(100% - 4.5rem) no-repeat,
+    var(--kz-surface-1);
+  font-family: var(--kz-font-cahier, var(--kz-font-sans));
+  color: var(--kz-paper-line, var(--kz-text-primary));
+  box-shadow: 6px 6px 0 color-mix(in oklab, var(--kz-text-primary) 8%, transparent), 0 60px 90px -40px color-mix(in oklab, var(--kz-accent) 55%, transparent);
+}
+.kz-sheet-lines { margin: 0; padding: 0; list-style: none; }
+.kz-sheet-line { position: relative; font-size: 0.875rem; line-height: 1.75rem; }
+.kz-sheet-par { position: absolute; left: -2.75rem; width: 2.1rem; text-align: right; font-size: 0.7rem; font-style: italic; color: var(--kz-danger-text); }
+.kz-sheet-ink { position: relative; opacity: 0.72; }
+.kz-sheet-ink[data-quiet] { opacity: 0.5; }
+.kz-sheet-line[data-flag] :is(.kz-sheet-ink, .kz-clause-line) {
+  opacity: 1;
+  color: var(--kz-text-primary);
+  background: linear-gradient(color-mix(in oklab, var(--kz-accent) 50%, transparent), color-mix(in oklab, var(--kz-accent) 50%, transparent)) no-repeat 0 88% / 100% 45%;
+}
+.kz-sheet-tag { position: absolute; top: -0.8rem; left: 1.25rem; padding: 0.35rem 0.7rem; border-radius: 999px; background: var(--kz-accent); color: var(--kz-on-accent); font: 600 0.75rem/1 var(--kz-font-sans); }
+.kz-sheet[data-reading] .kz-sheet-line::before { content: ""; position: absolute; inset: 0 -0.5rem; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--kz-accent) 26%, transparent), transparent); opacity: 0; animation: kz-pp-beam 0.5s var(--kz-pp-ease) calc(0.6s + var(--i) * 0.22s) both; }
+.kz-sheet[data-reading] .kz-sheet-line::after { content: ""; position: absolute; top: 0.4rem; left: 0; width: 2px; height: 1rem; background: var(--kz-accent); opacity: 0; animation: kz-pp-caret 0.5s var(--kz-pp-ease) calc(0.6s + var(--i) * 0.22s) both; }
+.kz-sheet[data-reading] .kz-sheet-line[data-flag] .kz-sheet-ink { background-size: 0% 45%; animation: kz-pp-mark 0.9s var(--kz-pp-ease) 2.3s forwards; }
+@keyframes kz-pp-beam { 40% { opacity: 1; } }
+@keyframes kz-pp-caret { 10%, 90% { opacity: 1; } to { left: 100%; opacity: 0; } }
+@keyframes kz-pp-mark { to { background-size: 100% 45%; } }
+
+/* The moment: the page tilted on the grid, the finding leaving it towards the eye. */
+.kz-pp-moment { position: relative; z-index: 1; margin: 0; transform-style: preserve-3d; rotate: x 14deg; }
+.kz-pp-moment > .kz-sheet { transform: rotateY(-16deg) rotateZ(3deg); translate: calc(var(--kz-px) * 8px) calc(var(--kz-py) * 6px); transition: translate 0.6s var(--kz-pp-ease); }
+.kz-pp-card { position: absolute; right: -8%; top: calc(100% - 1.5rem); width: min(80%, 23rem); border-radius: var(--kz-card-radius, 0.75rem); background: var(--kz-surface-2); box-shadow: 0 30px 60px -20px color-mix(in oklab, var(--kz-text-primary) 35%, transparent); translate: calc(var(--kz-px) * 22px) calc(var(--kz-py) * 16px); animation: kz-pp-card 0.8s var(--kz-pp-ease) 3s both; }
+@keyframes kz-pp-card { from { opacity: 0; transform: translateY(-40px) scale(0.92) rotate(-2deg); } to { opacity: 1; transform: translateZ(80px); } }
+.kz-pp-finding { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.25rem 1.5rem; }
+.kz-pp-finding-title, .kz-clause-title { margin: 0; font-size: 1.125rem; font-weight: 600; line-height: 1.35; color: var(--kz-text-primary); }
+.kz-pp-finding-ref, .kz-clause-ref { margin: 0; font-size: 0.875rem; font-weight: 600; color: var(--kz-accent-text); }
+
+/* The story: one sticky stage, the same object changing with each step, the light shifting colour. */
+.kz-story { position: relative; background: var(--kz-surface-0); color: var(--kz-text-primary); }
+.kz-story-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; max-width: var(--kz-page-max, 72rem); margin-inline: auto; padding-inline: 1.25rem; }
+.kz-story-stage { --kz-story-light: var(--kz-accent); position: sticky; top: 6rem; order: 2; height: calc(100svh - 8rem); display: grid; place-items: center; perspective: 1400px; transition: --kz-story-light 0.9s var(--kz-pp-ease); }
+.kz-story-stage[data-light="accent-2"] { --kz-story-light: var(--kz-accent-2); }
+.kz-story-stage[data-light="danger"] { --kz-story-light: var(--kz-danger); }
+.kz-story-stage[data-light="warning"] { --kz-story-light: var(--kz-warning); }
+.kz-story-stage[data-light="success"] { --kz-story-light: var(--kz-success); }
+.kz-story-light { position: absolute; inset: 5% -5%; background: radial-gradient(closest-side, color-mix(in oklab, var(--kz-story-light) 30%, transparent), transparent); filter: blur(10px); }
+.kz-story-object { position: relative; width: min(100%, 30rem); transform-style: preserve-3d; transform: rotateX(10deg) rotateY(-10deg); transition: transform 1s var(--kz-pp-ease); }
+:is([data-cue="light"], [data-cue="attach"]) > .kz-story-object { transform: rotateX(4deg) rotateY(-4deg) scale(1.04); }
+[data-cue="decide"] > .kz-story-object { transform: rotateX(8deg) rotateY(6deg) scale(0.94); }
+.kz-story-guide { position: absolute; z-index: 3; top: 10%; right: 2%; transition: translate 0.9s var(--kz-pp-ease); }
+[data-cue="read"] > .kz-story-guide { translate: -2rem 4rem; }
+[data-cue="light"] > .kz-story-guide { translate: 0 14rem; }
+[data-cue="attach"] > .kz-story-guide { translate: 2rem 19rem; }
+[data-cue="decide"] > .kz-story-guide { translate: -3rem 26rem; }
+.kz-story-ticks { position: absolute; left: 50%; bottom: 0; display: flex; gap: 0.4rem; margin: 0; padding: 0; list-style: none; translate: -50% 0; }
+.kz-story-ticks li { width: 1.5rem; height: 3px; background: var(--kz-border-default); transition: background 0.4s; }
+.kz-story-ticks li[data-on] { background: var(--kz-accent); }
+.kz-story-col { position: relative; order: 1; }
+.kz-story-steps { position: relative; margin: 0; padding: 0 0 0 2.5rem; list-style: none; }
+.kz-story-step { min-height: 85svh; display: flex; flex-direction: column; justify-content: center; gap: 0.75rem; opacity: 0.25; transform: translateX(-6px); transition: opacity 0.5s, transform 0.6s var(--kz-pp-ease); }
+.kz-story-step[data-on] { opacity: 1; transform: none; }
+.kz-story-step h2 { margin: 0; font: 600 clamp(1.875rem, 4vw, 3rem)/1.1 var(--kz-font-display, var(--kz-font-sans)); letter-spacing: -0.01em; }
+.kz-story-step p { margin: 0; max-width: 32ch; color: var(--kz-text-secondary); }
+.kz-story-pen { position: absolute; left: 0.85rem; top: 30svh; bottom: 30svh; width: 2px; border-radius: 2px; background: linear-gradient(var(--kz-accent), var(--kz-accent-2)); transform-origin: top; }
+.kz-story-pen::after { content: ""; position: absolute; left: -4px; bottom: -5px; width: 10px; height: 10px; border-radius: 50% 50% 50% 0; rotate: -45deg; background: var(--kz-accent); }
+@supports (animation-timeline: view()) {
+  .kz-story:not([data-tier="still"]) .kz-story-pen { animation: kz-pp-draw linear both; animation-timeline: --kz-story-steps; animation-range: cover 20% cover 80%; }
+  .kz-story-col { view-timeline: --kz-story-steps block; }
+}
+@keyframes kz-pp-draw { from { transform: scaleY(0); } }
+.kz-story[data-tier="light"] .kz-story-light { filter: none; }
+.kz-story[data-tier="light"] .kz-story-object { transform: none; }
+.kz-story[data-tier="still"] .kz-story-stage { position: relative; top: 0; }
+.kz-story[data-tier="still"] .kz-story-step { min-height: auto; padding-block: 1rem; opacity: 1; transform: none; }
+
+/* The document scene: the file arrives, is read, a line lights up, its reference attaches, you decide under a stamp. */
+.kz-pp-doc { position: relative; }
+.kz-pp-file { position: absolute; inset: 0; border: 1px solid var(--kz-border-subtle); background: var(--kz-surface-2); transform: translate(14px, 14px) rotate(3deg); transition: transform 0.9s var(--kz-pp-ease); }
+.kz-pp-file[data-n="2"] { transform: translate(26px, 26px) rotate(6deg); }
+.kz-pp-doc-sheet { transition: transform 0.9s var(--kz-pp-ease); }
+[data-cue="arrive"] .kz-pp-file[data-n="1"] { transform: translate(60px, -30px) rotate(9deg); }
+[data-cue="arrive"] .kz-pp-file[data-n="2"] { transform: translate(110px, -60px) rotate(14deg); }
+[data-cue="arrive"] .kz-pp-doc-sheet { transform: translateX(-24px) rotate(-3deg); }
+.kz-pp-doc .kz-sheet-line::before { content: ""; position: absolute; inset: 0 -0.5rem; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--kz-story-light) 30%, transparent), transparent); opacity: 0; }
+[data-cue="read"] .kz-pp-doc .kz-sheet-line::before { animation: kz-pp-beam 0.5s var(--kz-pp-ease) calc(var(--i) * 0.18s) both; }
+.kz-pp-doc .kz-sheet-line[data-flag] .kz-sheet-ink { background-size: 0% 45%; transition: background-size 0.9s var(--kz-pp-ease); }
+[data-cues~="light"] .kz-pp-doc .kz-sheet-line[data-flag] .kz-sheet-ink { background-size: 100% 45%; }
+[data-cue="light"] .kz-pp-doc .kz-sheet-line:not([data-flag]) .kz-sheet-ink { opacity: 0.3; transition: opacity 0.6s; }
+.kz-pp-attach { position: absolute; right: -2rem; bottom: -3.5rem; display: flex; align-items: flex-end; gap: 0.25rem; opacity: 0; transform: translateZ(40px) translateY(12px); transition: opacity 0.5s, transform 0.8s var(--kz-pp-ease); }
+.kz-pp-tie { width: 7rem; height: 3.5rem; overflow: visible; }
+.kz-pp-tie path { fill: none; stroke: var(--kz-accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; vector-effect: non-scaling-stroke; }
+.kz-pp-ref { padding: 0.5rem 0.8rem; border: 1.5px solid var(--kz-accent); background: var(--kz-surface-1); font: 600 0.85rem/1.2 var(--kz-font-sans); color: var(--kz-accent-text); white-space: nowrap; }
+[data-cues~="attach"] .kz-pp-attach { opacity: 1; transform: translateZ(40px); }
+[data-cues~="attach"] .kz-pp-tie path { stroke-dashoffset: 0; transition: stroke-dashoffset 0.9s var(--kz-pp-ease) 0.2s; }
+.kz-pp-decision { position: absolute; left: -2.5rem; bottom: -6rem; width: min(85%, 21rem); display: grid; gap: 0.6rem; padding: 1.1rem 1.2rem 1.4rem; background: var(--kz-surface-2); border: 1px solid var(--kz-border-default); box-shadow: 0 30px 60px -24px color-mix(in oklab, var(--kz-text-primary) 40%, transparent); opacity: 0; transform: translateZ(90px) translateY(30px); transition: opacity 0.5s, transform 0.8s var(--kz-pp-ease); }
+.kz-pp-decision-title { font-weight: 600; line-height: 1.3; }
+.kz-pp-decision-choices { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; font-size: 0.875rem; }
+.kz-pp-decision-choices > span { padding: 0.4rem 0.7rem; border: 1px solid var(--kz-border-default); color: var(--kz-text-secondary); }
+.kz-pp-decision-choices > [data-main] { border-color: var(--kz-accent); background: var(--kz-accent); color: var(--kz-on-accent); font-weight: 600; }
+.kz-pp-stamp { --kz-stamp-ink: var(--kz-accent-text); }
+.kz-pp-decision .kz-pp-stamp { position: absolute; right: 0.8rem; bottom: -1.2rem; opacity: 0; transform: scale(2.2) rotate(-14deg); }
+[data-cue="decide"] .kz-pp-decision { opacity: 1; transform: translateZ(90px); }
+[data-cue="decide"] .kz-pp-decision .kz-pp-stamp { opacity: 1; transform: scale(1) rotate(-7deg); transition: opacity 0.15s 0.7s, transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1) 0.7s; }
+
+/* The clause demo: the lines the visitor touches, the answer beside them. */
+.kz-clause { color: var(--kz-text-primary); background: radial-gradient(60% 50% at 20% 40%, color-mix(in oklab, var(--kz-accent) 10%, transparent), transparent 70%), var(--kz-surface-0); }
+.kz-clause-grid { display: grid; align-items: start; gap: 2.5rem; max-width: var(--kz-page-max, 72rem); margin-inline: auto; padding: 5rem 1.25rem 4rem; }
+.kz-clause-doc { display: flex; flex-direction: column; gap: 2rem; }
+.kz-clause-doc h2, .kz-pp-scene-text h2, .kz-pp-limits h2, .kz-pp-closing h2 { margin: 0; font: 600 clamp(1.875rem, 4vw, 3rem)/1.1 var(--kz-font-display, var(--kz-font-sans)); letter-spacing: -0.01em; }
+.kz-clause-line { all: unset; cursor: pointer; border-radius: 2px; opacity: 0.85; background: linear-gradient(color-mix(in oklab, var(--kz-accent) 50%, transparent), color-mix(in oklab, var(--kz-accent) 50%, transparent)) no-repeat 0 88% / 100% 1px; transition: background-size 0.35s var(--kz-pp-ease), opacity 0.2s; }
+.kz-clause-line[data-tone="danger"] { text-decoration: underline wavy color-mix(in oklab, var(--kz-danger) 70%, transparent) 1px; text-underline-offset: 4px; }
+.kz-clause-line:hover, .kz-clause-line:focus-visible, .kz-clause-line[aria-pressed="true"] { opacity: 1; background-size: 100% 45%; }
+.kz-clause-line:focus-visible { outline: var(--kz-ring-width, 2px) solid var(--kz-ring); outline-offset: 3px; }
+.kz-clause-answer { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; border: 1px solid var(--kz-border-default); background: var(--kz-surface-1); box-shadow: 6px 6px 0 color-mix(in oklab, var(--kz-accent) 25%, transparent); animation: kz-pp-answer 0.45s var(--kz-pp-ease) both; }
+.kz-clause-quote { margin: 0; padding-left: 0.75rem; border-left: 2px solid var(--kz-accent); font-size: 0.875rem; font-style: italic; color: var(--kz-text-secondary); quotes: "«\00a0" "\00a0»"; }
+.kz-clause-quote::before { content: open-quote; }
+.kz-clause-quote::after { content: close-quote; }
+@keyframes kz-pp-answer { from { opacity: 0; transform: translateX(-16px) rotate(-1deg); } }
+@media (min-width: 48rem) {
+  .kz-clause-grid { grid-template-columns: 1.2fr 1fr; padding-block: 8rem 4rem; }
+  .kz-clause-panel { position: sticky; top: 7rem; }
+}
+
+/* The scenes: the tint shifts from one to the next, the device tilted until the hand or the focus comes. */
+.kz-pp-scene { position: relative; color: var(--kz-text-primary); background: radial-gradient(70% 55% at 75% 50%, color-mix(in oklab, var(--kz-accent) 12%, transparent), transparent 70%), var(--kz-surface-0); }
+.kz-pp-scene[data-tint="2"] { background: radial-gradient(70% 55% at 25% 50%, color-mix(in oklab, var(--kz-accent-2) 14%, transparent), transparent 70%), var(--kz-surface-0); }
+.kz-pp-scene-grid { display: grid; align-items: center; gap: 2.5rem; max-width: var(--kz-page-max, 72rem); margin-inline: auto; padding: 5rem 1.25rem; }
+.kz-pp-scene-text { display: flex; flex-direction: column; gap: 0.75rem; }
+.kz-pp-scene-text p { margin: 0; max-width: 28ch; font-size: 1.125rem; color: var(--kz-text-secondary); }
+.kz-pp-device { transform: perspective(1600px) rotateY(var(--kz-pp-tilt, -7deg)) rotateX(3deg); transition: transform 0.6s var(--kz-pp-ease); }
+.kz-pp-scene[data-flip] .kz-pp-device { --kz-pp-tilt: 7deg; }
+.kz-pp-device[data-device="phone"] { width: 16rem; margin-inline: auto; }
+.kz-pp-device:focus-within { transform: perspective(1600px) rotateY(0) rotateX(0); }
+@media (min-width: 48rem) {
+  .kz-pp-scene-grid { grid-template-columns: 1fr 1.5fr; padding-block: 7rem; }
+  .kz-pp-scene[data-flip] .kz-pp-scene-text { order: 2; }
+}
+@supports (animation-timeline: view()) {
+  .kz-pp-reveal { animation: kz-pp-in linear both; animation-timeline: view(); animation-range: entry 0% cover 28%; }
+}
+@keyframes kz-pp-in { from { opacity: 0; transform: translateY(48px) scale(0.98); } }
+/* PausableLoop's focus: on a phone the loop and its still are enlarged on the excerpt, inside a visible frame. */
+@media (max-width: 47.99rem) {
+  [data-focus] { box-shadow: inset 0 0 0 2px var(--kz-accent); }
+  [data-focus] > :is(video, img) { transform-origin: var(--kz-loop-x, 50%) var(--kz-loop-y, 50%); transform: scale(var(--kz-loop-zoom, 1)); }
+}
+
+/* The limits: a ruled list, the notebook's lines, beside the bird as a specimen. The closing: the pen under the last words. */
+.kz-pp-limits { color: var(--kz-text-primary); background: var(--kz-surface-0); }
+.kz-pp-limits-grid { display: grid; align-items: center; gap: 3rem; max-width: var(--kz-page-max, 72rem); margin-inline: auto; padding: 6rem 1.25rem; }
+.kz-pp-limits ul { margin: 1.5rem 0 0; padding: 0; list-style: none; font-size: clamp(1.25rem, 2.4vw, 1.5rem); }
+.kz-pp-limits li { padding: 1.1rem 0; border-top: 1px solid var(--kz-border-subtle); }
+.kz-pp-limits li:last-child { border-bottom: 1px solid var(--kz-border-subtle); }
+.kz-pp-specimen { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; margin: 0; }
+.kz-pp-specimen figcaption { font-family: var(--kz-font-cahier, serif); font-size: 0.875rem; color: var(--kz-text-secondary); }
+@media (min-width: 48rem) { .kz-pp-limits-grid:not([data-single]) { grid-template-columns: auto 1fr; } }
+.kz-pp-closing-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 2rem; max-width: var(--kz-page-max, 72rem); margin-inline: auto; padding: 7rem 1.25rem; }
+.kz-pp-closing h2 { max-width: 16ch; }
+.kz-pp-ink { background: linear-gradient(var(--kz-accent), var(--kz-accent)) no-repeat 0 100% / 100% 0.12em; padding-bottom: 0.08em; }
+@supports (animation-timeline: view()) {
+  .kz-pp-ink { animation: kz-pp-ink linear both; animation-timeline: view(); animation-range: entry 40% cover 45%; }
+}
+@keyframes kz-pp-ink { from { background-size: 0% 0.12em; } }
+
+/* Phone: the journey is vertical by design — the stage holds the top of the screen, the steps pass beneath it as notes on the
+   pen line; in the hero the document shrinks to the lines around the finding, so the proof is in the first screen. */
+@media (max-width: 47.99rem) {
+  .kz-pp-l-front { font-size: 12rem; bottom: -3rem; }
+  .kz-pp-moment > .kz-sheet { transform: rotateY(-6deg) rotateZ(1.5deg); }
+  .kz-pp-moment .kz-sheet-line:not(:nth-last-child(-n + 2)) { display: none; }
+  .kz-pp-card { position: relative; right: auto; top: auto; margin: -2.5rem 0 0 10%; }
+  .kz-story-grid { display: block; padding-inline: 1rem; }
+  .kz-story-stage { top: 3.75rem; z-index: 0; height: 58svh; padding: 1rem 1.25rem 2.5rem; }
+  .kz-story-object { width: 92%; font-size: 0.8em; }
+  .kz-story-stage .kz-sheet { padding: 1.25rem 0.9rem 1.25rem 2.6rem; }
+  .kz-story-stage .kz-sheet-line { font-size: 0.72rem; line-height: 1.4rem; }
+  .kz-pp-attach { right: -0.5rem; bottom: -2.5rem; }
+  .kz-pp-tie { width: 3rem; }
+  .kz-pp-decision { left: -0.5rem; bottom: -3rem; }
+  .kz-story-guide { top: auto; bottom: 2rem; right: -0.5rem; translate: none !important; }
+  .kz-story-guide svg { width: 52px; height: 52px; }
+  .kz-story-col { z-index: 1; }
+  .kz-story-steps { padding-left: 2rem; }
+  .kz-story-step { min-height: 62svh; justify-content: flex-end; padding-bottom: 6svh; }
+  .kz-story-step h2 { padding: 0.75rem 1rem; background: var(--kz-surface-1); box-shadow: 4px 4px 0 color-mix(in oklab, var(--kz-text-primary) 8%, transparent); border-left: 2px solid var(--kz-accent); font-size: 1.6rem; }
+  .kz-story[data-tier="still"] .kz-story-stage { height: auto; min-height: 22rem; }
+}
+
+/* Still: no motion, one plate per meaning, every final state shown. */
+@media (prefers-reduced-motion: reduce) {
+  :is(.kz-pp, .kz-story, .kz-clause, .kz-depth, .kz-pp-scene, .kz-pp-limits, .kz-pp-closing) :is(*, *::before, *::after) { animation: none !important; transition: none !important; }
+  .kz-pp-l, .kz-pp-moment > .kz-sheet, .kz-pp-card { translate: none !important; }
+  .kz-pp-card { opacity: 1; transform: none; }
+  .kz-sheet-line[data-flag] .kz-sheet-ink { background-size: 100% 45% !important; }
+  .kz-pp-device { transform: none; }
+  .kz-story-pen { transform: none; }
+}

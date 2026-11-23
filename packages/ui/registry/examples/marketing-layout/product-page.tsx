@@ -1,16 +1,12 @@
 import { ProductLogo } from "@krizaka/ui";
-import { ActionBar } from "@krizaka/ui/action-bar";
 import { ArgumentCard } from "@krizaka/ui/argument-card";
-import { Button } from "@krizaka/ui/button";
 import { CardGrid } from "@krizaka/ui/card-grid";
-import { CtaPanel } from "@krizaka/ui/cta-panel";
 import { DecisionList } from "@krizaka/ui/decision-list";
 import { MarketingLayout } from "@krizaka/ui/marketing-layout";
-import { MascotQuote } from "@krizaka/ui/mascot-quote";
 import { Mascot } from "@krizaka/ui/mascots";
 import { NavBar } from "@krizaka/ui/nav-bar";
-import { Facts, Section } from "@krizaka/ui/page";
-import { PageHero } from "@krizaka/ui/page-hero";
+import { Section } from "@krizaka/ui/page";
+import { ClosingBand, LimitsBand, ProductActions, ProductHero } from "@krizaka/ui/product-page";
 
 const WHY = [
   { id: "local", title: "Local inference", hook: "Elsewhere, every prompt crosses the ocean.", bird: "falcon" as const },
@@ -23,9 +19,9 @@ const DECISIONS = [
 ];
 const labels = { chose: "We chose", refused: "We refused", because: "Because", cost: "What it costs you" };
 
-// TEMPLATE — a product page (Sovkora): the hero with its facts and its main action, the reasons as compact
-// argument cards (the bird in the corner), the decisions with their cost, the owl's promise, the closing call. On a
-// phone the hero's bird goes above the title, the cards stack, the decisions' three parts stack under the choice.
+// TEMPLATE — a product page (Sovkora) on the product-page blocks: the hero in depth with its way in, the reasons as
+// compact argument cards (the bird in the corner), the decisions with their cost, the limits beside the owl, the closing
+// call. On a phone the hero is one column, the cards stack, the decisions' three parts stack under the choice.
 export default function MarketingLayoutProductPage() {
   return (
     <div className="brand-sovkora">
@@ -41,15 +37,11 @@ export default function MarketingLayoutProductPage() {
           </NavBar.Root>
         }
       >
-        <PageHero
-          eyebrow="Sovereign AI · open source"
+        <ProductHero
           title="The AI that never leaves home"
-          lead="Chat, image, voice and video on your own server — one governed pipeline, nothing sent anywhere."
-          aside={<Mascot bird="owl" mood="welcome" size={112} />}
-        >
-          <Facts items={[{ label: "Apache-2.0", tone: "ok" }, { label: "Law 25 · GDPR" }]} />
-          <Button variant="primary" size="lg">Install in three commands</Button>
-        </PageHero>
+          lead="Chat, image, voice and video on your own server, nothing sent anywhere."
+          actions={<ProductActions primary={{ href: "#install", label: "Install in three commands" }} secondary={{ href: "#why", label: "Why" }} />}
+        />
         <Section id="why" eyebrow="Why" title="Three traps it removes">
           <CardGrid min={260} fit="fit" reveal={false}>
             {WHY.map((w) => (
@@ -66,17 +58,14 @@ export default function MarketingLayoutProductPage() {
         </Section>
         <Section id="decisions" eyebrow="Decisions" title="What we chose, and what it costs you" divider>
           <DecisionList decisions={DECISIONS} labels={labels} reveal={false} />
-          <div className="mt-8">
-            <MascotQuote variant="callout" bird="owl" label="The owl's promise">
-              Every personal record stays in Québec, and you can read who touched it.
-            </MascotQuote>
-          </div>
         </Section>
-        <Section spacing="sm" aria-labelledby="product-cta">
-          <CtaPanel id="product-cta" title="Ready to run it at home?" body="Three commands, then your first private answer.">
-            <ActionBar primaryFirst size="lg" label="Get started" actions={[{ href: "#install", label: "Install" }, { href: "#contact", label: "Talk to us" }]} />
-          </CtaPanel>
-        </Section>
+        <LimitsBand
+          title="What it does not do"
+          items={["It sends nothing anywhere.", "It keeps no usage statistics.", "It does not act without asking."]}
+          bird="owl"
+          caption="Fig. 1 · the owl, keeps what is yours"
+        />
+        <ClosingBand title="Ready to run it" inked="at home?" action={<ProductActions primary={{ href: "#install", label: "Install" }} secondary={{ href: "#contact", label: "Talk to us" }} />} />
       </MarketingLayout>
     </div>
   );

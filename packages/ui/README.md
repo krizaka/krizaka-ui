@@ -239,6 +239,10 @@ light or a product's — is a set of tokens.
 | `@krizaka/ui/legal-page` | `LegalPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/error-page` | `ErrorPage` — a page template, see [Page templates](#page-templates) | server |
 | `@krizaka/ui/pricing-page` | `PricingPage` — a page template, see [Page templates](#page-templates) | server |
+| `@krizaka/ui/product-page` | `ProductPage` (`data`: a product's public page from data only) and its blocks `ProductHero`, `ProductActions`, `ProductMoment`, `FindingCard`, `CahierSheet`, `DocumentScene`, `DecisionStamp`, `SceneRow`, `SceneList`, `LimitsBand`, `ClosingBand`, `PublicFooter` — a page template | server |
+| `@krizaka/ui/story-scroll` | `StoryScroll` (`label`, `steps`, `scene`, `guide`): one sticky scene and the steps of a journey; `STORY_CUES`, `STORY_LIGHTS` | client |
+| `@krizaka/ui/clause-demo` | `ClauseDemo` (`title`, `tag`, `lines`): hover, tap or Tab to a line and read its verdict, quote and reference | client |
+| `@krizaka/ui/motion-tier` | `motionTierOf`, `useMotionTier`, `DepthField`, `MOTION_TIERS`: full, light, still, and the pointer's layers of depth | client |
 | `@krizaka/ui/native/video-player` | React Native `VideoPlayer` on expo-video (optional peer) | native |
 | `@krizaka/ui/native/list` | React Native `List` on FlashList v2 and `useInfiniteList` on `useInfiniteQuery` of `@krizaka/query` (optional peers): separators, skeleton rows, empty/error, pull to refresh, the next page near the end | native |
 | `@krizaka/ui` | the marks, `MotionObserver`, `RotatingWord`, `cx` (unchanged) | client |

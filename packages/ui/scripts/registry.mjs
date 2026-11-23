@@ -93,6 +93,9 @@ function published(dependencies) {
   );
 }
 
+/** The entries that live in another primitive's folder. */
+const ENTRY_OWNERS = { "pausable-loop": "media-gallery", "media-player": "media-gallery", "media-carousel": "media-gallery" };
+
 /** One import of a primitive's source: a file of its own, another primitive (registry dependency) or an npm package. */
 function scanSpecifier(specifier, file, { name, versions, files, dependencies, registryDependencies, queue }) {
   if (specifier.startsWith(".")) {
@@ -110,7 +113,9 @@ function scanSpecifier(specifier, file, { name, versions, files, dependencies, r
     // A page template imports the blocks through the package's own entries (their client boundary stays): a
     // registry dependency, not an npm one.
     // A nested entry (`@krizaka/ui/shop/map-gate`) belongs to the primitive of its first segment.
-    const entry = specifier.slice("@krizaka/ui/".length).split("/")[0];
+    // The media gallery's lighter parts have their own entries (vitest.config.ts, tsup.config.ts): they belong to it.
+    const segment = specifier.slice("@krizaka/ui/".length).split("/")[0];
+    const entry = ENTRY_OWNERS[segment] ?? segment;
     if (entry !== name && entry !== "cn") registryDependencies.add(entry);
     return;
   }

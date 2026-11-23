@@ -176,8 +176,22 @@ export default defineConfig([
       "legal-page": "src/legal-page/index.ts",
       "error-page": "src/error-page/index.ts",
       "pricing-page": "src/pricing-page/index.ts",
+      // A product's public page from data (krizaka-internal#4693): its client parts are the entries below.
+      "product-page": "src/product-page/index.ts",
     },
     external: [...shared.external, OWN_ENTRIES],
+  },
+  {
+    // Client — the product page's moving parts (krizaka-internal#4693): the motion tiers and the pointer's depth, the story
+    // told while scrolling, the clause demo. The blocks they draw (the bird, the badge) through the package's own entries.
+    ...shared,
+    entry: {
+      "motion-tier": "src/motion-tier/index.ts",
+      "story-scroll": "src/story-scroll/index.ts",
+      "clause-demo": "src/clause-demo/index.ts",
+    },
+    external: [...shared.external, OWN_ENTRIES],
+    banner: { js: '"use client";' },
   },
   {
     // Server — the shop page (ADR-007): the document (`shop`: schema, catalogue, migrations, the frame) and one entry per

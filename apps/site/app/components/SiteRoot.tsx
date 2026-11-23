@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import "@krizaka/ui/blocks.css";
 import "@krizaka/tokens/shop-presets.css"; // the look presets of the shop page examples (`data-shop-preset`)
 import "@krizaka/ui/story.css";
+import "@krizaka/ui/product-page.css";
 
 import { footerFor, org } from "@krizaka/org";
 import { cn } from "@krizaka/ui/cn";
