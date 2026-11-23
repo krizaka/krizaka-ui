@@ -8,6 +8,8 @@
 @import "@krizaka/tokens/shop-presets.css";
 /* The storytelling kit's stylesheet (ScrollStage, ChoiceGrid, ProfileCard, StageBanner, GoalGauge…), the same way. */
 @import "@krizaka/ui/story.css";
+/* The product page's showroom (ProductPage, StoryScroll, ClauseDemo, DepthField), the same way. */
+@import "@krizaka/ui/product-page.css";
 
 /* The stories' own layout classes (they are not in @krizaka/ui's dist). */
 @source "../../../packages/ui/src/**/*.stories.tsx";

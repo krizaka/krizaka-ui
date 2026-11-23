@@ -536,6 +536,22 @@
       "types": "./dist/pausable-loop.d.ts",
       "import": "./dist/pausable-loop.js"
     },
+    "./product-page": {
+      "types": "./dist/product-page.d.ts",
+      "import": "./dist/product-page.js"
+    },
+    "./story-scroll": {
+      "types": "./dist/story-scroll.d.ts",
+      "import": "./dist/story-scroll.js"
+    },
+    "./clause-demo": {
+      "types": "./dist/clause-demo.d.ts",
+      "import": "./dist/clause-demo.js"
+    },
+    "./motion-tier": {
+      "types": "./dist/motion-tier.d.ts",
+      "import": "./dist/motion-tier.js"
+    },
     "./media-guard": {
       "types": "./dist/media-guard.d.ts",
       "import": "./dist/media-guard.js"
@@ -799,6 +815,7 @@
     "./motion.css": "./dist/motion.css",
     "./blocks.css": "./dist/blocks.css",
     "./story.css": "./dist/story.css",
+    "./product-page.css": "./dist/product-page.css",
     "./tailwind.css": "./tailwind.css",
     "./native": {
       "types": "./dist/native.d.ts",
@@ -969,12 +986,12 @@
     "*.css"
   ],
   "scripts": {
-    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && node scripts/build-js.mjs && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css');require('node:fs').copyFileSync('src/blocks.css','dist/blocks.css');require('node:fs').copyFileSync('src/story.css','dist/story.css')\" && node scripts/build-registry.mjs && node scripts/build-catalog.mjs",
+    "build": "node -e \"const fs=require('node:fs');fs.rmSync('dist',{recursive:true,force:true});for(const f of fs.readdirSync('registry/examples',{recursive:true}))if(/\\.(js|d\\.ts)$/.test(f))fs.rmSync('registry/examples/'+f)\" && node scripts/build-js.mjs && node -e \"require('node:fs').copyFileSync('src/motion.css','dist/motion.css');require('node:fs').copyFileSync('src/blocks.css','dist/blocks.css');require('node:fs').copyFileSync('src/story.css','dist/story.css');require('node:fs').copyFileSync('src/product-page.css','dist/product-page.css')\" && node scripts/build-registry.mjs && node scripts/build-catalog.mjs",
     "lint": "eslint . --max-warnings 0 && tsc --noEmit --noUnusedParameters --noFallthroughCasesInSwitch --noImplicitReturns",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --coverage && jest --coverage",
     "size": "size-limit && node ../../tools/usage-inventory.mjs --budgets",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./story.css ./tailwind.css ./catalog.json && node scripts/consumer.mjs && node scripts/native-dist.mjs",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./story.css ./product-page.css ./tailwind.css ./catalog.json && node scripts/consumer.mjs && node scripts/native-dist.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
@@ -1131,7 +1148,7 @@
     {
       "name": "./badge",
       "path": "dist/badge.js",
-      "limit": "1 kB",
+      "limit": "0.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1191,7 +1208,7 @@
     {
       "name": "./skeleton",
       "path": "dist/skeleton.js",
-      "limit": "1 kB",
+      "limit": "0.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1201,7 +1218,7 @@
     {
       "name": "./spinner",
       "path": "dist/spinner.js",
-      "limit": "1 kB",
+      "limit": "0.9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1311,7 +1328,7 @@
     {
       "name": "./kpi-explained",
       "path": "dist/kpi-explained.js",
-      "limit": "3 kB",
+      "limit": "1.6 kB",
       "gzip": true
     },
     {
@@ -1386,7 +1403,7 @@
     {
       "name": "./environment-notice",
       "path": "dist/environment-notice.js",
-      "limit": "1 kB",
+      "limit": "0.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1442,7 +1459,7 @@
     {
       "name": "./skip-link",
       "path": "dist/skip-link.js",
-      "limit": "1 kB",
+      "limit": "0.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1452,7 +1469,7 @@
     {
       "name": "./kbd",
       "path": "dist/kbd.js",
-      "limit": "1 kB",
+      "limit": "0.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1462,7 +1479,7 @@
     {
       "name": "./section-backdrop",
       "path": "dist/section-backdrop.js",
-      "limit": "1 kB",
+      "limit": "0.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1721,7 +1738,7 @@
     {
       "name": "./number-ticker",
       "path": "dist/number-ticker.js",
-      "limit": "1.5 kB",
+      "limit": "1.1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1741,7 +1758,7 @@
     {
       "name": "./glow-card",
       "path": "dist/glow-card.js",
-      "limit": "2 kB",
+      "limit": "1.9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -1761,7 +1778,7 @@
     {
       "name": "./comparison-table",
       "path": "dist/comparison-table.js",
-      "limit": "2 kB",
+      "limit": "1.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2152,7 +2169,7 @@
     {
       "name": "./wall",
       "path": "dist/wall.js",
-      "limit": "3.5 kB",
+      "limit": "3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2343,7 +2360,7 @@
     {
       "name": "./card-grid",
       "path": "dist/card-grid.js",
-      "limit": "1.2 kB",
+      "limit": "0.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2353,7 +2370,7 @@
     {
       "name": "./link-card",
       "path": "dist/link-card.js",
-      "limit": "1.25 kB",
+      "limit": "1.1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2403,7 +2420,7 @@
     {
       "name": "./page-index",
       "path": "dist/page-index.js",
-      "limit": "1.2 kB",
+      "limit": "0.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2533,7 +2550,7 @@
     {
       "name": "./recipes",
       "path": "dist/recipes.js",
-      "limit": "3 kB",
+      "limit": "2.1 kB",
       "gzip": true
     },
     {
@@ -2565,13 +2582,13 @@
     {
       "name": "./glossary",
       "path": "dist/glossary.js",
-      "limit": "1 kB",
+      "limit": "0.4 kB",
       "gzip": true
     },
     {
       "name": "./cta-panel",
       "path": "dist/cta-panel.js",
-      "limit": "1 kB",
+      "limit": "0.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2581,7 +2598,7 @@
     {
       "name": "./toc",
       "path": "dist/toc.js",
-      "limit": "1 kB",
+      "limit": "0.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2674,7 +2691,7 @@
     {
       "name": "./marketing-layout",
       "path": "dist/marketing-layout.js",
-      "limit": "1 kB",
+      "limit": "0.8 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2694,7 +2711,7 @@
     {
       "name": "./docs-nav",
       "path": "dist/docs-nav.js",
-      "limit": "1.2 kB",
+      "limit": "1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2724,7 +2741,7 @@
     {
       "name": "./stage-banner",
       "path": "dist/stage-banner.js",
-      "limit": "1 kB",
+      "limit": "0.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2752,9 +2769,53 @@
       ]
     },
     {
+      "name": "./product-page",
+      "path": "dist/product-page.js",
+      "limit": "2.6 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./story-scroll",
+      "path": "dist/story-scroll.js",
+      "limit": "1.2 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./clause-demo",
+      "path": "dist/clause-demo.js",
+      "limit": "1.1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
+      "name": "./motion-tier",
+      "path": "dist/motion-tier.js",
+      "limit": "1.1 kB",
+      "gzip": true,
+      "ignore": [
+        "tailwind-variants",
+        "clsx",
+        "@krizaka/ui"
+      ]
+    },
+    {
       "name": "./landing-page",
       "path": "dist/landing-page.js",
-      "limit": "1.5 kB",
+      "limit": "0.9 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2765,7 +2826,7 @@
     {
       "name": "./docs-hub-page",
       "path": "dist/docs-hub-page.js",
-      "limit": "1.5 kB",
+      "limit": "1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2776,7 +2837,7 @@
     {
       "name": "./docs-article-page",
       "path": "dist/docs-article-page.js",
-      "limit": "1.5 kB",
+      "limit": "0.6 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2798,7 +2859,7 @@
     {
       "name": "./longform-page",
       "path": "dist/longform-page.js",
-      "limit": "1.5 kB",
+      "limit": "0.7 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2820,7 +2881,7 @@
     {
       "name": "./contact-page",
       "path": "dist/contact-page.js",
-      "limit": "1.5 kB",
+      "limit": "0.4 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2831,7 +2892,7 @@
     {
       "name": "./legal-page",
       "path": "dist/legal-page.js",
-      "limit": "1.5 kB",
+      "limit": "0.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2842,7 +2903,7 @@
     {
       "name": "./error-page",
       "path": "dist/error-page.js",
-      "limit": "1.5 kB",
+      "limit": "0.5 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",

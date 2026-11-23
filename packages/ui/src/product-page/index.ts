@@ -1,0 +1,30 @@
+/** @krizaka/ui/product-page — `ProductPage` (a product's public page from data only) and its blocks: `ProductHero`, `ProductActions`, `ProductMoment`, `FindingCard`, `CahierSheet`, `DocumentScene`, `DecisionStamp`, `SceneRow`, `SceneList`, `LimitsBand`, `ClosingBand`, `PublicFooter`. Server-safe; a page template. */
+export {
+  ClosingBand,
+  type ClosingBandProps,
+  DecisionStamp,
+  type DecisionStampProps,
+  DocumentScene,
+  type DocumentSceneProps,
+  FindingCard,
+  type FindingCardProps,
+  LimitsBand,
+  type LimitsBandProps,
+  ProductActions,
+  type ProductActionsProps,
+  type ProductFinding,
+  ProductHero,
+  type ProductHeroProps,
+  type ProductLink,
+  ProductMoment,
+  type ProductMomentProps,
+  type ProductScene,
+  PublicFooter,
+  type PublicFooterProps,
+  SceneList,
+  type SceneListProps,
+  SceneRow,
+  type SceneRowProps,
+} from "./blocks";
+export { CahierSheet, type CahierSheetProps, type SheetLine } from "./cahier-sheet";
+export { ProductPage, type ProductPageData, type ProductPageProps } from "./product-page";

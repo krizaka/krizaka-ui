@@ -10,6 +10,19 @@ import { playSafely, useCalm, useInView, usePageLoaded } from "../media";
 export type LoopSources = { webm?: string; mp4?: string };
 export type LoopLabels = { pause: string; play: string };
 export const loopLabels: LoopLabels = { pause: "Pause the animation", play: "Play the animation" };
+/** An excerpt to enlarge on a phone: its centre (`x`, `y`, 0 to 1 of the frame) and how much (`zoom`, 1 to 4). */
+export type LoopFocus = { x: number; y: number; zoom: number };
+
+const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, Number.isFinite(n) ? n : min));
+
+/** The focus as the CSS variables the frame reads (blocks.css `[data-focus]`), clamped to the frame. */
+export function focusStyle(focus: LoopFocus): React.CSSProperties {
+  return {
+    "--kz-loop-x": `${clamp(focus.x, 0, 1) * 100}%`,
+    "--kz-loop-y": `${clamp(focus.y, 0, 1) * 100}%`,
+    "--kz-loop-zoom": String(clamp(focus.zoom, 1, 4)),
+  } as React.CSSProperties;
+}
 
 export type PausableLoopProps = {
   /** The loop's files; `mp4` and / or `webm`. */
@@ -22,10 +35,12 @@ export type PausableLoopProps = {
   labels?: LoopLabels;
   /** Classes of the `<video>`; default fills its frame, cropped. */
   className?: string;
+  /** On a phone, the loop is enlarged on this excerpt (a legible detail of a wide recording), in a visible focus frame. */
+  focus?: LoopFocus;
 };
 
 /** A muted, silent loop over a still, with a visible pause / play. Drop it into a frame that is `relative`: `MediaPlayer`'s `preview`, `MediaCarousel`'s `renderLoop`. */
-export function PausableLoop({ sources, poster, active = true, labels = loopLabels, className = "absolute inset-0 h-full w-full object-cover" }: Readonly<PausableLoopProps>) {
+export function PausableLoop({ sources, poster, active = true, labels = loopLabels, className = "absolute inset-0 h-full w-full object-cover", focus }: Readonly<PausableLoopProps>) {
   const calm = useCalm();
   const loaded = usePageLoaded();
   const mounted = !calm && loaded;
@@ -43,7 +58,7 @@ export function PausableLoop({ sources, poster, active = true, labels = loopLabe
   const Glyph = paused ? PlayGlyph : PauseGlyph;
   return (
     <>
-      <div ref={holder} className="absolute inset-0">
+      <div ref={holder} className="absolute inset-0 overflow-hidden" data-focus={focus ? "" : undefined} style={focus ? focusStyle(focus) : undefined}>
         {mounted && (
           <video ref={video} className={className} poster={poster} muted loop playsInline preload="metadata" aria-hidden tabIndex={-1}>
             {sources.webm && <source src={sources.webm} type="video/webm" />}
