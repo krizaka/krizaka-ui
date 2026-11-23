@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 5.2.0
+
+### Minor Changes
+
+- [#1102](https://github.com/krizaka/krizaka-ui/pull/1102) [`4d28e2d`](https://github.com/krizaka/krizaka-ui/commit/4d28e2de067fdd4bb5d9c3b723b9bc582256ee89) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/product-page`: `ProductPage`, a product's public page assembled from data only (the approved product-page design, krizaka-internal#4693), and its blocks — `ProductHero` (layers of depth: a still out of focus, the grid under the brand's light, a § nearest the eye), `ProductActions`, `ProductMoment` (a tilted Cahier document read line by line by the reading beam, the finding leaving it), `FindingCard`, `CahierSheet`, `DocumentScene`, `DecisionStamp` (a neutral « decision noted » stamp in the brand's colour), `SceneRow` and `SceneList`, `LimitsBand`, `ClosingBand` and the data-driven `PublicFooter`. No product name and no colour in the blocks: the words, media and verdicts are data, the colour is the brand scope. New client entries: `@krizaka/ui/story-scroll` (`StoryScroll`: one sticky scene, the steps, a guide bird, the colour shift and the pen-stroke connector), `@krizaka/ui/clause-demo` (`ClauseDemo`: hover, tap or Tab to a line, read its verdict, quote and reference) and `@krizaka/ui/motion-tier` (`motionTierOf`, `useMotionTier`, `DepthField`: the full, light and still tiers). `PausableLoop` takes `focus` (`{ x, y, zoom }`): on a phone the loop and its still are enlarged on that excerpt in a visible frame. The marketing layout's product-page template now uses `ProductHero`, `LimitsBand` and `ClosingBand`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@5.2.0
+  - @krizaka/tokens@5.2.0
+
 ## 5.1.2
 
 ### Patch Changes
