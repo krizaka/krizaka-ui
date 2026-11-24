@@ -4,7 +4,8 @@
 import * as React from "react";
 
 import { cn } from "../cn";
-import { PauseGlyph, PlayGlyph } from "../glyphs";
+import { PauseGlyph } from "../glyph/pause";
+import { PlayGlyph } from "../glyph/play";
 import { playSafely, useCalm, useInView, usePageLoaded } from "../media";
 
 export type LoopSources = { webm?: string; mp4?: string };
