@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 5.3.2
+
+### Patch Changes
+
+- [#1111](https://github.com/krizaka/krizaka-ui/pull/1111) [`4ee17f5`](https://github.com/krizaka/krizaka-ui/commit/4ee17f5a5223e70a325357b91fec260d75c7cd2d) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The play and pause glyphs leave the chunk the shell imports: `app-shell` and `rail-nav` no longer load them on every route; only the media entries that draw them do (the shared glyph set stops re-exporting them).
+- Updated dependencies []:
+  - @krizaka/tailwind@5.3.2
+  - @krizaka/tokens@5.3.2
+
 ## 5.3.1
 
 ### Patch Changes
