@@ -1120,7 +1120,7 @@
     {
       "name": ".",
       "path": "dist/index.js",
-      "limit": "8 kB",
+      "limit": "5.4 kB",
       "gzip": true
     },
     {
@@ -1672,7 +1672,7 @@
     {
       "name": "./waveform",
       "path": "dist/waveform.js",
-      "limit": "1.5 kB",
+      "limit": "1.1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2068,7 +2068,7 @@
     {
       "name": "./document-viewer",
       "path": "dist/document-viewer.js",
-      "limit": "5 kB",
+      "limit": "4.3 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2241,7 +2241,7 @@
     {
       "name": "./media-gallery",
       "path": "dist/media-gallery.js",
-      "limit": "2 kB",
+      "limit": "1.1 kB",
       "gzip": true,
       "ignore": [
         "tailwind-variants",
@@ -2306,7 +2306,7 @@
     {
       "name": "./native/video-player (expo-video is the app's)",
       "path": "dist/native/video-player.js",
-      "limit": "2 kB",
+      "limit": "0.9 kB",
       "gzip": true,
       "ignore": [
         "expo-video",
