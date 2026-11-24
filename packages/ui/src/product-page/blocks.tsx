@@ -186,7 +186,10 @@ export type ProductScene = {
   id: string;
   title: string;
   line?: string;
-  device: DeviceKind;
+  /** The device the recording plays in; `none` when the recording already carries its own frame (shown alone). @default framed by its kind */
+  device: DeviceKind | "none";
+  /** What the recording shows, in the reader's language: the media's alt text. Absent: the still is decorative. */
+  alt?: string;
   poster: string;
   sources: LoopSources;
   width: number;
@@ -207,6 +210,14 @@ export type SceneRowProps = {
 /** A scene as a row: the words and the recording side by side (alternating), numbered in the margin, the tint shifting. */
 export function SceneRow({ scene, index, labels }: Readonly<SceneRowProps>) {
   const heading = `kz-scene-${scene.id}`;
+  const media = (
+    <div className="relative w-full overflow-hidden" style={{ aspectRatio: `${scene.width} / ${scene.height}` }}>
+      <div className="absolute inset-0 overflow-hidden" data-focus={scene.focus ? "" : undefined} style={scene.focus ? focusStyle(scene.focus) : undefined}>
+        <img src={scene.poster} alt={scene.alt ?? ""} className="h-full w-full object-cover" loading="lazy" />
+      </div>
+      <PausableLoop sources={scene.sources} poster={scene.poster} labels={labels} focus={scene.focus} />
+    </div>
+  );
   return (
     <section className="kz-pp-scene" data-tint={index % 2 === 0 ? "1" : "2"} data-flip={index % 2 === 1 ? "" : undefined} aria-labelledby={heading}>
       <div className="kz-pp-scene-grid">
@@ -218,14 +229,7 @@ export function SceneRow({ scene, index, labels }: Readonly<SceneRowProps>) {
           {scene.line && <p>{scene.line}</p>}
         </div>
         <div className="kz-pp-device kz-pp-reveal" data-device={scene.device}>
-          <DeviceFrame kind={scene.device}>
-            <div className="relative w-full overflow-hidden" style={{ aspectRatio: `${scene.width} / ${scene.height}` }}>
-              <div className="absolute inset-0 overflow-hidden" data-focus={scene.focus ? "" : undefined} style={scene.focus ? focusStyle(scene.focus) : undefined}>
-                <img src={scene.poster} alt="" className="h-full w-full object-cover" loading="lazy" />
-              </div>
-              <PausableLoop sources={scene.sources} poster={scene.poster} labels={labels} focus={scene.focus} />
-            </div>
-          </DeviceFrame>
+          {scene.device === "none" ? media : <DeviceFrame kind={scene.device}>{media}</DeviceFrame>}
         </div>
       </div>
     </section>
