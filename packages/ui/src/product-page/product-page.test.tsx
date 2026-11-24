@@ -32,6 +32,22 @@ describe("ProductPage", () => {
     expect(await axeViolations(container)).toEqual([]);
   });
 
+  it("a scene with no device frame renders its recording alone, and the default stays framed", () => {
+    const { container } = render(<Scenes />);
+    const rows = container.querySelectorAll(".kz-pp-scene");
+    expect(rows[0]?.querySelector("[data-device='browser']")).not.toBeNull();
+    expect(rows[2]?.querySelector("[data-device='none']")).not.toBeNull();
+    expect(rows[2]?.querySelector(".kz-pp-device [class*='rounded-xl']")).toBeNull();
+    expect(rows[2]?.querySelector("img")).not.toBeNull();
+  });
+
+  it("a scene's alt text is rendered on its media; without it the still stays decorative", () => {
+    const { container } = render(<Scenes />);
+    expect(screen.getByRole("img", { name: "The binder lists every document of the file." })).toBeTruthy();
+    const rows = container.querySelectorAll(".kz-pp-scene");
+    expect(rows[1]?.querySelector("img")?.getAttribute("alt")).toBe("");
+  });
+
   it("draws only the parts it is given: no story, no demo, no scenes, no footer without their data", () => {
     stubMotion(false);
     const { container } = render(

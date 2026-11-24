@@ -9,8 +9,9 @@ export default function SceneListExample() {
     <SceneList
       labels={{ pause: "Pause the scene", play: "Play the scene" }}
       scenes={[
-        { id: "binder", title: "The file, in order.", line: "Every document in one place.", device: "browser", poster, sources, width: 16, height: 9, focus: { x: 0.3, y: 0.4, zoom: 1.8 } },
+        { id: "binder", title: "The file, in order.", line: "Every document in one place.", device: "browser", alt: "The binder lists every document of the file.", poster, sources, width: 16, height: 9, focus: { x: 0.3, y: 0.4, zoom: 1.8 } },
         { id: "mac", title: "Also on the Mac.", line: "The same files, offline.", device: "desktop", poster, sources, width: 16, height: 9 },
+        { id: "clip", title: "Already framed.", line: "A recording that brings its own window.", device: "none", poster, sources, width: 16, height: 9 },
       ]}
     />
   );
