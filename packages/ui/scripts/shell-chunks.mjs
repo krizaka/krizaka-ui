@@ -4,7 +4,7 @@
 // from a shared module drags it next to the code the shell imports. Run by `pnpm --filter @krizaka/ui publint` after
 // the build.
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 const dist = resolve(import.meta.dirname, "..", "dist");
@@ -21,7 +21,8 @@ function reached(entry, seen = new Set()) {
 // The source markers esbuild writes above each module, and the shapes themselves (a renamed file keeps its path data).
 const GLYPHS = {
   play: ["// src/glyph/play.tsx", "M8 5.5v13a1"],
-  pause: ["// src/glyph/pause.tsx", 'x: "14", y: "5", width: "4"'],
+  pause: ["// src/glyph/pause.tsx", 'width: "4", height: "14", rx: "1"'],
+  filled: ["// src/glyph/filled.tsx"],
 };
 
 const carries = (file, glyph) => GLYPHS[glyph].some((mark) => readFileSync(resolve(dist, file), "utf8").includes(mark));
@@ -51,3 +52,12 @@ assert.ok(
   "dist/app-shell.js does not reach the Glyph base: the marker is stale",
 );
 console.log("✓ dist/pausable-loop.js does not reach the Glyph base");
+
+// The module that holds both glyphs stays small (one shared svg, no base): the raw file is ~0.9 KB today; a bigger one
+// means a second copy of the svg or a new import crept in, paid by every route that loads a video (krizaka-internal#4833).
+const GLYPH_MODULE_MAX_BYTES = 1000; // @fixed: today's chunk is 0.9 KB; it only goes down
+const glyphModule = loop.find((f) => carries(f, "play") && carries(f, "pause"));
+assert.ok(glyphModule, "no module of dist/pausable-loop.js holds both glyphs");
+const bytes = statSync(resolve(dist, glyphModule)).size;
+assert.ok(bytes <= GLYPH_MODULE_MAX_BYTES, `dist/${glyphModule} is ${bytes} B: the play and pause glyphs grew past ${GLYPH_MODULE_MAX_BYTES} B`);
+console.log(`✓ dist/${glyphModule}: ${bytes} B for both glyphs`);
