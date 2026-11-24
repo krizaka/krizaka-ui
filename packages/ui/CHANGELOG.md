@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 5.3.1
+
+### Patch Changes
+
+- [#1109](https://github.com/krizaka/krizaka-ui/pull/1109) [`b170005`](https://github.com/krizaka/krizaka-ui/commit/b1700056b2eb53d83d10987661cf1992fb16273b) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/pausable-loop` draws its play and pause glyphs from per-glyph modules: importing it no longer pulls the shared glyph set into a page's client bundle.
+- Updated dependencies []:
+  - @krizaka/tailwind@5.3.1
+  - @krizaka/tokens@5.3.1
+
 ## 5.3.0
 
 ### Minor Changes
