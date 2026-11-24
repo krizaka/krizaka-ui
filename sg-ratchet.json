@@ -1,8 +1,8 @@
 {
   "counters": {
-    "no-ambient-clock": 35,
+    "no-ambient-clock": 33,
     "no-db-in-service-or-rules": 0,
-    "no-enum-string-compare": 76,
+    "no-enum-string-compare": 73,
     "no-env-in-domain": 1,
     "no-get-time-arithmetic": 4,
     "no-get-time-difference": 4,
