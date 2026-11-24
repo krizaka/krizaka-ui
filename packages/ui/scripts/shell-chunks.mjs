@@ -9,12 +9,12 @@ import { resolve } from "node:path";
 
 const dist = resolve(process.argv[2] ?? resolve(import.meta.dirname, "..", "dist"));
 
-/** The entry and every file of dist/ it imports, statically or not, through relative `./…js` specifiers. */
+/** The entry and every file of dist/ it imports, statically or not: esbuild names them `./<name>.js`, flat. */
 function reached(entry, seen = new Set()) {
   if (seen.has(entry)) return seen;
   seen.add(entry);
   const code = readFileSync(resolve(dist, entry), "utf8");
-  for (const m of code.matchAll(/(?:from|import)\s*\(?\s*["']\.\/([\w./-]+\.js)["']/g)) reached(m[1], seen);
+  for (const m of code.matchAll(/["']\.\/([\w-]+\.js)["']/g)) reached(m[1], seen);
   return seen;
 }
 
