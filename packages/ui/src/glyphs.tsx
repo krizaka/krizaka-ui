@@ -1,12 +1,10 @@
-// The small line glyphs the data and media primitives draw (play, volume, search, chevrons…): decorative, 24-unit
+// The small line glyphs the data and media primitives draw (volume, search, chevrons…): decorative, 24-unit
 // box, `currentColor`, sized by the caller's class. Shared by the entries that need them; never exported on its own —
-// a product draws its own icons with @krizaka/icons.
+// a product draws its own icons with @krizaka/icons. Play and pause live in ./glyph/ alone, never re-exported here: a
+// re-export puts them in the chunk of every entry that draws any glyph (the shell's too, krizaka-internal#4833).
 import type * as React from "react";
 
 import { Glyph, type GlyphProps } from "./glyph/base";
-
-export { PauseGlyph } from "./glyph/pause";
-export { PlayGlyph } from "./glyph/play";
 
 export const VolumeGlyph = ({ muted, ...p }: Readonly<GlyphProps & { muted?: boolean }>) => (
   <Glyph {...p}>

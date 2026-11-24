@@ -991,7 +991,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run --coverage && jest --coverage",
     "size": "size-limit && node ../../tools/usage-inventory.mjs --budgets",
-    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./story.css ./product-page.css ./tailwind.css ./catalog.json && node scripts/consumer.mjs && node scripts/native-dist.mjs",
+    "publint": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./motion.css ./blocks.css ./story.css ./product-page.css ./tailwind.css ./catalog.json && node scripts/consumer.mjs && node scripts/native-dist.mjs && node scripts/shell-chunks.mjs",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {

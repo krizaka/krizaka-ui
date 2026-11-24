@@ -4,7 +4,7 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
-import { PlayGlyph } from "../glyphs";
+import { PlayGlyph } from "../glyph/play";
 import { VideoPlayer, type VideoPlayerProps } from "../video-player";
 
 // The dialog and the player of the lightbox load when the poster is pressed, not with the page.

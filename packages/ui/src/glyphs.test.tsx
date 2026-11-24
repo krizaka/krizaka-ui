@@ -1,11 +1,13 @@
 import { render } from "@testing-library/react";
 import * as React from "react";
 
+import { PauseGlyph } from "./glyph/pause";
+import { PlayGlyph } from "./glyph/play";
 import * as glyphs from "./glyphs";
 
 // Every glyph is decorative: a 24-unit `currentColor` svg hidden from assistive technology, sized by the caller's class.
 describe("glyphs", () => {
-  const all = Object.entries(glyphs) as [string, React.ComponentType<{ className?: string }>][];
+  const all = Object.entries({ ...glyphs, PauseGlyph, PlayGlyph }) as [string, React.ComponentType<{ className?: string }>][];
 
   it.each(all)("%s draws a hidden 24-unit svg that takes the caller's class", (_name, Glyph) => {
     const { container } = render(<Glyph className="h-8 w-8" />);
@@ -16,7 +18,7 @@ describe("glyphs", () => {
   });
 
   it("falls back to a 1 rem box", () => {
-    const { container } = render(<glyphs.PlayGlyph />);
+    const { container } = render(<PlayGlyph />);
     expect(container.querySelector("svg")?.getAttribute("class")).toBe("h-4 w-4");
   });
 

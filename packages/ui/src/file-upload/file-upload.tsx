@@ -14,7 +14,9 @@ import { useQueue, useQueueSnapshot } from "@krizaka/pacer/react";
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
-import { CloseGlyph, FileGlyph, PauseGlyph, PlayGlyph, RetryGlyph, UploadGlyph } from "../glyphs";
+import { PauseGlyph } from "../glyph/pause";
+import { PlayGlyph } from "../glyph/play";
+import { CloseGlyph, FileGlyph, RetryGlyph, UploadGlyph } from "../glyphs";
 import { useLatest } from "../media";
 import { Progress } from "../progress";
 
