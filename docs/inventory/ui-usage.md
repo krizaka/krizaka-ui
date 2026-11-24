@@ -15,13 +15,13 @@ an entry with itself over time, not with its budget).
 | Domain | Entries not retired | gzip sum (kB) | size-limit budgets sum (kB) |
 | :-- | --: | --: | --: |
 | none | 2 | 14.6 | 31.9 |
-| Foundations | 26 | 63.0 | 113.6 |
+| Foundations | 26 | 63.0 | 111.0 |
 | Forms | 13 | 76.5 | 192.5 |
 | Data display | 12 | 77.5 | 75.5 |
 | Navigation & shell | 29 | 187.5 | 225.1 |
 | Feedback & overlays | 11 | 25.1 | 112.9 |
 | Geolocation & maps | 5 | 24.3 | 34.1 |
-| Media | 10 | 57.7 | 68.7 |
+| Media | 10 | 57.7 | 65.6 |
 | Commerce | 28 | 108.2 | 115.3 |
 | Identity & people | 9 | 39.3 | 18.1 |
 | Abuse protection | 1 | 5.8 | 5.0 |
@@ -35,7 +35,7 @@ an entry with itself over time, not with its budget).
 | `media-guard` | **none** | — | — | — | — | 2.8 / 3.0 | — | — | — | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `media-player` | **none** | — | www 1 | — | — | 10.9 / 29.9 | — | — | — | **keep** | 1 live importer file(s) |
 | `pausable-loop` | **none** | — | www 1 | — | 1 | 3.7 / 2.0 | — | — | — | **keep** | 1 live importer file(s) |
-| `.` | Foundations | — | Yo 7 Ak 4 Oz 8 www 11 blog 5 ui 3 java 1 ts 1 motion 4 cockpit 3 | — | — | 8.4 / 8.0 | — | — | — | **keep** | 43 live importer file(s) |
+| `.` | Foundations | — | Yo 7 Ak 4 Oz 8 www 11 blog 5 ui 3 java 1 ts 1 motion 4 cockpit 3 | — | — | 8.4 / 5.4 | — | — | — | **keep** | 43 live importer file(s) |
 | `badge` | Foundations | stable | Yo 44 Ak 35 Oz 31 www 1 blog 1 ui 2 motion 4 cockpit 10 (native: Yo 4 Ak 5) | — | 11 | 1.1 / 0.7 | 1 | 2 | 2026-11-15 | **keep** | 133 live importer file(s) |
 | `button` | Foundations | stable | Yo 59 Ak 57 Oz 93 www 9 blog 12 ui 10 java 3 ts 2 motion 18 cockpit 9 (native: Yo 5 Ak 11 blog 2 ui 2) | — | 30 | 3.7 / 3.3 | 1 | 2 | 2026-11-16 | **keep** | 274 live importer file(s) |
 | `button/text-link` | Foundations | — | — | — | 30 | 0.2 / — | 1 | 2 | 2026-11-16 | **keep** | built on by action-bar, analysis-report, captcha… |
@@ -159,20 +159,20 @@ an entry with itself over time, not with its budget).
 | `map/pin` | Geolocation & maps | — | — | — | 2 | 1.3 / 1.2 | 2 | 2 | 2026-11-18 | **keep** | built on by native, shop |
 | `map/sheet` | Geolocation & maps | — | — | — | 2 | 1.1 / 1.1 | 2 | 2 | 2026-11-18 | **keep** | built on by native, shop |
 | `native/map` | Geolocation & maps | — | — | — | — | 7.7 / 13.2 | — | — | 2026-11-21 | **keep** | filed need folioviv#235 |
-| `document-viewer` | Media | beta | Yo 6 cockpit 1 | — | — | 6.1 / 5.0 | 2 | 1 | 2026-11-19 | **keep** | 7 live importer file(s) |
+| `document-viewer` | Media | beta | Yo 6 cockpit 1 | — | — | 6.1 / 4.3 | 2 | 1 | 2026-11-19 | **keep** | 7 live importer file(s) |
 | `embed-facade` | Media | beta | Ak 2 | — | 1 | 2.2 / 2.0 | 2 | 1 | 2026-11-14 | **keep** | 2 live importer file(s) |
 | `file-upload` | Media | beta | Yo 5 Oz 1 | — | 2 | 7.9 / 9.0 | 1 | 1 | 2026-11-17 | **keep** | 6 live importer file(s) |
-| `media-gallery` | Media | beta | — | — | 1 | 1.2 / 2.0 | 6 | 1 | 2026-11-23 | **keep** | built on by shop |
+| `media-gallery` | Media | beta | — | — | 1 | 1.2 / 1.1 | 6 | 1 | 2026-11-23 | **keep** | built on by shop |
 | `native:image-viewer` | Media | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native:media-picker` | Media | beta | — | — | — | — / — | — | — | 2026-10-29 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/media-picker` | Media | — | — | — | — | 1.7 / 2.5 | — | — | 2026-11-21 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
 | `native/vertical-video` | Media | — | — | — | — | 3.0 / 6.0 | — | — | 2026-11-21 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
-| `native/video-player` | Media | — | — | — | — | 1.0 / 2.0 | — | — | 2026-11-21 | **keep** | a filed need (its repository left the organisation) |
+| `native/video-player` | Media | — | — | — | — | 1.0 / 0.9 | — | — | 2026-11-21 | **keep** | a filed need (its repository left the organisation) |
 | `retro-tv` | Media | beta | Ak 3 | — | 1 | 13.4 / 22.0 | 1 | 1 | 2026-11-19 | **keep** | 3 live importer file(s) |
 | `terminal-replay` | Media | stable | blog 1 | — | — | 4.0 / 2.6 | 1 | 1 | 2026-11-19 | **keep** | 1 live importer file(s) |
 | `vertical-video` | Media | beta | — | — | 1 | 10.7 / 7.1 | 1 | 2 | 2026-11-16 | **keep** | built on by native |
 | `video-player` | Media | beta | www 2 ui 1 | — | 2 | 9.9 / 15.5 | 1 | 2 | 2026-11-16 | **keep** | 3 live importer file(s) |
-| `waveform` | Media | beta | motion 1 | — | 1 | 1.4 / 1.5 | 1 | 2 | 2026-11-15 | **keep** | built on by native |
+| `waveform` | Media | beta | motion 1 | — | 1 | 1.4 / 1.1 | 1 | 2 | 2026-11-15 | **keep** | built on by native |
 | `agenda` | Commerce | beta | Ak 1 | — | — | 1.8 / 2.0 | 1 | 1 | 2026-11-14 | **keep** | 1 live importer file(s) |
 | `kind-config-editor` | Commerce | beta | Yo 1 Ak 1 | — | 1 | 17.0 / 21.2 | 2 | 2 | 2026-11-19 | **keep** | 2 live importer file(s) |
 | `money-input` | Commerce | experimental | — | — | 2 | 3.0 / 1.9 | 1 | 1 | 2026-11-15 | **keep** | built on by price-catalogue-editor |
@@ -258,8 +258,8 @@ an entry with itself over time, not with its budget).
 | `page` | Page blocks & templates | beta | Yo 9 Ak 12 Oz 4 www 14 blog 9 java 1 ts 1 motion 5 cockpit 10 | — | 14 | 2.6 / 1.6 | 1 | 1 | 2026-11-22 | **keep** | 60 live importer file(s) |
 | `page-hero` | Page blocks & templates | beta | Yo 6 Ak 7 Oz 1 www 6 blog 5 ts 1 motion 3 cockpit 6 | — | 10 | 3.8 / 1.2 | 1 | 1 | 2026-11-15 | **keep** | 32 live importer file(s) |
 | `page-index` | Page blocks & templates | beta | motion 1 | — | — | 1.2 / 0.7 | 1 | 1 | 2026-11-15 | **ask** | used only by the motion lab |
-| `product-page` | Page blocks & templates | beta | — | — | 1 | 3.0 / 2.6 | 1 | 1 | 2026-11-23 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
-| `product-page.css` | Page blocks & templates | beta | ui 1 | — | 1 | — / — | — | — | 2026-11-23 | **keep** | 1 live importer file(s) |
+| `product-page` | Page blocks & templates | beta | — | — | 1 | 3.0 / 2.6 | 1 | 1 | 2026-11-24 | **retire** | no live importer, no paused importer, no filed need, no kept entry built on it |
+| `product-page.css` | Page blocks & templates | beta | ui 1 | — | 1 | — / — | — | — | 2026-11-24 | **keep** | 1 live importer file(s) |
 | `section-backdrop` | Page blocks & templates | beta | Oz 1 www 1 | — | 5 | 0.6 / 0.4 | 1 | 1 | 2026-11-15 | **keep** | 2 live importer file(s) |
 | `stage-banner` | Page blocks & templates | beta | blog 1 | — | — | 0.9 / 0.6 | 0 | 1 | 2026-11-15 | **keep** | 1 live importer file(s) |
 | `step-showcase` | Page blocks & templates | beta | Ak 1 Oz 1 | — | 1 | 4.0 / 3.2 | 1 | 1 | 2026-11-18 | **keep** | 2 live importer file(s) |
