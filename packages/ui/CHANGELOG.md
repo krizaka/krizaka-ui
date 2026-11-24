@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 5.3.3
+
+### Patch Changes
+
+- [#1113](https://github.com/krizaka/krizaka-ui/pull/1113) [`070aeea`](https://github.com/krizaka/krizaka-ui/commit/070aeea2e3de9b1ea7931ebe4c2fc2cf155aaa4e) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The play and pause glyphs draw their own filled svg instead of importing the `Glyph` base: the base keeps one importer group (the shell's glyphs), so a bundler that splits by importer no longer makes it a separate module on every route.
+- Updated dependencies []:
+  - @krizaka/tailwind@5.3.3
+  - @krizaka/tokens@5.3.3
+
 ## 5.3.2
 
 ### Patch Changes
