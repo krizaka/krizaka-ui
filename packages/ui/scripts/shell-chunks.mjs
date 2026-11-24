@@ -40,3 +40,14 @@ for (const glyph of Object.keys(GLYPHS)) {
   assert.ok(loop.some((f) => carries(f, glyph)), `dist/pausable-loop.js does not reach the ${glyph} glyph: the markers are stale`);
 }
 console.log("✓ dist/pausable-loop.js reaches both glyphs");
+
+// The `Glyph` base keeps one importer group (the shell's glyphs): if the play and pause glyphs import it too, a bundler
+// that splits by importer (Turbopack) makes it a module of its own, paid by every route (krizaka-internal#4833).
+const BASE = "// src/glyph/base.tsx";
+const withBase = loop.filter((f) => readFileSync(resolve(dist, f), "utf8").includes(BASE));
+assert.deepEqual(withBase, [], "dist/pausable-loop.js reaches the Glyph base: the play and pause glyphs must draw their own svg");
+assert.ok(
+  [...reached("app-shell.js")].some((f) => readFileSync(resolve(dist, f), "utf8").includes(BASE)),
+  "dist/app-shell.js does not reach the Glyph base: the marker is stale",
+);
+console.log("✓ dist/pausable-loop.js does not reach the Glyph base");
