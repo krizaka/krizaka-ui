@@ -39,7 +39,7 @@ describe("registry", () => {
     expect(registry.map((item) => item.name)).toEqual(all);
     expect(names).toEqual(expect.arrayContaining(["cn", "slot", "button", "dialog", "command", "progress"]));
     expect(nativeOnlyNames()).toEqual(expect.arrayContaining(["segmented", "txt"]));
-    for (const excluded of ["native", "marks", "motion", "test"]) expect(all).not.toContain(excluded);
+    for (const excluded of ["native", "marks", "motion", "glyph", "test"]) expect(all).not.toContain(excluded);
     for (const name of names) expect(pkg.exports[`./${name}`], `./${name} is an entry of the package`).toBeDefined();
   });
 

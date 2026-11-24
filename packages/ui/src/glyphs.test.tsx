@@ -26,3 +26,13 @@ describe("glyphs", () => {
     expect(shape(<glyphs.VolumeGlyph muted />)).toBeDefined();
   });
 });
+
+describe("Glyph base", () => {
+  it("fills with currentColor when `fill`, strokes otherwise", async () => {
+    const { Glyph } = await import("./glyph/base");
+    const filled = render(<Glyph fill><path d="M0 0" /></Glyph>).container.querySelector("svg");
+    expect(filled?.getAttribute("fill")).toBe("currentColor");
+    const stroked = render(<Glyph><path d="M0 0" /></Glyph>).container.querySelector("svg");
+    expect(stroked?.getAttribute("stroke")).toBe("currentColor");
+  });
+});

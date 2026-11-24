@@ -19,8 +19,8 @@ const SRC = join(PKG, "src");
 const NATIVE = join(SRC, "native");
 export const EXAMPLES = join(PKG, "registry", "examples");
 
-/** Not primitives: the brand layer (marks, motion), the React Native entry and the test helpers. */
-export const EXCLUDED = new Set(["native", "marks", "motion", "test"]);
+/** Not primitives: the brand layer (marks, motion), the per-glyph modules, the React Native entry and the test helpers. */
+export const EXCLUDED = new Set(["native", "marks", "motion", "glyph", "test"]);
 /**
  * Peers a primitive needs (React; @krizaka/query for the bar's session island, the app's one QueryClient; @krizaka/architecture,
  * whose laid-out views the architecture diagram draws — its types only): not listed as dependencies.
