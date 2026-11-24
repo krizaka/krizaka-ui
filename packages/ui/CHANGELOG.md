@@ -1,5 +1,17 @@
 # @krizaka/ui
 
+## 5.3.0
+
+### Minor Changes
+
+- [#1106](https://github.com/krizaka/krizaka-ui/pull/1106) [`71576e5`](https://github.com/krizaka/krizaka-ui/commit/71576e5ffaa15342c10c76d2af87a961fe6c21a3) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - `@krizaka/ui/product-page`: a `ProductScene` can set `device: "none"` to render a recording that already has its own device frame alone (the default is unchanged: framed by its kind), and takes an `alt` — the FR/EN alt text of the scene — rendered on its media (absent: the still stays decorative).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @krizaka/tailwind@5.3.0
+  - @krizaka/tokens@5.3.0
+
 ## 5.2.0
 
 ### Minor Changes
