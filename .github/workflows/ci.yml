@@ -20,7 +20,7 @@ jobs:
   changes:
     # Docs-only pull requests (root markdown, docs/ but not docs/inventory/, which the checks read, changesets, workflows other than this one) skip the heavy jobs below.
     # A skipped job reports « Skipped », which keeps the required checks satisfied; the gate fails open (krizaka/.github changes.yml).
-    uses: krizaka/.github/.github/workflows/changes.yml@84a22e72359caf315d8bf346f4a31cdb22f25997 # main
+    uses: krizaka/.github/.github/workflows/changes.yml@bb172ae555330fe6f342593c91730821a47005ac # main (merge queue reuses a proven pull-request run, krizaka-internal#4840)
     with:
       ignore: '^[^/]+\.md$|^LICENSE|^docs/(?!inventory/)|^\.changeset/|^\.github/(?!workflows/ci\.yml$)'
 
@@ -282,7 +282,8 @@ jobs:
   sonar-light:
     name: SonarCloud (docs only)
     needs: changes
-    if: ${{ !cancelled() && needs.changes.outputs.code == 'false' }}
+    # Not on a merge-queue entry a green pull-request run already tested (proven-run): the job below analyses it with that run's coverage.
+    if: ${{ !cancelled() && needs.changes.outputs.code == 'false' && needs.changes.outputs.proven-run == '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -307,11 +308,14 @@ jobs:
   sonar:
     name: SonarCloud
     needs: [changes, check]
-    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' && needs.check.result == 'success' }}
+    # Also on a merge-queue entry whose tree a green pull-request run already tested (krizaka-internal#4840): check is skipped, the
+    # analysis the queue owes reads that run's coverage.
+    if: ${{ (!cancelled() && needs.changes.outputs.code != 'false' && needs.check.result == 'success') || (!cancelled() && needs.changes.outputs.proven-run != '') }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
       contents: read
+      actions: read  # the coverage artifact of the proven pull-request run (download-artifact with run-id)
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     steps:
@@ -324,10 +328,20 @@ jobs:
           fetch-depth: 0  # blame and new-code detection need the history
           persist-credentials: false
 
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      - if: ${{ needs.changes.outputs.proven-run == '' }}
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: sonar-coverage
           path: ${{ runner.temp }}/sonar-coverage
+
+      - name: The coverage of the proven pull-request run
+        if: ${{ needs.changes.outputs.proven-run != '' }}
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sonar-coverage
+          path: ${{ runner.temp }}/sonar-coverage
+          run-id: ${{ needs.changes.outputs.proven-run }}
+          github-token: ${{ github.token }}
 
       - name: Restore the reports
         env:
@@ -352,17 +366,19 @@ jobs:
     steps:
       - env:
           CODE: ${{ needs.changes.outputs.code }}
+          PROVEN: ${{ needs.changes.outputs.proven-run }}
           CHECK: ${{ needs.check.result }}
           SONAR: ${{ needs.sonar.result }}
           SONAR_LIGHT: ${{ needs.sonar-light.result }}
         run: |
           fail=0
-          echo "gate: code=${CODE:-unknown} check=$CHECK sonar=$SONAR sonar-light=$SONAR_LIGHT"
+          echo "gate: code=${CODE:-unknown} proven-run=${PROVEN:-none} check=$CHECK sonar=$SONAR sonar-light=$SONAR_LIGHT"
           case "$CHECK" in success|skipped) ;; *) echo "::error::check $CHECK"; fail=1 ;; esac
           case "$SONAR" in success|skipped) ;; *) echo "::error::sonar $SONAR"; fail=1 ;; esac
           case "$SONAR_LIGHT" in success|skipped) ;; *) echo "::error::sonar-light $SONAR_LIGHT"; fail=1 ;; esac
           if [ "$CODE" != "false" ] && { [ "$CHECK" != success ] || [ "$SONAR" != success ]; }; then echo "::error::check and sonar must run and succeed when the gate did not answer false"; fail=1; fi
-          if [ "$CODE" = "false" ] && [ "$SONAR_LIGHT" != success ]; then echo "::error::sonar-light must run and succeed on a docs-only change"; fail=1; fi
+          if [ "$CODE" = "false" ] && [ -z "$PROVEN" ] && [ "$SONAR_LIGHT" != success ]; then echo "::error::sonar-light must run and succeed on a docs-only change"; fail=1; fi
+          if [ -n "$PROVEN" ] && [ "$SONAR" != success ]; then echo "::error::sonar must run and succeed on a merge-queue entry proven by run $PROVEN"; fail=1; fi
           exit "$fail"
 
   duplication:
