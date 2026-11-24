@@ -19,4 +19,10 @@ describe("glyphs", () => {
     const { container } = render(<glyphs.PlayGlyph />);
     expect(container.querySelector("svg")?.getAttribute("class")).toBe("h-4 w-4");
   });
+
+  it("draws a different shape for the exit of fullscreen and for a muted volume", () => {
+    const shape = (node: React.ReactElement) => render(node).container.querySelector("path")?.getAttribute("d");
+    expect(shape(<glyphs.FullscreenGlyph exit />)).not.toBe(shape(<glyphs.FullscreenGlyph />));
+    expect(shape(<glyphs.VolumeGlyph muted />)).toBeDefined();
+  });
 });
