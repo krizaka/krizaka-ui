@@ -7,7 +7,9 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 
-import { CaptionsGlyph, FullscreenGlyph, PauseGlyph, PipGlyph, PlayGlyph, RetryGlyph, VolumeGlyph } from "../glyphs";
+import { PauseGlyph } from "../glyph/pause";
+import { PlayGlyph } from "../glyph/play";
+import { CaptionsGlyph, FullscreenGlyph, PipGlyph, RetryGlyph, VolumeGlyph } from "../glyphs";
 import { clamp, formatClock, playSafely, useInView, usePrefersReducedMotion } from "../media";
 import { Slider } from "../slider";
 

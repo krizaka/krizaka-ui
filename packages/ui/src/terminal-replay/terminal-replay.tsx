@@ -7,7 +7,9 @@
 import * as React from "react";
 
 import { cn } from "../cn";
-import { CheckGlyph, PauseGlyph, PlayGlyph, RetryGlyph } from "../glyphs";
+import { PauseGlyph } from "../glyph/pause";
+import { PlayGlyph } from "../glyph/play";
+import { CheckGlyph, RetryGlyph } from "../glyphs";
 
 /** The colour of an output line — the tokens' text roles, all AA on the screen: secondary, accent, success, warning, danger. */
 export type TerminalTone = "muted" | "accent" | "success" | "warning" | "danger";

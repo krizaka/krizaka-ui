@@ -10,7 +10,9 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { IconButton } from "../button/button";
-import { ChevronGlyph, PauseGlyph, PlayGlyph, VolumeGlyph } from "../glyphs";
+import { PauseGlyph } from "../glyph/pause";
+import { PlayGlyph } from "../glyph/play";
+import { ChevronGlyph, VolumeGlyph } from "../glyphs";
 import { clamp, playSafely, useCalm, useInView, usePageHidden, usePageLoaded } from "../media";
 import { MediaPlayer, type MediaPlayerProps } from "./media-player";
 

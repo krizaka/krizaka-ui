@@ -2,7 +2,9 @@
 
 import * as React from "react";
 
-import { CaptionsGlyph, PauseGlyph, PlayGlyph, VolumeGlyph } from "../glyphs";
+import { PauseGlyph } from "../glyph/pause";
+import { PlayGlyph } from "../glyph/play";
+import { CaptionsGlyph, VolumeGlyph } from "../glyphs";
 import { formatClock, playSafely, useInView } from "../media";
 import type { RetroTvLabels, RetroTvSource, RetroTvTransition } from "./retro-tv";
 
