@@ -20,7 +20,7 @@ jobs:
   changes:
     # Docs-only pull requests (root markdown, docs/ but not docs/inventory/, which the checks read, changesets, workflows other than this one) skip the heavy jobs below.
     # A skipped job reports « Skipped », which keeps the required checks satisfied; the gate fails open (krizaka/.github changes.yml).
-    uses: krizaka/.github/.github/workflows/changes.yml@bb172ae555330fe6f342593c91730821a47005ac # main (merge queue reuses a proven pull-request run, krizaka-internal#4840)
+    uses: krizaka/.github/.github/workflows/changes.yml@d0c5710d207b411f3e43e1d4069c48961556f75d # main (merge queue reuses a proven pull-request run, krizaka-internal#4840; runs listed without the status filter)
     with:
       ignore: '^[^/]+\.md$|^LICENSE|^docs/(?!inventory/)|^\.changeset/|^\.github/(?!workflows/ci\.yml$)'
 
