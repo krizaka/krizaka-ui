@@ -2,12 +2,12 @@
 // and every chunk it reaches) must never carry the play and pause glyphs, which only the media entries draw
 // (krizaka-internal#4833). esbuild puts in one chunk every file reached by the same entries, so a re-export of a glyph
 // from a shared module drags it next to the code the shell imports. Run by `pnpm --filter @krizaka/ui publint` after
-// the build; `node scripts/shell-chunks.mjs <dist>` checks another build.
+// the build.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const dist = resolve(process.argv[2] ?? resolve(import.meta.dirname, "..", "dist"));
+const dist = resolve(import.meta.dirname, "..", "dist");
 
 /** The entry and every file of dist/ it imports, statically or not: esbuild names them `./<name>.js`, flat. */
 function reached(entry, seen = new Set()) {
