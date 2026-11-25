@@ -1,5 +1,14 @@
 # @krizaka/ui
 
+## 5.3.4
+
+### Patch Changes
+
+- [#1118](https://github.com/krizaka/krizaka-ui/pull/1118) [`f75f5aa`](https://github.com/krizaka/krizaka-ui/commit/f75f5aa229003843d04b605298b017605f3ad975) Thanks [@krizaka-agents](https://github.com/apps/krizaka-agents)! - The play and pause glyphs share one small svg module of their own (no `Glyph` base, no `focusable` attribute): the module that a video route loads is about 120 B smaller than in 5.3.3.
+- Updated dependencies []:
+  - @krizaka/tailwind@5.3.4
+  - @krizaka/tokens@5.3.4
+
 ## 5.3.3
 
 ### Patch Changes
