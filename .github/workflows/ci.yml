@@ -20,7 +20,7 @@ jobs:
   changes:
     # Docs-only pull requests (root markdown, docs/ but not docs/inventory/, which the checks read, changesets, workflows other than this one) skip the heavy jobs below.
     # A skipped job reports « Skipped », which keeps the required checks satisfied; the gate fails open (krizaka/.github changes.yml).
-    uses: krizaka/.github/.github/workflows/changes.yml@a6e5270354f053e7d225c35ea45c5aa429ba5878 # main (merge queue reuses a proven pull-request run, krizaka-internal#4840; runs listed without the status filter)
+    uses: krizaka/.github/.github/workflows/changes.yml@1a355396d57377d16274ec3f10cc83aa0ccf3d0c # main (merge queue reuses a proven pull-request run, krizaka-internal#4840; runs listed without the status filter)
     with:
       ignore: '^[^/]+\.md$|^LICENSE|^docs/(?!inventory/)|^\.changeset/|^\.github/(?!workflows/ci\.yml$)'
 
@@ -300,7 +300,7 @@ jobs:
           fetch-depth: 0  # blame and new-code detection need the history
           persist-credentials: false
 
-      - uses: krizaka/.github/actions/sonar-scan@a6e5270354f053e7d225c35ea45c5aa429ba5878 # main
+      - uses: krizaka/.github/actions/sonar-scan@1a355396d57377d16274ec3f10cc83aa0ccf3d0c # main
         with:
           token: ${{ secrets.SONAR_TOKEN }}
           args: -Dsonar.qualitygate.wait=true
@@ -350,7 +350,7 @@ jobs:
 
       # CI analysis: the SonarCloud app still decorates the pull request and posts « SonarCloud Code Analysis »; the quality gate is awaited
       # here so the CI gate carries its verdict too.
-      - uses: krizaka/.github/actions/sonar-scan@a6e5270354f053e7d225c35ea45c5aa429ba5878 # main
+      - uses: krizaka/.github/actions/sonar-scan@1a355396d57377d16274ec3f10cc83aa0ccf3d0c # main
         with:
           token: ${{ secrets.SONAR_TOKEN }}
           args: -Dsonar.qualitygate.wait=true
@@ -394,7 +394,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with: { node-version: 22 }
-      - uses: krizaka/.github/actions/dup-check@a6e5270354f053e7d225c35ea45c5aa429ba5878 # main
+      - uses: krizaka/.github/actions/dup-check@1a355396d57377d16274ec3f10cc83aa0ccf3d0c # main
 
   realtime:
     # @krizaka/realtime against real servers: two buses per adapter standing for two app instances (PostgreSQL

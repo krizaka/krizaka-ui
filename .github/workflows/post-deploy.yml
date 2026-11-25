@@ -20,7 +20,7 @@ jobs:
     permissions:
       contents: read
       issues: write # this job comments on or opens issues
-    uses: krizaka/.github/.github/workflows/post-deploy.yml@a6e5270354f053e7d225c35ea45c5aa429ba5878
+    uses: krizaka/.github/.github/workflows/post-deploy.yml@1a355396d57377d16274ec3f10cc83aa0ccf3d0c
     with:
       site-url: https://ui.krizaka.com
       version-url: https://ui.krizaka.com/build.json
