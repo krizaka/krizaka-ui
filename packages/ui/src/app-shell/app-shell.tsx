@@ -181,6 +181,7 @@ function SidebarContent({ brand, children, footer, collapseLabels, closeLabel }:
 /** The sidebar: on a desktop a column that collapses to its icons; on a phone the same content in a drawer. */
 export function AppShellSidebar({ label, brand, children, footer, collapseLabels, closeLabel, className, ...props }: Readonly<AppShellSidebarProps>) {
   const shell = useShell();
+  const drawerShell = React.useMemo(() => ({ ...shell, collapsed: false, inDrawer: true }), [shell]);
   const content = { brand, children, footer, collapseLabels, closeLabel };
   return (
     <>
@@ -193,7 +194,7 @@ export function AppShellSidebar({ label, brand, children, footer, collapseLabels
           <DialogPrimitive.Overlay className={s.overlay()} />
           <DialogPrimitive.Content className={s.drawer()} aria-describedby={undefined}>
             <DialogPrimitive.Title className="sr-only">{label}</DialogPrimitive.Title>
-            <ShellContext.Provider value={{ ...shell, collapsed: false, inDrawer: true }}>
+            <ShellContext.Provider value={drawerShell}>
               <nav aria-label={label} className="flex min-h-0 flex-1 flex-col">
                 {/* Delegated close on link activation; keyboard activation of a link fires a click too. */}
                 <div role="presentation" className="contents" onClick={(e) => (e.target as Element).closest("a") && shell.setOpen(false)}>

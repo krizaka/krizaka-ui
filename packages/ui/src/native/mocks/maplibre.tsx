@@ -15,7 +15,9 @@ function MockMap({ children, style: _style, ...props }: Readonly<Props>) {
   const { theme } = useTheme();
   const [size, setSize] = React.useState({ width: 0, height: 0 });
   const camera = React.Children.toArray(children).find((c) => React.isValidElement(c) && c.type === Camera) as React.ReactElement<{ center?: [number, number]; zoom?: number }> | undefined;
-  const view = { center: camera?.props.center ?? ([0, 0] as [number, number]), zoom: camera?.props.zoom ?? 12, ...size };
+  const center = camera?.props.center;
+  const zoom = camera?.props.zoom ?? 12;
+  const view = React.useMemo(() => ({ center: center ?? ([0, 0] as [number, number]), zoom, ...size }), [center, zoom, size]);
   return (
     <View
       testID="maplibre-map"
