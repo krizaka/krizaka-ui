@@ -5,13 +5,11 @@
 import {
   type Cell,
   type Column,
-  type ColumnDef,
   columnFacetingFeature,
   columnFilteringFeature,
   columnGroupingFeature,
   columnPinningFeature,
   columnResizingFeature,
-  type columnResizingState as ColumnResizingState,
   columnSizingFeature,
   columnVisibilityFeature,
   createExpandedRowModel,
@@ -107,4 +105,5 @@ filterRange.autoRemove = (value: unknown) => !Array.isArray(value) || (value[0] 
 
 export const FILTERS = { text: filterText, facet: filterFacet, range: filterRange } as const;
 
-export type { ColumnDef, ColumnResizingState, RowData };
+export type { RowData };
+export type { ColumnDef, columnResizingState as ColumnResizingState } from "@tanstack/react-table";

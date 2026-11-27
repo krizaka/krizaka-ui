@@ -33,10 +33,8 @@ export type VirtualHandle = {
   scrollToIndex: (index: number, align?: "start" | "center" | "end" | "auto") => void;
 };
 
-/** The window virtualizer of TanStack Virtual (a feed that scrolls the page), re-exported through the facade. */
-export const useWindowVirtualizer = useTanStackWindowVirtualizer;
-/** The element virtualizer of TanStack Virtual (anything the components do not cover), re-exported through the facade. */
-export const useVirtualizer = useTanStackVirtualizer;
+/** The window and element virtualizers of TanStack Virtual, re-exported through the facade. */
+export { useVirtualizer, useWindowVirtualizer, type VirtualItem } from "@tanstack/react-virtual";
 export type Virtualizer<S extends Element | Window = Element, I extends Element = Element> = ReactVirtualizer<S, I>;
 
 type Size = number | ((index: number) => number);
@@ -336,5 +334,3 @@ export function VirtualGrid<T>({
     </div>
   );
 }
-
-export { type VirtualItem } from "@tanstack/react-virtual";
