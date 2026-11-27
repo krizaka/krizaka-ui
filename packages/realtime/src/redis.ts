@@ -177,7 +177,10 @@ export function redisBus(options: RedisBusOptions): RealtimeBus {
       return () => {
         emitter.off(channel, handler);
         const left = (counts.get(channel) ?? 1) - 1;
-        if (left > 0) return void counts.set(channel, left);
+        if (left > 0) {
+          counts.set(channel, left);
+          return;
+        }
         counts.delete(channel);
         void sub.unsubscribe(prefix + channel).catch(() => undefined);
       };

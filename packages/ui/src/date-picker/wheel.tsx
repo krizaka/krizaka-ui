@@ -141,7 +141,14 @@ export function Wheel({ label, options, value: valueProp, defaultValue, onValueC
       if (el) commit(Math.round(el.scrollTop / ITEM));
     }, 90);
   };
-  React.useEffect(() => () => void (settle.current && clearTimeout(settle.current)), []);
+  React.useEffect(
+    () => () => {
+      if (settle.current) {
+        clearTimeout(settle.current);
+      }
+    },
+    [],
+  );
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     const step = (by: number) => {

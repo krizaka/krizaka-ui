@@ -144,7 +144,9 @@ export class ReplicatedPresence implements PresenceStore {
 
   onChange(listener: (change: PresenceChange) => void) {
     this.listeners.add(listener);
-    return () => void this.listeners.delete(listener);
+    return () => {
+      this.listeners.delete(listener);
+    };
   }
 
   /** Another instance spoke (ignored when it is this one). */
