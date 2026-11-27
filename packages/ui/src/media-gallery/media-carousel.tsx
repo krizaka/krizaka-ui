@@ -157,7 +157,7 @@ export type MediaCarouselProps = Omit<React.ComponentProps<"section">, "children
   /** The words, passed translated; English by default. `slide` takes `{n}` and `{total}`. */
   labels?: Partial<MediaCarouselLabels>;
   /** The words of the lightbox player of every film (speed, captions, time…), passed translated; a slide's own `film.labels` wins. */
-  playerLabels?: MediaPlayerProps["labels"];
+  playerLabels?: Exclude<MediaPlayerProps["labels"], undefined>;
   /** Called with the index of the slide in view when it changes. */
   onSlideChange?: (index: number) => void;
   /**
@@ -280,7 +280,7 @@ function SlideClip({ video, poster, playing, muted, onBroken, onTime }: Readonly
   );
 }
 
-type SlideMediaProps = Readonly<{ slide: CarouselSlide; first: boolean; drawn: boolean; clip: React.ReactNode; ratio: string; closeLabel: string; overlay: boolean; playerLabels?: MediaPlayerProps["labels"] }>;
+type SlideMediaProps = Readonly<{ slide: CarouselSlide; first: boolean; drawn: boolean; clip: React.ReactNode; ratio: string; closeLabel: string; overlay: boolean; playerLabels?: Exclude<MediaPlayerProps["labels"], undefined> }>;
 
 /** A poster that opens its film, or a still; its clip plays over it while the slide is the one in view. */
 function SlideMedia({ slide, first, drawn, clip, ratio, closeLabel, overlay, playerLabels }: Readonly<SlideMediaProps>) {

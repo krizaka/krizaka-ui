@@ -96,7 +96,7 @@ const nearestEnabled = (options: readonly WheelOption[], index: number) => {
 };
 
 /** One column of a `WheelPicker`: a spinbutton over a scroll-snapped list of values. */
-export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, className }: WheelProps) {
+export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, className }: Readonly<WheelProps>) {
   const s = wheel();
   const visible = React.useContext(VisibleContext);
   const [own, setOwn] = React.useState(defaultValue ?? options[0]?.value ?? "");
@@ -141,7 +141,14 @@ export function Wheel({ label, options, value: valueProp, defaultValue, onValueC
       if (el) commit(Math.round(el.scrollTop / ITEM));
     }, 90);
   };
-  React.useEffect(() => () => void (settle.current && clearTimeout(settle.current)), []);
+  React.useEffect(
+    () => () => {
+      if (settle.current) {
+        clearTimeout(settle.current);
+      }
+    },
+    [],
+  );
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     const step = (by: number) => {

@@ -13,10 +13,10 @@ export interface DeliveryLogEntry {
   to: string;
   status: "sent" | "failed" | "suppressed" | "duplicate";
   /** The provider's message id, when it accepted the message. */
-  messageId?: string | undefined;
-  idempotencyKey?: string | undefined;
+  messageId?: string;
+  idempotencyKey?: string;
   /** A reason, never a body: the provider's status or `suppressed:<reason>`. */
-  detail?: string | undefined;
+  detail?: string;
 }
 
 /** Where the log goes: the app's database, a stream, a file. The package only asks for `record`. */

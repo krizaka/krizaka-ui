@@ -1,5 +1,4 @@
 import {
-  APP_CONFIG_PATH,
   type AppConfigRecord,
   buildPayload,
   CLIENT_HEADERS,
@@ -171,4 +170,4 @@ export function withClientVersionGuard<A extends unknown[]>(
   };
 }
 
-export { APP_CONFIG_PATH };
+export { APP_CONFIG_PATH } from "./core";

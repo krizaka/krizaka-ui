@@ -5,11 +5,11 @@ import type { TemplateId } from "./templates";
 
 /** The `MAIL_*` variables (bounded context MAIL): the provider is a value, `mailgun` today. */
 export interface MailEnv {
-  MAIL_PROVIDER?: string | undefined;
-  MAIL_API_KEY?: string | undefined;
-  MAIL_DOMAIN?: string | undefined;
-  MAIL_API_URL?: string | undefined;
-  MAIL_FROM?: string | undefined;
+  MAIL_PROVIDER?: string;
+  MAIL_API_KEY?: string;
+  MAIL_DOMAIN?: string;
+  MAIL_API_URL?: string;
+  MAIL_FROM?: string;
 }
 
 export interface SendEmailOptions {
@@ -46,7 +46,7 @@ export function mailConfigured(env: MailEnv): boolean {
 }
 
 /** The form fields of Mailgun's `POST /v3/{domain}/messages`. Exported for the tests and for apps that post themselves. */
-export function mailgunForm(email: RenderedEmail, o: { from: string; to: string; replyTo?: string | undefined; idempotencyKey?: string | undefined; testLabel?: string | undefined }): URLSearchParams {
+export function mailgunForm(email: RenderedEmail, o: { from: string; to: string; replyTo?: string; idempotencyKey?: string; testLabel?: string }): URLSearchParams {
   const subject = o.testLabel ? `[test ${o.testLabel.replaceAll(/[\r\n]+/g, " ").slice(0, 40)}] ${email.subject}` : email.subject;
   const form = new URLSearchParams({ from: o.from, to: o.to, subject, text: email.text, html: email.html, "o:tracking": "no", "o:tag": o.testLabel ? "test" : email.template, "h:X-Krizaka-Template": email.template });
   for (const [name, value] of Object.entries(email.headers)) form.set(`h:${name}`, value);
@@ -66,7 +66,7 @@ export async function sendEmail<K extends TemplateId>(id: K, props: TemplateProp
   if (!EMAIL.test(to) || to.length > 254) throw new RangeError("@krizaka/email: the recipient is not an e-mail address");
   const email = await renderEmail(id, props, { locale: options.locale, ...(options.cdn ? { cdn: options.cdn } : {}) });
   const { log, suppression, idempotency, idempotencyKey } = options;
-  const entry = (status: "sent" | "failed" | "suppressed" | "duplicate", extra: { messageId?: string | undefined; detail?: string | undefined } = {}) =>
+  const entry = (status: "sent" | "failed" | "suppressed" | "duplicate", extra: { messageId?: string; detail?: string } = {}) =>
     log?.record({ ...(options.now ? { at: options.now().toISOString() } : {}), template: id, category: email.category, locale: options.locale, to: hashAddress(to), status, idempotencyKey, ...extra });
 
   if (email.category !== "internal" && suppression && (await suppression.has(to))) {

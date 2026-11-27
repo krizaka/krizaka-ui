@@ -69,7 +69,10 @@ export function desktopMenus(commands: readonly DesktopCommand[]): DesktopMenus 
     out.handlers[command.id] = command.run;
     if (command.shortcut) addShortcut(out, command.shortcut, command.run);
     let menu = out.menus.find((m) => m.title === command.menu);
-    if (!menu) out.menus.push((menu = { title: command.menu, items: [] }));
+    if (!menu) {
+      menu = { title: command.menu, items: [] };
+      out.menus.push(menu);
+    }
     menu.items.push(itemOf(command));
   }
   return out;

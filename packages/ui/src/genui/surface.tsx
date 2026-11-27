@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "../cn";
 import { Skeleton } from "../skeleton";
 import { GENUI_LIMITS, type GenUiComponent, type GenUiPropsCheck, isBinding } from "./spec";
-import { type GenUiState, type GenUiSurfaceState, readPath, readStream } from "./store";
+import { type GenUiSurfaceState, readPath, readStream } from "./store";
 
 /** What an entry gets to draw a component. */
 export type GenUiRenderContext = {
@@ -146,4 +146,4 @@ export function GenUiStream({ text, catalog, streaming, renderProse, fallback, o
 }
 
 /** The state a list of messages builds — for a surface the app holds itself (not from a model's text). */
-export type { GenUiState };
+export type { GenUiState } from "./store";

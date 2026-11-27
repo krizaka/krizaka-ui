@@ -29,11 +29,11 @@ type Context = { theme: Theme; mono: string | undefined; measureKey: string; ope
 
 const SYSTEM = /^(https?:|mailto:|tel:)/i;
 
-function Inlines({ nodes, ctx }: { nodes: readonly InlineNode[]; ctx: Context }) {
+function Inlines({ nodes, ctx }: Readonly<{ nodes: readonly InlineNode[]; ctx: Context }>) {
   return keyed(nodes, (node) => node.type).map(({ key, item }) => <Inline key={key} node={item} ctx={ctx} />);
 }
 
-function Inline({ node, ctx }: { node: InlineNode; ctx: Context }): React.ReactNode {
+function Inline({ node, ctx }: Readonly<{ node: InlineNode; ctx: Context }>): React.ReactNode {
   const { theme } = ctx;
   switch (node.type) {
     case "text":

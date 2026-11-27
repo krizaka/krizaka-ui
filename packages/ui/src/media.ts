@@ -16,17 +16,16 @@ export const clamp = (value: number, min: number, max: number) => Math.min(max, 
 
 const REDUCE = "(prefers-reduced-motion: reduce)";
 const subscribeReduce = (notify: () => void) => {
-  if (typeof window === "undefined" || !window.matchMedia) return () => undefined;
-  const query = window.matchMedia(REDUCE);
-  query.addEventListener?.("change", notify);
-  return () => query.removeEventListener?.("change", notify);
+  const query = globalThis.matchMedia?.(REDUCE);
+  query?.addEventListener?.("change", notify);
+  return () => query?.removeEventListener?.("change", notify);
 };
 
 /** `true` when the person asked for less motion (`prefers-reduced-motion: reduce`); follows a change of the setting. */
 export function usePrefersReducedMotion(): boolean {
   return React.useSyncExternalStore(
     subscribeReduce,
-    () => (typeof window !== "undefined" && window.matchMedia ? window.matchMedia(REDUCE).matches : false),
+    () => globalThis.matchMedia?.(REDUCE).matches ?? false,
     () => false,
   );
 }
@@ -78,8 +77,8 @@ export function playSafely(media: HTMLMediaElement | null | undefined) {
 }
 
 const subscribeLoad = (notify: () => void) => {
-  window.addEventListener("load", notify);
-  return () => window.removeEventListener("load", notify);
+  globalThis.addEventListener("load", notify);
+  return () => globalThis.removeEventListener("load", notify);
 };
 /** `true` once the page has finished loading: a clip or a loop is not worth bytes before it (the page's LCP comes first). */
 export function usePageLoaded(): boolean {

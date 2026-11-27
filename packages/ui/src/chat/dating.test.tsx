@@ -56,6 +56,27 @@ describe("match, tags, steps, chat", () => {
     expect(elena.textContent).toMatch(/Elena, online.*2 unread/);
     expect(await axeViolations(inbox.container)).toEqual([]);
   });
+
+  it("shows message receipts for sent, delivered, sending, and retries failed messages", async () => {
+    const onRetry = vi.fn();
+    const { MessageBubble } = await import("./chat");
+    const { container } = render(
+      <div>
+        <MessageBubble mine text="One" context="Reply" status="sent" showStatus />
+        <MessageBubble mine text="Two" status="delivered" showStatus />
+        <MessageBubble mine text="Three" status="sending" showStatus />
+        <MessageBubble mine text="Four" status="failed" showStatus onRetry={onRetry} />
+      </div>,
+    );
+    expect(screen.getByText("Reply")).toBeTruthy();
+    expect(screen.getByText("Sent")).toBeTruthy();
+    expect(screen.getByText("Delivered")).toBeTruthy();
+    expect(screen.getByText("Sending")).toBeTruthy();
+    expect(screen.getByText("Not sent")).toBeTruthy();
+    await userEvent.click(screen.getByRole("button", { name: "Retry" }));
+    expect(onRetry).toHaveBeenCalledTimes(1);
+    expect(await axeViolations(container)).toEqual([]);
+  });
 });
 
 describe("pill composer", () => {

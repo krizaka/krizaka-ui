@@ -12,7 +12,7 @@ export type ButtonVariant = "primary" | "gradient" | "secondary" | "outline" | "
 export type ButtonSize = "sm" | "md" | "lg";
 
 /** What a button wears: read from the same recipe as the web's `buttonVariants` (button/recipe.ts), on the theme's roles. */
-type Look = { bg: string; fg: string; border: string; gradient?: readonly [string, string]; height: number; paddingHorizontal: number; fontSize: number; fontWeight?: NativeText["fontWeight"] };
+type Look = { bg: string; fg: string; border: string; gradient?: readonly [string, string]; height: number; paddingHorizontal: number; fontSize: number; fontWeight?: Exclude<NativeText["fontWeight"], undefined> };
 
 const RECIPE = nativeRecipe(buttonRecipe);
 

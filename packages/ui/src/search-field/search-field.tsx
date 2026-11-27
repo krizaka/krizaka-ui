@@ -134,6 +134,13 @@ export function SearchField({
     setOpen(true);
   };
 
+  const shortcutHint = shortcut ? (
+    <span className={s.shortcut()} aria-hidden>
+      <Kbd size="sm">{apple ? "⌘" : "Ctrl"}</Kbd>
+      <Kbd size="sm">{shortcut.toUpperCase()}</Kbd>
+    </span>
+  ) : null;
+
   const field = (
     <div className={s.root({ className })} onBlur={(event) => !event.currentTarget.contains(event.relatedTarget as Node | null) && setOpen(false)}>
       <div className={s.control()}>
@@ -177,12 +184,7 @@ export function SearchField({
           >
             <CloseGlyph className="h-4 w-4" />
           </button>
-        ) : shortcut ? (
-          <span className={s.shortcut()} aria-hidden>
-            <Kbd size="sm">{apple ? "⌘" : "Ctrl"}</Kbd>
-            <Kbd size="sm">{shortcut.toUpperCase()}</Kbd>
-          </span>
-        ) : null}
+        ) : shortcutHint}
       </div>
       {list.length > 0 && (
         <div hidden={!open} className={s.list()}>

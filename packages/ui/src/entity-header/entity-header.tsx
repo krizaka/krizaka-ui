@@ -19,7 +19,7 @@ export type EntityHeaderProps = EntityHeaderBase & {
     /** The picker's accessible name (“Profile picture”), passed translated. */
     label: string;
     /** What the pictures are of: `folder`, `organisation`, `shop`, `person`. */
-    kind?: EntityAvatarOption["kind"];
+    kind?: Exclude<EntityAvatarOption["kind"], undefined>;
     /** The pictures to choose from. */
     options: readonly EntityAvatarOption[];
     /** Adds a « no picture » tile first, with these words, passed translated. */

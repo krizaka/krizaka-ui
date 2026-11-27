@@ -48,7 +48,7 @@ export type NativeLook = {
 type Props = Readonly<Record<string, string | number | boolean | null | undefined>>;
 type Slot = string | readonly unknown[] | null | undefined;
 type Config = {
-  base?: Slot;
+  base?: Exclude<Slot, undefined>;
   slots?: Readonly<Record<string, Slot>>;
   variants?: Readonly<Record<string, Readonly<Record<string, unknown>>>>;
   defaultVariants?: Readonly<Record<string, unknown>>;
@@ -80,9 +80,22 @@ function classesFor(config: Config, props: Props): Record<string, string[]> {
   const names = slotNames(config);
   const out: Record<string, string[]> = Object.fromEntries(names.map((name) => [name, config.slots ? words(config.slots[name]) : words(config.base)]));
   // A string (or a list) is for the base; an object names the slots it is for.
+  const pushTo = (slot: string, items: string[]) => {
+    const existing = out[slot];
+    if (existing) {
+      existing.push(...items);
+    } else {
+      out[slot] = items;
+    }
+  };
   const add = (value: unknown) => {
-    if (typeof value === "string" || Array.isArray(value)) (out[BASE] ??= []).push(...words(value));
-    else if (value && typeof value === "object") for (const [name, classes] of Object.entries(value)) (out[name] ??= []).push(...words(classes));
+    if (typeof value === "string" || Array.isArray(value)) {
+      pushTo(BASE, words(value));
+    } else if (value && typeof value === "object") {
+      for (const [name, classes] of Object.entries(value)) {
+        pushTo(name, words(classes));
+      }
+    }
   };
   const chosen = { ...config.defaultVariants, ...Object.fromEntries(Object.entries(props).filter(([, v]) => v !== undefined)) } as Record<string, unknown>;
   for (const [dimension, values] of Object.entries(config.variants ?? {})) {
@@ -132,48 +145,93 @@ function apply(look: NativeLook, cls: string, theme: ThemeColors): boolean {
   if (utility.includes(":") || utility.startsWith("[&")) return false;
 
   const { frame, text } = target;
-  let match: RegExpExecArray | null;
-  if (utility.startsWith("bg-linear-to-")) return true;
-  if ((match = /^bg-(.+)$/.exec(utility))) {
-    const value = colour(match[1]!, theme);
-    if (value === undefined) return false;
+  if (utility.startsWith("bg-linear-to-")) {
+    return true;
+  }
+  const bg = /^bg-(.+)$/.exec(utility);
+  if (bg) {
+    const value = colour(bg[1]!, theme);
+    if (value === undefined) {
+      return false;
+    }
     frame.backgroundColor = value;
     return true;
   }
-  if ((match = /^text-(.+)$/.exec(utility))) {
-    const arbitrary = /^\[(\d+(?:\.\d+)?)px\]$/.exec(match[1]!);
-    if (arbitrary) return ((text.fontSize = Number(arbitrary[1])), true);
-    if (match[1]! in TEXT_SIZES) return ((text.fontSize = TEXT_SIZES[match[1] as keyof typeof TEXT_SIZES]), true);
-    const value = colour(match[1]!, theme);
-    if (value === undefined) return false;
+  const textMatch = /^text-(.+)$/.exec(utility);
+  if (textMatch) {
+    const arbitrary = /^\[(\d+(?:\.\d+)?)px\]$/.exec(textMatch[1]!);
+    if (arbitrary) {
+      text.fontSize = Number(arbitrary[1]);
+      return true;
+    }
+    if (textMatch[1]! in TEXT_SIZES) {
+      text.fontSize = TEXT_SIZES[textMatch[1] as keyof typeof TEXT_SIZES];
+      return true;
+    }
+    const value = colour(textMatch[1]!, theme);
+    if (value === undefined) {
+      return false;
+    }
     text.color = value;
     return true;
   }
-  if (utility === "border") return ((frame.borderWidth = 1), true);
-  if ((match = /^(?:border|ring)-(.+)$/.exec(utility))) {
-    if (match[1] === "1") return ((frame.borderWidth = 1), true);
-    if (match[1] === "inset") return true;
-    const value = colour(match[1]!, theme);
-    if (value === undefined) return false;
+  if (utility === "border") {
+    frame.borderWidth = 1;
+    return true;
+  }
+  const border = /^(?:border|ring)-(.+)$/.exec(utility);
+  if (border) {
+    if (border[1] === "1") {
+      frame.borderWidth = 1;
+      return true;
+    }
+    if (border[1] === "inset") {
+      return true;
+    }
+    const value = colour(border[1]!, theme);
+    if (value === undefined) {
+      return false;
+    }
     frame.borderColor = value;
     return true;
   }
-  if (utility === "ring-inset") return true;
-  if ((match = /^(h|w|min-w|px|py|p|gap)-(\d+(?:\.\d+)?)$/.exec(utility))) {
-    const points = unit(match[2]!)!;
-    const key = { h: "height", w: "width", "min-w": "minWidth", px: "paddingHorizontal", py: "paddingVertical", p: "padding", gap: "gap" }[match[1]!] as keyof NativeFrame;
+  if (utility === "ring-inset") {
+    return true;
+  }
+  const spacing = /^(h|w|min-w|px|py|p|gap)-(\d+(?:\.\d+)?)$/.exec(utility);
+  if (spacing) {
+    const points = unit(spacing[2]!)!;
+    const key = { h: "height", w: "width", "min-w": "minWidth", px: "paddingHorizontal", py: "paddingVertical", p: "padding", gap: "gap" }[spacing[1]!] as keyof NativeFrame;
     (frame as Record<string, number>)[key] = points;
     return true;
   }
-  if ((match = /^opacity-(\d+)$/.exec(utility))) return ((frame.opacity = Number(match[1]) / 100), true);
-  if ((match = /^font-(.+)$/.exec(utility)) && match[1]! in FONT_WEIGHTS) return ((text.fontWeight = FONT_WEIGHTS[match[1] as keyof typeof FONT_WEIGHTS]), true);
-  if ((match = /^tracking-(.+)$/.exec(utility)) && match[1]! in TRACKING) return ((text.letterSpacing = TRACKING[match[1] as keyof typeof TRACKING]), true);
-  if (utility === "uppercase" || utility === "lowercase" || utility === "capitalize") return ((text.textTransform = utility), true);
-  if ((match = /^(from|to)-(.+)$/.exec(utility))) {
-    const value = colour(match[2]!, theme);
-    if (value === undefined) return false;
+  const opacity = /^opacity-(\d+)$/.exec(utility);
+  if (opacity) {
+    frame.opacity = Number(opacity[1]) / 100;
+    return true;
+  }
+  const font = /^font-(.+)$/.exec(utility);
+  if (font && font[1]! in FONT_WEIGHTS) {
+    text.fontWeight = FONT_WEIGHTS[font[1] as keyof typeof FONT_WEIGHTS];
+    return true;
+  }
+  const tracking = /^tracking-(.+)$/.exec(utility);
+  if (tracking && tracking[1]! in TRACKING) {
+    text.letterSpacing = TRACKING[tracking[1] as keyof typeof TRACKING];
+    return true;
+  }
+  if (utility === "uppercase" || utility === "lowercase" || utility === "capitalize") {
+    text.textTransform = utility;
+    return true;
+  }
+  const stop = /^(from|to)-(.+)$/.exec(utility);
+  if (stop) {
+    const value = colour(stop[2]!, theme);
+    if (value === undefined) {
+      return false;
+    }
     const stops = [...(look.gradient ?? ["transparent", "transparent"])] as [string, string];
-    stops[match[1] === "from" ? 0 : 1] = value;
+    stops[stop[1] === "from" ? 0 : 1] = value;
     look.gradient = stops;
     return true;
   }

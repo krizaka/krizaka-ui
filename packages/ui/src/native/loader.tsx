@@ -104,10 +104,10 @@ export type LoaderProps = {
 
 const GLYPH = { inline: 20, block: 36, overlay: 36, page: 56 } as const;
 
-/** A wait from start to end — the web `Loader`: delayed, never blinking, announced when it shows and when it ends. */
-export function Loader({ label, status = "loading", successLabel, errorLabel, value, eta, delay = 250, minDuration = 600, endDuration = 1600, variant = "inline", product, style }: LoaderProps) {
-  const { theme, radius } = useTheme();
-  const waiting = useDelayedWait(status === "loading", delay, minDuration);
+type LoaderPhase = "loading" | "success" | "error";
+type LoaderVariant = NonNullable<LoaderProps["variant"]>;
+
+function useEndingPhase(waiting: boolean, status: LoaderPhase, endDuration: number): "success" | "error" | null {
   const [ending, setEnding] = React.useState<"success" | "error" | null>(null);
   const seen = React.useRef(false);
   React.useEffect(() => {
@@ -115,9 +115,13 @@ export function Loader({ label, status = "loading", successLabel, errorLabel, va
       seen.current = true;
       return;
     }
-    if (!seen.current || status === "loading") return;
+    if (!seen.current || status === "loading") {
+      return;
+    }
     seen.current = false;
-    if (endDuration <= 0) return;
+    if (endDuration <= 0) {
+      return;
+    }
     const show = setTimeout(() => setEnding(status), 0);
     const hide = Number.isFinite(endDuration) ? setTimeout(() => setEnding(null), endDuration) : undefined;
     return () => {
@@ -125,37 +129,75 @@ export function Loader({ label, status = "loading", successLabel, errorLabel, va
       clearTimeout(hide);
     };
   }, [waiting, status, endDuration]);
-  const phase = waiting ? "loading" : ending;
-  const words = choose(label, [phase === "success", successLabel ?? label], [phase === "error", errorLabel ?? label]);
-  React.useEffect(() => {
-    if (phase) AccessibilityInfo.announceForAccessibility(words);
-  }, [phase, words]);
-  if (!phase) return null;
+  return ending;
+}
+
+function formatLoaderDetail(phase: LoaderPhase, known: boolean, value?: number | null, eta?: string): string {
+  if (phase !== "loading") {
+    return "";
+  }
+  const percent = known ? `${Math.round(Math.min(1, Math.max(0, value ?? 0)) * 100)} %` : null;
+  return [percent, eta].filter(Boolean).join(" · ");
+}
+
+function LoaderBox({
+  phase,
+  variant,
+  product,
+  value,
+  eta,
+  words,
+}: Readonly<{ phase: LoaderPhase; variant: LoaderVariant; product?: BrandId; value?: number | null; eta?: string; words: string }>) {
+  const { theme, radius } = useTheme();
   const known = phase === "loading" && typeof value === "number" && Number.isFinite(value);
-  const detail = phase === "loading" ? [known ? `${Math.round(Math.min(1, Math.max(0, value ?? 0)) * 100)} %` : null, eta].filter(Boolean).join(" · ") : "";
+  const detail = formatLoaderDetail(phase, known, value, eta);
   const stacked = variant !== "inline";
-  const box = (
-    <View style={[stacked ? styles.stacked : styles.inline, variant === "overlay" ? { backgroundColor: alpha(theme.surface1, 0.92), borderColor: theme.borderDefault, borderRadius: radius.lg, ...styles.card } : null]}>
-      {product && phase === "loading" ? <ProductMark id={product} size={GLYPH[variant]} animated /> : <LoaderGlyph state={phase} value={known ? value : null} size={GLYPH[variant]} />}
+  const align = stacked ? styles.centered : null;
+  const overlayCard = variant === "overlay" ? { backgroundColor: alpha(theme.surface1, 0.92), borderColor: theme.borderDefault, borderRadius: radius.lg, ...styles.card } : null;
+  const progress = known ? value : null;
+  const glyph = product && phase === "loading" ? <ProductMark id={product} size={GLYPH[variant]} animated /> : <LoaderGlyph state={phase} value={progress} size={GLYPH[variant]} />;
+  return (
+    <View style={[stacked ? styles.stacked : styles.inline, overlayCard]}>
+      {glyph}
       <View style={stacked ? styles.center : styles.text}>
-        <Txt variant={variant === "page" ? "title" : "label"} style={stacked ? styles.centered : null}>
+        <Txt variant={variant === "page" ? "title" : "label"} style={align}>
           {words}
         </Txt>
         {detail ? (
-          <Txt variant="caption" tone="secondary" style={stacked ? styles.centered : null}>
+          <Txt variant="caption" tone="secondary" style={align}>
             {detail}
           </Txt>
         ) : null}
       </View>
     </View>
   );
+}
+
+/** A wait from start to end — the web `Loader`: delayed, never blinking, announced when it shows and when it ends. */
+export function Loader({ label, status = "loading", successLabel, errorLabel, value, eta, delay = 250, minDuration = 600, endDuration = 1600, variant = "inline", product, style }: Readonly<LoaderProps>) {
+  const { theme } = useTheme();
+  const waiting = useDelayedWait(status === "loading", delay, minDuration);
+  const ending = useEndingPhase(waiting, status, endDuration);
+  const phase = waiting ? "loading" : ending;
+  const words = choose(label, [phase === "success", successLabel ?? label], [phase === "error", errorLabel ?? label]);
+  React.useEffect(() => {
+    if (phase) {
+      AccessibilityInfo.announceForAccessibility(words);
+    }
+  }, [phase, words]);
+  if (!phase) {
+    return null;
+  }
+  const box = <LoaderBox phase={phase} variant={variant} product={product} value={value} eta={eta} words={words} />;
   const a11y = { accessible: true, role: "progressbar" as const, "aria-label": words, "aria-busy": phase === "loading", accessibilityLiveRegion: "polite" as const };
-  if (variant === "overlay" || variant === "page")
+  if (variant === "overlay" || variant === "page") {
+    const coverBg = variant === "page" ? { backgroundColor: alpha(theme.surface0, 0.86) } : null;
     return (
-      <View {...a11y} style={[StyleSheet.absoluteFill, styles.cover, variant === "page" ? { backgroundColor: alpha(theme.surface0, 0.86) } : null, style]}>
+      <View {...a11y} style={[StyleSheet.absoluteFill, styles.cover, coverBg, style]}>
         {box}
       </View>
     );
+  }
   return (
     <View {...a11y} style={[variant === "block" ? styles.block : null, style]}>
       {box}

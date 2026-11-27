@@ -101,7 +101,7 @@ function checkColumns(value: unknown): string | null {
     const col = raw as Record<string, unknown>;
     const keys = Object.keys(col).find((k) => !["key", "label", "format", "currency"].includes(k));
     if (keys) return `a column has no key "${keys}"`;
-    if (typeof col.key !== "string" || !/^[A-Za-z0-9_]{1,64}$/.test(col.key)) return "a column key is 1-64 characters of [A-Za-z0-9_]";
+    if (typeof col.key !== "string" || !/^\w{1,64}$/.test(col.key)) return "a column key is 1-64 characters of [A-Za-z0-9_]";
     if (typeof col.label !== "string" || col.label.length > 120) return "a column label is a string";
     const problem = first(checkEnum(col.format, "format", GENUI_FORMATS), checkCurrency(col.currency, col.format === "money"));
     if (problem) return problem;

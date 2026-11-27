@@ -54,7 +54,7 @@ function directionOf(change: number | null): "flat" | "up" | "down" | undefined 
 }
 
 /** A key figure, its change against the previous period and the shape of the period. */
-export function KpiStat({ label, value, format, previous, good = "up", data, categories, variant = "area", color, trendLabel, hint, locale, brand, labels, className, ...rest }: KpiStatProps) {
+export function KpiStat({ label, value, format, previous, good = "up", data, categories, variant = "area", color, trendLabel, hint, locale, brand, labels, className, ...rest }: Readonly<KpiStatProps>) {
   const settings = useChartSettings({ locale, brand, labels });
   const write = valueFormatter(format, settings.locale, settings.labels.noValue);
   const change = changeOf(value, previous);

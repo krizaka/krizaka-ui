@@ -35,7 +35,7 @@ const useOwn = <T,>(value: T | undefined, initial: T) => {
   return [value !== undefined ? value : own, (next: T) => value === undefined && setOwn(next)] as const;
 };
 
-function Chevron({ direction, color }: { direction: "left" | "right"; color: string }) {
+function Chevron({ direction, color }: Readonly<{ direction: "left" | "right"; color: string }>) {
   return (
     <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <Path d={direction === "left" ? "m15 18-6-6 6-6" : "m9 18 6-6-6-6"} />

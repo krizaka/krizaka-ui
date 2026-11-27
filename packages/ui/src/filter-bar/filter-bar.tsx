@@ -140,7 +140,6 @@ export function FilterMenu(props: Readonly<FilterMenuProps>) {
   const { label, options, defaultOpen, className } = props;
   const s = filterBar();
   const m = menu();
-  const chosen = props.multiple === false ? (props.value ? [props.value] : []) : props.value;
   const single = props.multiple === false ? options.find((o) => o.value === props.value) : undefined;
   const content = (option: FilterOption) => (
     <>
@@ -150,9 +149,9 @@ export function FilterMenu(props: Readonly<FilterMenuProps>) {
   );
   return (
     <DropdownMenu.Root defaultOpen={defaultOpen} modal={false}>
-      <DropdownMenu.Trigger className={s.trigger({ className })} data-active={chosen.length > 0 ? "" : undefined}>
+      <DropdownMenu.Trigger className={s.trigger({ className })} data-active={props.value.length > 0 ? "" : undefined}>
         {single ? `${label}: ${single.label}` : label}
-        {props.multiple !== false && chosen.length > 0 ? <span className={s.count()}>{chosen.length}</span> : null}
+        {props.multiple !== false && props.value.length > 0 ? <span className={s.count()}>{props.value.length}</span> : null}
         <ChevronGlyph className="h-4 w-4" />
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="start" aria-label={label}>
@@ -198,9 +197,12 @@ export function readFilterParams(params: URLSearchParams, keys: readonly string[
 export function writeFilterParams(base: URLSearchParams, filters: Record<string, string | readonly string[] | null | undefined>, resetKey = "page") {
   const next = new URLSearchParams(base);
   for (const [key, value] of Object.entries(filters)) {
-    const list = value == null ? [] : typeof value === "string" ? [value] : [...value];
-    if (list.filter(Boolean).length === 0) next.delete(key);
-    else next.set(key, list.filter(Boolean).join(","));
+    const items = (typeof value === "string" ? [value] : (value ?? [])).filter(Boolean);
+    if (items.length === 0) {
+      next.delete(key);
+    } else {
+      next.set(key, items.join(","));
+    }
   }
   if (resetKey) next.delete(resetKey);
   return next;

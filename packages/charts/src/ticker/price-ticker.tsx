@@ -32,7 +32,7 @@ export interface PriceTickerProps
 }
 
 /** A live auction's price: the current bid, the change since the opening, the steps of the bids, the reserve. */
-export function PriceTicker({ bids, opening, openedAt, currency, reserve, timeFormat = "time", labels: given, description, live = true, ...props }: PriceTickerProps) {
+export function PriceTicker({ bids, opening, openedAt, currency, reserve, timeFormat = "time", labels: given, description, live = true, ...props }: Readonly<PriceTickerProps>) {
   const words = { ...TICKER_LABELS, ...given };
   const { locale } = useSettings(props);
   const format = { style: "money", currency } as const;

@@ -134,7 +134,7 @@ interface InnerProps {
   build: HostProps["build"];
   active: WalkItem | null;
   instance: RefObject<EChartsType | null>;
-  onItem?: HostProps["onItem"];
+  onItem?: Exclude<HostProps["onItem"], undefined>;
   onFail: () => void;
 }
 

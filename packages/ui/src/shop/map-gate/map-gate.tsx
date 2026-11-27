@@ -13,7 +13,7 @@ export type MapGateProps = {
   center: StaticMapProps["center"];
   zoom?: number;
   /** Places drawn on the still and listed in its name. */
-  places?: StaticMapProps["places"];
+  places?: Exclude<StaticMapProps["places"], undefined>;
   /** The button's words (`Show the map`). */
   showLabel: string;
   /** More props of the live map (`brand`, `lang`, `labels`). Its `className` replaces the default `h-full w-full`: the map fills the gate's frame. */

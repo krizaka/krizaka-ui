@@ -27,6 +27,23 @@ describe("feedback (native)", () => {
     jest.useRealTimers();
   });
 
+  test("Loader renders determinate detail across overlay, page, and block variants", async () => {
+    jest.useFakeTimers();
+    const { rerender } = await render(<Loader label="Uploading" variant="overlay" value={0.42} eta="10 s" />);
+    await act(async () => jest.advanceTimersByTime(300));
+    expect(screen.getByText("42 % · 10 s")).toBeTruthy();
+    await rerender(<Loader label="Uploading" variant="page" endDuration={0} status="error" errorLabel="Upload failed" />);
+    await act(async () => jest.advanceTimersByTime(700));
+    expect(screen.queryByLabelText("Upload failed")).toBeNull();
+    const block = await render(<Loader label="Syncing" variant="block" endDuration={Number.POSITIVE_INFINITY} />);
+    await act(async () => jest.advanceTimersByTime(300));
+    await block.rerender(<Loader label="Syncing" variant="block" status="error" errorLabel="Sync failed" endDuration={Number.POSITIVE_INFINITY} />);
+    await act(async () => jest.advanceTimersByTime(700));
+    await act(async () => jest.advanceTimersByTime(10));
+    expect(screen.getByLabelText("Sync failed")).toBeTruthy();
+    jest.useRealTimers();
+  });
+
   test("Stepper says each step's status; Meter is a meter with its value in words", async () => {
     await render(<Stepper current={1} steps={[{ title: "Transcribe" }, { title: "Translate" }, { title: "Mix" }]} statusLabels={{ done: "fait" }} />);
     expect(screen.getByLabelText("Transcribe, fait")).toBeTruthy();

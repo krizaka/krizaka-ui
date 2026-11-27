@@ -200,7 +200,10 @@ export function eventSourceLive(url: string | (() => string), options: EventSour
     },
     subscribe(channel, handler) {
       let set = handlers.get(channel);
-      if (!set) handlers.set(channel, (set = new Set()));
+      if (!set) {
+        set = new Set();
+        handlers.set(channel, set);
+      }
       set.add(handler);
       if (!source && !timer) open();
       listen(channel);

@@ -8,8 +8,8 @@ type CsvColumn<T> = { id: string; header: string; value?: (row: T) => CellValue 
 const FORMULA = /^[=+\-@\t\r]/;
 
 function field(value: CellValue): string {
-  let text = value == null ? "" : value instanceof Date ? value.toISOString() : String(value);
-  if (typeof value === "string" && FORMULA.test(text)) text = `'${text}`;
+  const raw = value instanceof Date ? value.toISOString() : String(value ?? "");
+  const text = typeof value === "string" && FORMULA.test(raw) ? `'${raw}` : raw;
   return /[",\n\r;]/.test(text) || text !== text.trim() ? `"${text.replace(/"/g, '""')}"` : text;
 }
 

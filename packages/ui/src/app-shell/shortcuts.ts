@@ -107,10 +107,11 @@ export function useShortcuts(map: ShortcutMap, { enabled = true, timeout = 900 }
         const handler = latest.current[binding];
         if (!handler) continue;
         const keys = binding.toLowerCase().split(/\s+/).map((key) => ALIASES[key] ?? key);
+        const allowed = chord ? !editing.rich : !editing.field;
         const fired =
           keys.length > 1
             ? !chord && !editing.field && buffer.length >= keys.length && keys.every((key, i) => buffer[buffer.length - keys.length + i]?.key === key)
-            : matchesCombo(event, binding) && (chord ? !editing.rich : !editing.field);
+            : matchesCombo(event, binding) && allowed;
         if (!fired) continue;
         event.preventDefault();
         buffer = [];

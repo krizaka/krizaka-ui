@@ -91,9 +91,10 @@ export const RetryGlyph = (p: Readonly<GlyphProps>) => (
     <path d="M4 4v4.5h4.5" />
   </Glyph>
 );
+const SORT_PATH = { ascending: "m7 14 5-5 5 5", descending: "m7 10 5 5 5-5" } as const;
 export const SortGlyph = ({ direction, ...p }: Readonly<GlyphProps & { direction?: "ascending" | "descending" }>) => (
   <Glyph {...p}>
-    {direction === "ascending" ? <path d="m7 14 5-5 5 5" /> : direction === "descending" ? <path d="m7 10 5 5 5-5" /> : <path d="m8 9 4-4 4 4M8 15l4 4 4-4" />}
+    <path d={direction ? SORT_PATH[direction] : "m8 9 4-4 4 4M8 15l4 4 4-4"} />
   </Glyph>
 );
 export const ArrowGlyph = ({ direction = "right", ...p }: Readonly<GlyphProps & { direction?: "left" | "right" }>) => (

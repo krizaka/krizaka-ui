@@ -7,12 +7,14 @@ import { renderToString } from "react-dom/server";
 import MonthlyCredits from "../../registry/examples/credit-usage/monthly-credits";
 import StoragePlan from "../../registry/examples/credit-usage/storage-plan";
 import CreatorMonth from "../../registry/examples/earnings-chart/creator-month";
+import ChallengePot from "../../registry/examples/goal-progress/challenge-pot";
 import GoalReached from "../../registry/examples/goal-progress/goal-reached";
 import WeekOfJobs from "../../registry/examples/job-throughput/week-of-jobs";
 import ByCapability from "../../registry/examples/latency-chart/by-capability";
 import TimeToResult from "../../registry/examples/latency-chart/time-to-result";
 import AuctionRoom from "../../registry/examples/price-ticker/auction-room";
 import NoBidYet from "../../registry/examples/price-ticker/no-bid-yet";
+import { GoalProgress } from "../goal/goal-progress";
 import { axeViolations } from "../test/axe";
 import { mockWidth } from "../test/setup";
 import { daysLeft, direction, formatDuration, lastChange, quotaLevel, signedPercent, successRate } from "./model";
@@ -83,5 +85,15 @@ describe("the ready-made charts", () => {
     const { container } = render(<GoalReached />);
     expect(container.textContent).toContain("128 soutiens · Objectif atteint");
     expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it("GoalProgress: formats string and element timeLeft with optional description", () => {
+    mockWidth(360);
+    const pot = render(<ChallengePot />);
+    expect(pot.container.textContent).toContain("41 supporters · 3 days left");
+    const custom = render(<GoalProgress title="Studio" raised={100_00} goal={500_00} currency="USD" description="Escrow" timeLeft={<span>2 h</span>} />);
+    expect(custom.container.textContent).toContain("Escrow · 2 h");
+    const minimal = render(<GoalProgress title="Empty" raised={0} goal={500_00} currency="USD" />);
+    expect(minimal.container.textContent).toContain("raised of $500");
   });
 });

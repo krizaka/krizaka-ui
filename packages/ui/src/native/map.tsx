@@ -232,7 +232,7 @@ export type ClusterProps = {
 };
 
 /** Many points grouped while they are close: a disc with the count; each point is part of the map's name. */
-export function Cluster({ points, onPointPress, radius = 48 }: ClusterProps) {
+export function Cluster({ points, onPointPress, radius = 48 }: Readonly<ClusterProps>) {
   const { palette, places } = useMapContext();
   const id = `kz-cluster-${React.useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   React.useEffect(() => {
