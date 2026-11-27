@@ -96,7 +96,7 @@ const nearestEnabled = (options: readonly WheelOption[], index: number) => {
 };
 
 /** One column of a `WheelPicker`: a spinbutton over a scroll-snapped list of values. */
-export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, className }: WheelProps) {
+export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, className }: Readonly<WheelProps>) {
   const s = wheel();
   const visible = React.useContext(VisibleContext);
   const [own, setOwn] = React.useState(defaultValue ?? options[0]?.value ?? "");

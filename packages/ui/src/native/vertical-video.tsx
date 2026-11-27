@@ -39,7 +39,7 @@ function Glyph({ d, color, filled }: Readonly<{ d: string; color: string; filled
   );
 }
 
-function RailButton({ label, count, pressed, onPress, children }: { label: string; count?: string; pressed?: boolean; onPress?: () => void; children: React.ReactNode }) {
+function RailButton({ label, count, pressed, onPress, children }: Readonly<{ label: string; count?: string; pressed?: boolean; onPress?: () => void; children: React.ReactNode }>) {
   const { theme } = useTheme();
   return (
     <View style={styles.railItem}>

@@ -81,7 +81,7 @@ const nearestEnabled = (options: readonly WheelOption[], index: number) => {
  * One column of a `WheelPicker`: values that snap under the band, a tick of the hand (`selection` haptic) at each one
  * passed. For VoiceOver and TalkBack it is an adjustable control: swipe up or down to change it, its value read as words.
  */
-export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, style }: WheelProps) {
+export function Wheel({ label, options, value: valueProp, defaultValue, onValueChange, disabled, style }: Readonly<WheelProps>) {
   const { theme, haptic } = useTheme();
   const { visible, unset } = React.useContext(FrameContext);
   const [own, setOwn] = React.useState(defaultValue ?? options[0]?.value ?? "");

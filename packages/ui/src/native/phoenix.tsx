@@ -40,7 +40,7 @@ function useFloat(animated: boolean) {
 }
 
 /** The phoenix of the Krizaka story — the comeback — for React Native: the web `Phoenix`'s geometry. */
-export function Phoenix({ tone = "own", size = 120, animated = true, title, style }: PhoenixProps) {
+export function Phoenix({ tone = "own", size = 120, animated = true, title, style }: Readonly<PhoenixProps>) {
   const { theme } = useTheme();
   const id = useSvgId("kzp");
   const y = useFloat(animated);

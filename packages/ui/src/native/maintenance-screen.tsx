@@ -23,7 +23,7 @@ export type MaintenanceScreenProps = {
 };
 
 /** The maintenance screen: announced politely, with one way to check again. */
-export function MaintenanceScreen({ title, message, mark, retryLabel, onRetry, fill = true, style }: MaintenanceScreenProps) {
+export function MaintenanceScreen({ title, message, mark, retryLabel, onRetry, fill = true, style }: Readonly<MaintenanceScreenProps>) {
   const { theme } = useTheme();
   return (
     <View style={[styles.root, fill ? styles.fill : null, { backgroundColor: theme.surface0 }, style]}>

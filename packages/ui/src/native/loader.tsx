@@ -105,7 +105,7 @@ export type LoaderProps = {
 const GLYPH = { inline: 20, block: 36, overlay: 36, page: 56 } as const;
 
 /** A wait from start to end — the web `Loader`: delayed, never blinking, announced when it shows and when it ends. */
-export function Loader({ label, status = "loading", successLabel, errorLabel, value, eta, delay = 250, minDuration = 600, endDuration = 1600, variant = "inline", product, style }: LoaderProps) {
+export function Loader({ label, status = "loading", successLabel, errorLabel, value, eta, delay = 250, minDuration = 600, endDuration = 1600, variant = "inline", product, style }: Readonly<LoaderProps>) {
   const { theme, radius } = useTheme();
   const waiting = useDelayedWait(status === "loading", delay, minDuration);
   const [ending, setEnding] = React.useState<"success" | "error" | null>(null);

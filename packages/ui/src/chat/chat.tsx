@@ -79,7 +79,7 @@ const CORNERS = {
 } as const;
 
 /** A message: yours in the accent on the right, theirs on the left, the time inside, the receipt under the last of yours. */
-export function MessageBubble({ text, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, className }: MessageBubbleProps) {
+export function MessageBubble({ text, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, className }: Readonly<MessageBubbleProps>) {
   const s = chat();
   const words = { ...STATUS, ...labels?.status };
   return (
