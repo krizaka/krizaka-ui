@@ -170,12 +170,14 @@ export function VirtualList<T>({
   const page = useTanStackWindowVirtualizer({
     ...common,
     scrollMargin: margin,
-    initialRect: { width: 0, height: typeof window === "undefined" ? 800 : window.innerHeight },
+    initialRect: { width: 0, height: globalThis.innerHeight ?? 800 },
     enabled: scroll === "window",
   });
   const virtualizer = scroll === "window" ? page : self;
   React.useLayoutEffect(() => {
-    if (scroll === "window" && list.current) setMargin(list.current.getBoundingClientRect().top + window.scrollY);
+    if (scroll === "window" && list.current) {
+      setMargin(list.current.getBoundingClientRect().top + globalThis.scrollY);
+    }
   }, [scroll]);
   const virtualItems = virtualizer.getVirtualItems();
   useEndReached(virtualItems, items.length, endReachedThreshold, onEndReached);

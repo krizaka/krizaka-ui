@@ -9,7 +9,7 @@ configureKrizakaFetch({ headers: { "x-client": "web" } });
 
 export function Providers({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <KrizakaQueryProvider onUnauthorized={() => window.location.assign("/sign-in")}>
+    <KrizakaQueryProvider onUnauthorized={() => globalThis.location.assign("/sign-in")}>
       {children}
       <KrizakaDevtools />
     </KrizakaQueryProvider>

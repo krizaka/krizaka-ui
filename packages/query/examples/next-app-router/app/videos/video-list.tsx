@@ -5,7 +5,7 @@ import { eventSourceLive, isKrizakaApiError, useLiveInvalidation, useMutation, u
 import { likeVideo, type Video, videoKeys, videoLiveRules, videosQuery } from "../../lib/videos";
 
 // One stream per tab, opened by the first subscriber; the browser replays with Last-Event-ID.
-const live = typeof window === "undefined" ? null : eventSourceLive("/api/videos/stream");
+const live = globalThis.window === undefined ? null : eventSourceLive("/api/videos/stream");
 
 export function VideoList() {
   const client = useQueryClient();
