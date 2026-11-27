@@ -213,7 +213,8 @@ export function createQueue<M = undefined>(initial: QueueOptions = {}): Queue<M>
   return {
     add(run, { id = randomId(), priority = 0, meta }) {
       if (jobs.has(id)) throw new Error(`A job "${id}" is already in the queue.`);
-      jobs.set(id, { id, seq: (seq += 1), run, status: "queued", priority, attempt: 0, meta, controller: null, retryer: null, started: false });
+      seq += 1;
+      jobs.set(id, { id, seq, run, status: "queued", priority, attempt: 0, meta, controller: null, retryer: null, started: false });
       emit();
       pump();
       return id;

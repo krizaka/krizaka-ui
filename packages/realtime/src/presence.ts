@@ -117,7 +117,10 @@ export class ReplicatedPresence implements PresenceStore {
 
   async beat(userId: string, connectionId: string, state: ConnectionState, now = Date.now()) {
     let conns = this.local.get(userId);
-    if (!conns) this.local.set(userId, (conns = new Map()));
+    if (!conns) {
+      conns = new Map();
+      this.local.set(userId, conns);
+    }
     conns.set(connectionId, { state, expiresAt: now + this.options.ttlMs });
     return this.evaluate(userId, now, true);
   }
@@ -159,7 +162,10 @@ export class ReplicatedPresence implements PresenceStore {
         views?.delete(replica.i);
         if (views && views.size === 0) this.remote.delete(userId);
       } else {
-        if (!views) this.remote.set(userId, (views = new Map()));
+        if (!views) {
+          views = new Map();
+          this.remote.set(userId, views);
+        }
         views.set(replica.i, { state, expiresAt });
       }
       const change = this.evaluate(userId, now, false, replica.i);
