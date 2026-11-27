@@ -215,7 +215,7 @@ interface PlotProps {
   labels: { thresholdTemplate: string; total: string };
 }
 
-function Plot({ table, width, height, options, fmt, colors, thresholds, markers, zero, autoZero, stacked, horizontal, active, pointer, onPointer, onSelect, labels }: Readonly<PlotProps>) {
+function Plot({ table, width, height, options, fmt, colors, thresholds, markers, zero, autoZero, stacked, horizontal, active, pointer, onPointer, onSelect, labels }: PlotProps) {
   const { mode, curve = "monotone", dots, endLabels, valueLabels } = options;
   const series = table.series;
   const count = table.categories.length;
