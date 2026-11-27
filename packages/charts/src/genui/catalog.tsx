@@ -16,7 +16,7 @@ import { PieChart } from "../pie/pie-chart";
 export const GENUI_CHART_ROWS = 366;
 const KINDS = ["line", "bar", "area", "pie"] as const;
 const first = (...problems: (string | null)[]) => problems.find((p) => p !== null) ?? null;
-const KEY = /^[A-Za-z0-9_]{1,64}$/;
+const KEY = /^\w{1,64}$/;
 
 /** A closed format of the spec as the charts' `ValueFormat`. */
 export function chartFormat(format: unknown, currency: unknown): ValueFormat {

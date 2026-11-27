@@ -382,7 +382,7 @@ export function VideoPlayer({
       Home: inControl ? undefined : () => seek(0),
       End: inControl ? undefined : () => seek(duration),
     };
-    const action = /^[0-9]$/.test(key) && !inControl ? () => seek((Number(key) / 10) * duration) : actions[key];
+    const action = /^\d$/.test(key) && !inControl ? () => seek((Number(key) / 10) * duration) : actions[key];
     if (!action || event.metaKey || event.ctrlKey || event.altKey) return;
     event.preventDefault();
     action();
