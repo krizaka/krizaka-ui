@@ -45,7 +45,7 @@ export type MessageBubbleProps = {
 const STATUS: Record<MessageStatus, string> = { sending: "Sending", sent: "Sent", delivered: "Delivered", read: "Read", failed: "Not sent" };
 
 /** A message: yours in the accent on the right, theirs on the left, the time inside, the receipt under the last of yours. */
-export function MessageBubble({ text, children, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, style }: Readonly<MessageBubbleProps>) {
+export function MessageBubble({ text, children, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, style }: MessageBubbleProps) {
   const { theme, radius } = useTheme();
   const words = { ...STATUS, ...labels?.status };
   const failed = status === "failed";
