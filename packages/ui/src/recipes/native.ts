@@ -48,7 +48,7 @@ export type NativeLook = {
 type Props = Readonly<Record<string, string | number | boolean | null | undefined>>;
 type Slot = string | readonly unknown[] | null | undefined;
 type Config = {
-  base?: Slot;
+  base?: Exclude<Slot, undefined>;
   slots?: Readonly<Record<string, Slot>>;
   variants?: Readonly<Record<string, Readonly<Record<string, unknown>>>>;
   defaultVariants?: Readonly<Record<string, unknown>>;

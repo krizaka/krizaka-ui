@@ -195,7 +195,7 @@ export function Quote({ children }: Readonly<{ children: ReactNode }>) {
 }
 
 /** A post in an email: cover (when there is one), title, excerpt. The button is the template's. */
-export function PostPreview({ eyebrow, title, excerpt, coverUrl, coverAlt }: { eyebrow: string; title: string; excerpt: string; coverUrl?: string | undefined; coverAlt?: string | undefined }) {
+export function PostPreview({ eyebrow, title, excerpt, coverUrl, coverAlt }: { eyebrow: string; title: string; excerpt: string; coverUrl?: string; coverAlt?: string }) {
   return (
     <Section>
       {coverUrl ? <Img src={coverUrl} alt={coverAlt ?? ""} width={536} style={{ display: "block", width: "100%", maxWidth: 536, height: "auto", borderRadius: 8, margin: "0 0 20px", border: 0 }} /> : null}

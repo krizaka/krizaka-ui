@@ -63,7 +63,7 @@ export interface RetroTvSource {
   src?: string;
   poster?: string;
   /** WebVTT captions of this video. */
-  tracks?: VideoPlayerProps["tracks"];
+  tracks?: Exclude<VideoPlayerProps["tracks"], undefined>;
 }
 export type RetroTvTransition = "channel" | "crossfade" | "slide";
 export interface RetroTvLabels { play: string; pause: string; next: string; previous: string; soundOff: string; soundOn: string; captions: string; seek: string; nowPlaying: string }
@@ -89,7 +89,7 @@ export interface RetroTvProps extends Omit<VideoPlayerProps, "aspectRatio" | "la
   /** Plays the video again from the start when it ends. Default `true`. */
   loop?: boolean;
   /** How much to fetch before playback. Default `none` for lazy loading. */
-  preload?: VideoPlayerProps["preload"];
+  preload?: Exclude<VideoPlayerProps["preload"], undefined>;
   /** Additional classes on the television frame. */
   className?: string;
   /** Programmes played in order, then again from the first. Replaces `src` and `children`. */

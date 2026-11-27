@@ -30,7 +30,7 @@ export type PermissionPromptProps = {
   /** Called by the way out. */
   onDismiss?: () => void;
   /** The bird above (decorative): the falcon watches (camera), the pigeon delivers (notifications). Default falcon. */
-  mascot?: MascotProps["bird"];
+  mascot?: Exclude<MascotProps["bird"], undefined>;
   /** Rendered once granted: the camera, the screen. Absent: nothing. */
   children?: React.ReactNode;
   /** Styles merged last. */

@@ -19,9 +19,9 @@ export interface EmailLinks {
 
 export interface EmailSignature {
   name: string;
-  role?: string | undefined;
+  role?: string;
   /** An https image, shown round next to the name. */
-  avatarUrl?: string | undefined;
+  avatarUrl?: string;
 }
 
 export interface EmailContextValue {
@@ -31,7 +31,7 @@ export interface EmailContextValue {
   legal: LegalSender;
   links: EmailLinks;
   signature: EmailSignature;
-  unsubscribeUrl?: string | undefined;
+  unsubscribeUrl?: string;
   /** Why this person receives this email (one sentence, in their language). */
   why: string;
 }
