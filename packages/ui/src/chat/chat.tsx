@@ -78,6 +78,32 @@ const CORNERS = {
   theirs: { first: "rounded-bl-md", middle: "rounded-l-md", last: "rounded-tl-md", single: "" },
 } as const;
 
+const RECEIPT_STATUSES = new Set<MessageStatus>(["sent", "delivered", "read"]);
+
+function MessageReceipt({
+  status,
+  word,
+  retryLabel,
+  onRetry,
+  className,
+}: Readonly<{ status: MessageStatus; word: string; retryLabel: string; onRetry?: () => void; className: string }>) {
+  return (
+    <p className={className} data-status={status}>
+      {RECEIPT_STATUSES.has(status) ? (
+        <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={status === "read" ? "stroke-accent" : "stroke-fg-secondary"}>
+          <path d={status === "sent" ? "M5 12.5l4.5 4.5L19 7.5" : "M2 12.5l4.5 4.5L16 7.5M9 15l2 2 9.5-9.5"} />
+        </svg>
+      ) : null}
+      {word}
+      {status === "failed" && onRetry ? (
+        <button type="button" onClick={onRetry} className="ml-1 font-semibold text-fg underline underline-offset-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
+          {retryLabel}
+        </button>
+      ) : null}
+    </p>
+  );
+}
+
 /** A message: yours in the accent on the right, theirs on the left, the time inside, the receipt under the last of yours. */
 export function MessageBubble({ text, mine, time, status, showStatus, context, onRetry, grouped = "single", labels, className }: Readonly<MessageBubbleProps>) {
   const s = chat();
@@ -94,19 +120,7 @@ export function MessageBubble({ text, mine, time, status, showStatus, context, o
         {time ? <span className={s.time()}>{time}</span> : null}
       </p>
       {showStatus && status ? (
-        <p className={s.status()} data-status={status}>
-          {status === "sent" || status === "delivered" || status === "read" ? (
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={status === "read" ? "stroke-accent" : "stroke-fg-secondary"}>
-              <path d={status === "sent" ? "M5 12.5l4.5 4.5L19 7.5" : "M2 12.5l4.5 4.5L16 7.5M9 15l2 2 9.5-9.5"} />
-            </svg>
-          ) : null}
-          {words[status]}
-          {status === "failed" && onRetry ? (
-            <button type="button" onClick={onRetry} className="ml-1 font-semibold text-fg underline underline-offset-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring">
-              {labels?.retry ?? "Retry"}
-            </button>
-          ) : null}
-        </p>
+        <MessageReceipt status={status} word={words[status]} retryLabel={labels?.retry ?? "Retry"} onRetry={onRetry} className={s.status()} />
       ) : null}
     </div>
   );
